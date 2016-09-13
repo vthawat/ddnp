@@ -1,0 +1,20 @@
+.p-medium{
+	
+	font-size: 20px;
+}
+#c{
+	height: 50px;
+}
+#navigation{
+	border-bottom: none;
+}
+
+#navigation li a
+{
+ color: #000000;	
+} 
+#intro{
+	
+	margin-bottom: 60px;
+}
+
