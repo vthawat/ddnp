@@ -102,7 +102,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                      		 <p><span><?php $userinfo=$this->ezrbac->getUserMeta($this->ezrbac->getCurrentUserID());?>
                      		 	<?=$userinfo->first_name?> <?=$userinfo->last_name?></span> 	
                      		 </p>
-                     		 <p><span><?=$this->ezrbac->getCurrerntRoleName()?></span></p>
+                     		 <p><span><?=$this->ezrbac->getRoleName()?></span></p>
                      		
                      	</li>
                      	<li><a href="#"><span class="fa fa-angle-right fa-fw"></span>เปลี่ยนสิทธิ์เป็นผู้บริหาร</a></li>

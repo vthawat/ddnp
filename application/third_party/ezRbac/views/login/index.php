@@ -4,8 +4,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
     <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/rbac/css/style.css')?>" media="all" />
-    <script type="text/javascript" src="<?php echo base_url('assets/rbac/js/login_js.js')?>"></script>
+    <link rel="stylesheet" type="text/css" href="<?php echo $this->ezuri->assets_url('css/style.css')?>" media="all" />
+    <script type="text/javascript" src="<?php echo $this->ezuri->assets_url('js/login_js.js')?>"></script>
 </head>
 <body class="bg_c">
 

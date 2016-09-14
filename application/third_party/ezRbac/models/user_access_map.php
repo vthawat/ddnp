@@ -29,7 +29,7 @@ class user_access_map extends  CI_Model {
      * @var String $_user_role_table store user_role_table name
      */
     private $_user_role_table;
-
+	private $db;
 
     /**
      * Constructor Function
@@ -39,9 +39,11 @@ class user_access_map extends  CI_Model {
         // Call the Model constructor
         parent::__construct();
         $this->CI=& get_instance();
-
+		$dbconfig=$this->CI->config->item('db-rbac','ez_rbac');
+        $this->db=$this->CI->load->database($dbconfig,TRUE); 
         $this->_table_name=$this->CI->config->item('access_map_table','ez_rbac');
         $this->_user_role_table=$this->CI->config->item('user_role_table','ez_rbac');
+		$this->CI->load->model('apps');
     }
 
     /**
@@ -57,13 +59,16 @@ class user_access_map extends  CI_Model {
         $ret=array();
         $this->db->select('permission,controller');
         $this->db->where('user_role_id',$access_role);
+		$this->db->where('app_id',$this->CI->apps->getByAlias());
         if($controller!=""){
             $this->db->where('controller',$controller);
             $ret =NULL;
         }
-
+		
         $query = $this->db->get($this->_table_name);
+
         if ($query->num_rows() > 0) {
+        			
             if($controller==""){    //Get all permission info for selected user
                 $output=array();
                 foreach ($query->result() as $prow) {

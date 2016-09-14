@@ -1,7 +1,7 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 //List of public controller which access will not be checked by our library
-$config['public_controller'] = array('guest');
+//$config['public_controller'] = array('error_404','guest','progress','customer','type','printer','rcpt');
 
 // Message to return while performing an ajax request
 $config['ajax_no_permission_msg'] = "You do not have permission to perform this action!";
@@ -21,9 +21,6 @@ $config['redirect_url'] = "";
 
 //If you like to handle login then set your login url here, Leave it empty to let me handle it!!
 $config['login_url'] = "";
-//Login check session key name,  used to check if a user is loged in or not,
-// Session will store the access_role_id of loged in user
-$config['login_session_key'] = "access_role";
 
 //The password validation rule check for minimum password length
 $config['password_min_length'] = 6;
@@ -68,7 +65,8 @@ $config['schema_user_table'] = array(
 );
 $config['schema_user_role']  = array(
     'id'        => 'id',
-    'role_name' => 'role_name'
+    'role_name' => 'role_name',
+        'default_access'=>'default_access'
 );
 
 $config['user_meta_user_id'] = 'user_id';
@@ -84,7 +82,7 @@ $config['override_email_function'] = FALSE;
 
 
 //Enable or disable the management interface
-$config['enable_ezrbac_gui'] = TRUE;
+$config['enable_ezrbac_gui'] = FALSE;
 // Url identifier for ezrbac gui interface access
 $config['ezrbac_gui_url'] = "gui";
 // Password to access management interface of ACL
@@ -109,6 +107,25 @@ $config['assets_base_directory'] = 'assets';
 // and set the value to true
 $config['use_routing'] = TRUE;
 
-
+// config for database connection
+$config['db-rbac']=array('hostname'=>"localhost",
+						 'username'=>"root",
+						 'password'=>"",
+						 'database'=>"ddnp_v2",
+						 'dbdriver'=>"mysql",
+						 'dbprefix'=>"",
+						 'pconnect'=>FALSE,
+						 'db_debug'=>TRUE,
+						 'cache_on'=>FALSE,
+						 'char_set'=>"utf8",
+						 'dbcollat'=>"utf8_general_ci"
+						 );
+// config authen mode set TRUE authen with OAuth2 set FALSE to authen with local
+$config['authen_mode']=FALSE;
+// config app_alias 
+$config['app_alias']='ddnp';
+//Login check session key name,  used to check if a user is loged in or not,
+// Session will store the access_role_id of loged in user
+$config['login_session_key'] = "access_role";
 /* End of file ez_rbac.php */
 /* Location: ./ezRbac/config/ez_rbac.php */

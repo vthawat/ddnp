@@ -39,7 +39,7 @@ class Ezuser extends  CI_Model {
      * @var $_meta_table_name store the name of user_meta table
      */
     private $_meta_table;
-
+	private $db;
     /**
      * @var $_user_meta_field store the schema of user table
      */
@@ -53,7 +53,8 @@ class Ezuser extends  CI_Model {
         // Call the Model constructor
         parent::__construct();
         $this->CI=& get_instance();
-
+		$dbconfig=$this->CI->config->item('db-rbac','ez_rbac');
+        $this->db=$this->CI->load->database($dbconfig,TRUE); 
         $this->_table_name=$this->CI->config->item('user_table','ez_rbac');
         $this->_meta_table=$this->CI->config->item('user_meta_table','ez_rbac');
         $this->_schema=$this->CI->config->item('schema_user_table','ez_rbac');
@@ -117,20 +118,9 @@ class Ezuser extends  CI_Model {
         $row = $query->row();
         $row->meta = $this->get_user_meta($row->{$this->_schema['id']});
 
-        $key_field = $this->CI->config->item('user_meta_user_id','ez_rbac');
-
-        if(isset($row->meta->{$key_field})) {
-            unset($row->meta->{$key_field});
-        }
-
         return $row;
     }
-	public function get_current_role_name($role_id)
-	{
-		 //$key_field = $this->CI->config->item('schema_user_role','ez_rbac');
-		 $this->db->where('id',$role_id);
-		 return $this->db->get('user_role')->row()->role_name;
-    }
+
     public function get_user_meta($user_id)
     {
         $key_field = $this->CI->config->item('user_meta_user_id','ez_rbac');

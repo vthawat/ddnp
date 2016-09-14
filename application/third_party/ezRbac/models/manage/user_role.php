@@ -24,13 +24,14 @@ class user_role extends  CI_Model {
      * @var String $_user_role_table store user_role_table name
      */
     private $_table_name;
-
+	private $db;
     /*
      * Helpful to adapt your db without modifying the code!!
      */
     private $_schema=array(
         'id'    => 'id',
-        'role_name'=>'role_name'
+        'role_name'=>'role_name',
+        'default_access'=>'default_access'
     );
 
 
@@ -42,6 +43,8 @@ class user_role extends  CI_Model {
         // Call the Model constructor
         parent::__construct();
         $this->CI = & get_instance();
+		$dbconfig=$this->CI->config->item('db-rbac','ez_rbac');
+        $this->db=$this->CI->load->database($dbconfig,TRUE); 
         $this->_table_name=$this->CI->config->item('user_role_table','ez_rbac');
         $schema=$this->CI->config->item('schema_user_role','ez_rbac');
         ($schema) AND $this->_schema=$schema;
@@ -51,7 +54,7 @@ class user_role extends  CI_Model {
      * Get all existing user role saved in database
      * @return array
      */
-    function get_role_list(){
+    public function get_role_list(){
         $query = $this->db->get($this->_table_name);
         $retarr=array();
         if ($query->num_rows() > 0) {
@@ -64,7 +67,15 @@ class user_role extends  CI_Model {
         }
         return $retarr;
     }
-
+	public function get_default_access($id=null)
+	{
+		 if(empty($id))return null;
+           
+		$this->db->where(array($this->_schema['id'] => $id));
+        $query = $this->db->get($this->_table_name, 1);
+		$result = $query->row();
+        return $result->default_access;
+	}
     public function get_role_id($roleName = ""){
         $this->db->like($this->_schema['role_name'], $roleName, 'none');
 

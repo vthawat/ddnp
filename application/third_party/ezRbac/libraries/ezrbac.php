@@ -24,6 +24,8 @@ class ezrbac
      * @var
      */
     private $user;
+    var $AuthenMode=FALSE;
+	var $apps_info;
 
     /**
      *
@@ -34,12 +36,37 @@ class ezrbac
         $this->CI->load->model('ezuser');
         $this->CI->load->library('ezlogin');
         $this->CI->load->model('manage/user_role');
+		$this->CI->load->model('apps');
+		$this->setAppInfo();
+    }
+    public function setAuthenMode($auth_mode=FALSE)
+    {
+        $this->AuthenMode=$auth_mode;
+    }
+    public function getAuthenMode()
+    {
+        return $this->AuthenMode;
+    }
+	public function setAppInfo()
+	{
+
+		$this->apps_info=$this->CI->apps->GetAppInfo();
+	}
+    public function getFooter()
+    {
+        return $this->CI->load->view('ezrbac/login/footer',null,TRUE);
+    }
+    public function getRoleList()
+    {
+        return $this->CI->user_role->get_role_list();
+    }
+    public function getRoleName()
+    {
+
+        $user=$this->getCurrentUser();
+        return $this->CI->user_role->get_role_by_id($user->user_role_id);
     }
 
-	public function getCurrerntRoleName()
-	{
-		return $this->CI->ezuser->get_current_role_name($this->getCurrentUser()->user_role_id);
-	}
     /**
      * return the user object for logged in user
      *
@@ -93,7 +120,7 @@ class ezrbac
      */
     public function isGuest()
     {
-        $guest = TRUE;
+        $guest = FALSE;
 
         if ($this->CI->session->userdata($this->CI->config->item('login_session_key', 'ez_rbac'))) {
             $guest = !$this->getCurrentUserID();
@@ -170,16 +197,18 @@ class ezrbac
      */
     public function registerUserSession($user, $remember = FALSE)
     {
+        // $this->CI->load->library('ezlogin');
         if (!is_object($user)) {
             $user = $this->CI->ezuser->get_user_by_id($user);
             if (!$user) {
                 throw new Exception('The user not found!');
             }
         }
-        $success = $this->ezlogin->register_session($user, $remember);
+        $success = $this->CI->ezlogin->register_session($user, $remember);
 
         if (!$success) {
-            throw new Exception($this->ezlogin->getError());
+            throw new Exception($this->CI->ezlogin->getError());
+            return FALSE;
         }
 
         return TRUE;
@@ -208,6 +237,10 @@ class ezrbac
     public function getUserByID($user_id)
     {
         return $this->CI->ezuser->get_user_by_id($user_id);
+    }
+    public function getUserByUsername($user_email)
+    {
+        return $this->CI->ezuser->get_user_by_email($user_email);
     }
 
     /**

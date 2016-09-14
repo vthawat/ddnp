@@ -50,7 +50,7 @@ class ezlogin
                 array(
                     'field' => 'username',
                     'label' => 'Email',
-                    'rules' => 'trim|required|valid_email|xss_clean'
+                    'rules' => 'trim|required|xss_clean'
                 ),
                 array(
                     'field' => 'password',
@@ -173,6 +173,7 @@ class ezlogin
      */
     private function process_login()
     {
+       // print_r($this->CI->session->userdata('access_role')); exit;
         $this->CI->load->model('ezuser');
         $useemail = $this->CI->input->post("username", TRUE);
         $password = $this->CI->input->post("password", TRUE);
@@ -182,6 +183,7 @@ class ezlogin
 
             // Does password match hash in database?
             if ($this->CI->encrypt->sha1($password . $user->{$this->_user_schema['salt']}) === $user->{$this->_user_schema['password']}) { // password ok
+
                 return $this->register_session($user, $remember);
             }
             // fail - wrong password
@@ -286,8 +288,13 @@ class ezlogin
         //making sure though the session data exist through the script execution  it must not be valid after logout
         $this->CI->session->set_userdata(array('user_id' => '', 'user_email' => '', 'access_role' => ''));
         $this->CI->session->sess_destroy();
+
     }
 
+    function destroy_token()
+    {
+        delete_cookie("access_token");
+    }
     /**
      * Clear user's autologin data
      *

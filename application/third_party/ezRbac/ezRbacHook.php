@@ -43,7 +43,12 @@ class EzRbacHook
         /**
          * @var bool
          */
-        $_isAjaxCall = FALSE;
+        $_isAjaxCall = FALSE,
+        /*
+        * Set Authen mode
+        */
+
+        $Authen_Mode=FALSE;
 
 
     /**
@@ -65,17 +70,32 @@ class EzRbacHook
 
 
         //Get list of public controller from the config file
-        $this->_public_controller = $this->CI->config->item('public_controller', 'ez_rbac') ?
+        /*$this->_public_controller = $this->CI->config->item('public_controller', 'ez_rbac') ?
             $this->CI->config->item('public_controller', 'ez_rbac') :
-            array();
+            array();*/
+        $this->CI->load->model('system_public');
+		$this->_public_controller=$this->CI->system_public->get_item();
 
-        //Get the login url
-        $this->_loginUrl = $this->CI->config->item('login_url', 'ez_rbac');
+
+      
+        
+
+        
         //Load the own uri library
         $this->CI->load->library('ezuri');
 
 
         $this->CI->load->library('ezrbac');
+
+        // set Authen Mode
+        $this->CI->ezrbac->setAuthenMode($this->CI->config->item('authen_mode','ez_rbac'));
+        $this->Authen_Mode=$this->CI->ezrbac->getAuthenMode();
+       // $this->CI->session->set_userdata(array('authen_mode'=>$this->Authen_Mode));
+        //Get the login url
+                 // check authen mode 
+        if(!$this->Authen_Mode) $this->_loginUrl='';
+        else $this->_loginUrl = $this->CI->config->item('login_url', 'ez_rbac');
+
     }
 
     /**
@@ -105,10 +125,11 @@ class EzRbacHook
         $this->_controller      = $this->CI->router->fetch_directory() . $this->_controller_name;
 
         //I am sure login controller is a public resource
-        if ($this->CI->uri->ruri_string() == $this->_loginUrl || in_array($this->_controller, $this->_public_controller)) {
-            return TRUE;
+        if ($this->CI->uri->ruri_string() == $this->_loginUrl || in_array($this->_controller_name, $this->_public_controller)) {
+           
+                return TRUE;
+
         }
-		
         return FALSE;
     }
 
@@ -131,7 +152,8 @@ class EzRbacHook
             case 'logout':
                 $this->CI->load->library('ezlogin');
                 $this->CI->ezlogin->logout();
-                redirect($this->CI->router->default_controller);
+               // redirect($this->CI->router->default_controller);
+                redirect(base_url());
                 break;
             case 'assets':
                 $this->CI->load->library('ezmedia');
@@ -160,17 +182,20 @@ class EzRbacHook
     function accessCheck()
     {
 
-        $this->manage_access();
+       $this->manage_access();
 
         //if The requested controller in a public domain so give access permission no need to go further
         if ($this->isPublicRequest()) {
             return null;
         }
 
+
+
         //If we do not have to handle login then its better check this now!!
         if ($this->_loginUrl != "" && !$this->CI->session->userdata($this->CI->config->item('login_session_key', 'ez_rbac'))) {
             //user not logged in and you wished to handle it your self. Here you go
-            redirect($this->_loginUrl);
+           // if($this->Authen_Mode)
+                redirect($this->_loginUrl);
         }
 
 
@@ -183,21 +208,31 @@ class EzRbacHook
         }
 
         //Get custom access map defined in controller
-       //exit(print_r($controller_methods));
-      /*  if(in_array('access_map', $controller_methods)){
+        if(in_array('access_map', $controller_methods)){
             $this->_custom_access_map=$this->CI->access_map();
-			//exit(print_r($this->_custom_access_map));.0
-        }*/
-		//else show_404();
-		//exit(print $this->_controller);
-        $this->CI->load->library('accessmap', array("controller" => $this->_controller));
-
+        }
+        $this->CI->load->library('accessmap', array("controller" => $this->_controller_name.'/'.$method));
+		//print $this->_controller_name.'/'.$method; exit;
         //Check if the request is ajax or not
         $this->_isAjaxCall = ($this->CI->input->get('ajax') || $this->CI->input->is_ajax_request());
-
-        $access_map = $this->CI->accessmap->get_access_map();
-		//exit(print_r($access_map));
-        if (!in_array($method, $access_map)) { //The method is not in default acess map
+      $this->CI->load->model('manage/user_role');
+	  $access_role = $this->CI->session->userdata('access_role');
+      $default_access=$this->CI->user_role->get_default_access($access_role);
+	
+	if(!$default_access){	  
+	   $access_map = $this->CI->accessmap->get_access_str();
+	  	 if ($this->CI->config->item('default_access', 'ez_rbac')) 
+            return TRUE; //Default access for action is set to true
+		 elseif($access_map)  return TRUE;
+		 else  $this->restrict_access();
+	} else return TRUE;
+		 
+	//print($access_map); exit;
+	   /*	if ($this->CI->config->item('default_access', 'ez_rbac')) {
+                    return TRUE; //Default access for action is set to true
+                }*/
+	/*
+       if (!in_array($method, $access_map)) { //The method is not in default acess map
             if (!isset($this->_custom_access_map[$method])) { //The method is not defined in custom access map
                 if ($this->CI->config->item('default_access', 'ez_rbac')) {
                     return TRUE; //Default access for action is set to true
@@ -207,12 +242,10 @@ class EzRbacHook
             $method = $this->_custom_access_map[$method];
         }
 
-        $method = "can" . Ucfirst($method);
-
+       $method = "can" . Ucfirst($method);
         if (!$this->CI->accessmap->$method()) { //We do not have the access permission!
             $this->restrict_access();
-        }
-
+        } */
     }
 
     /**
@@ -231,7 +264,7 @@ class EzRbacHook
         show_error('you do not have sufficient permission to access this resource', 403);
     }
 
-    /**
+    /*
      * Load all system libraries and helpers needed by the library
      */
     private function load_libraries()
@@ -253,7 +286,7 @@ class EzRbacHook
         exit;
     }
 
-    /**
+    /***
      * Doing all cleanup stuff
      * We haven't forgot to remove the package path after finishing everything!.
      * We do not need to load third party resources anymore!

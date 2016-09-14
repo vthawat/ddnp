@@ -35,7 +35,7 @@ class AccessMap{
      * if a controller not found in the access table what should be the default result
      * </p>
      */
-    $_default_access= 1,
+    $_default_access= 0,
 
      /**
       * @var Integer sets the access values after parsing the access string
@@ -82,7 +82,7 @@ class AccessMap{
         }
     }
 
-    /**
+    /*
      * Initialize the access checking variables
      *
      * @access public
@@ -92,7 +92,6 @@ class AccessMap{
      */
     public function initialize($controller, $access_role = FALSE)
     {
-
         $this->_access_val = $this->get_permission($controller, $access_role);
         $this->_access_map_array_size = count($this->_access_arr);
     }
@@ -106,6 +105,8 @@ class AccessMap{
     function get_access_map()
     {
         return $this->_access_arr;
+		
+
     }
 
     /**
@@ -158,7 +159,6 @@ class AccessMap{
 
         $this->CI->load->model('user_access_map');
         $permission = $this->CI->user_access_map->get_permission($access_role, $controller);
-
         if (is_null($permission)) {
             return $this->_default_access;
         }
