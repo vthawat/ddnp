@@ -87,6 +87,13 @@ class Basic_adaptor extends CI_Model
 								'items'=>$this->items,
 								'view'=>$this->load->view('basic_'.$item,array('Basic_items'=>$this->items),TRUE));	
 				break;
+			case 'village':
+					$this->desc=$this->village->desc;
+					$this->items=$this->village->get_all();
+					return array('desc'=>'รายชื่อ'.$this->desc,
+								'items'=>$this->items,
+								'view'=>$this->load->view('basic_'.$item,array('Basic_items'=>$this->items),TRUE));	
+				break;
 			case 'potentiality':
 					$this->desc=$this->potentiality->desc;
 					$this->items=$this->potentiality->get_all();

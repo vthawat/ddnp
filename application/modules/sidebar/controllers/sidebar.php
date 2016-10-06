@@ -7,7 +7,7 @@ class Sidebar extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model('require_develop');
+		//$this->load->model('require_develop');
 		$this->load->model('init_basic');	
 		$this->load->library('session');	
 		
@@ -21,10 +21,10 @@ function access_map()
 	{
 		if($role_id==1)
 		{
-			$this->sb_requiredev();
+			$this->sb_household();
 			$this->sb_basic();
 		}
-		else $this->sb_requiredev();
+		else $this->sb_household();
 		
 		//return $this->get_sidebar();
 	}
@@ -35,6 +35,13 @@ function access_map()
 		   $this->sidebar_set.=$item;
 		
 		return $this->sidebar_set;
+	}
+	function sb_household()
+	{
+
+	  $data['set_province']=$this->province->get_all();
+	  array_push($this->sidebar_items,$this->load->view('household',$data,TRUE));		
+		//return $this->load->view('trader_sidebar',$data,TRUE);
 	}
 	function sb_requiredev()
 	{

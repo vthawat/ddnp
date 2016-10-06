@@ -20,12 +20,14 @@ class Amphur extends CI_Model
 			$this->db->from($this->table);
 			$this->db->join($this->province->table,$this->table.".PROVINCE_ID=".$this->province->table.".ID");
 			$this->db->where_in('PROVINCE_ID', $this->province->set_province_id);
+			$this->db->where($this->table.'.ACTIVE_STATUS',1);
 			$this->db->not_like('AMPHUR_NAME','*');
 			return $this->db->get()->result();
 	}
 	function get_by_province($id)
 	{
 		$this->db->where('PROVINCE_ID',$id);
+		$this->db->where('ACTIVE_STATUS',1);
 		$this->db->not_like('AMPHUR_NAME','*');
 		return $this->db->get($this->table)->result();
 	}

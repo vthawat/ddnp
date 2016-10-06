@@ -12,6 +12,7 @@ class Init_basic extends CI_Model
 		$this->load->model('require_potential_list');
 		$this->load->model('amphur');
 		$this->load->model('district');
+		$this->load->model('village');
 		$this->load->model('ministry');
 	}
 	

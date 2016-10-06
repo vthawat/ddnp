@@ -4,7 +4,7 @@
       			<h3>จำนวนความต้องการพัฒนาคุณภาพชีวิตตามแผนชุมชน จำแนกตามพื้นที่ระดับจังหวัด</h3>
       		</div>
       	<div class="box-footer">	
-      	<?php $province_color=array('74'=>'aqua','75'=>'green','76'=>'yellow')?>
+      	<?php $province_color=array('70'=>'gray','74'=>'aqua','75'=>'green','76'=>'yellow')?>
       	<?php foreach($this->province->get_all(true) as $item):?>
       	
         <div class="col-md-4 col-sm-6 col-xs-12">

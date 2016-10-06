@@ -48,6 +48,11 @@ class Basic extends CI_Controller {
 		$item=$this->router->fetch_method();
 		$this->load_basic($item,$action,$id);
 	}
+	function village($action=null,$id=null)
+	{
+		$item=$this->router->fetch_method();
+		$this->load_basic($item,$action,$id);
+	}
 	function ministry($action=null,$id=null)
 	{
 		$item=$this->router->fetch_method();
