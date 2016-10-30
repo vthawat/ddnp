@@ -29,7 +29,7 @@
 							    <span class="fa fa-cog fa-fw"></span><span class="caret"></span>
 							  </button>
 							  <ul class="dropdown-menu">
-							    <li><a href="<?=base_url($this->router->fetch_class())?>/update/<?=$item->ID?>" class="text-yellow"><span class="fa fa-edit fa-fw"></span>แก้ไข</a></li>
+							    <li><a href="<?=base_url($this->router->fetch_class())?>/edit/<?=$item->ID?>" class="text-yellow"><span class="fa fa-edit fa-fw"></span>แก้ไข</a></li>
 							    <li><a href="<?=base_url($this->router->fetch_class())?>/del/<?=$item->ID?>" class="text-red" onclick="return confirm('ยืนยันการลบรายการ: บ้านเลขที่ <?=$item->HOME_NUMBER?>? <?=$item->FIRST_NAME?> <?=$item->LAST_NAME?>')"><span class="fa fa-remove fa-fw"></span>ลบ</a></li>
 							  </ul>
 							</div>

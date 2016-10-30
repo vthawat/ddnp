@@ -13,6 +13,7 @@ class Require_household extends CI_Model
 	}
 	function get_by_id($id)
 	{
+		$this->db->select($this->table.'.*,VILLAGE_NAME,PROVINCE_NAME,AMPHUR_NAME,DISTRICT_NAME,YEAR');
 		$this->db->join($this->year_budget->table,$this->table.'.BUDGET_YEAR_ID = '.$this->year_budget->table.'.ID');
 		$this->db->join('province',$this->table.'.PROVINCE_ID = province.ID');
 		$this->db->join('amphur','amphur.PROVINCE_ID = province.ID AND '.$this->table.'.AMPHUR_ID = amphur.ID');

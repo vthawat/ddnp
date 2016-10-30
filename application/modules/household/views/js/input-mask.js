@@ -14,6 +14,6 @@ $(function () {
 $('.money-per-month').inputmask("myNum");
 $('.num-male').inputmask("myNum");
 $('.num-female').inputmask("myNum");
-
+$('.num-family-member').inputmask("myNum");
 
 });
