@@ -34,13 +34,9 @@
 	<div class="form-group bg-aqua <?php if(form_error('DISTRICT_ID')) print 'has-error'?>">
     <label for="district" class="col-sm-2 control-label"><?=$this->district->desc?>*</label>
     <div class="col-sm-10">
-    	<?php if(empty($household))
+    	<?php if(!empty($household))
 		{
-    		$district=$this->district->get_by_amphur_id(set_value('AMPHUR_ID'));
-			$district_selected=set_value('DISTRICT_ID');
-		}
-		
-		else{
+
 				$district=$this->district->get_by_amphur_id($household->AMPHUR_ID);
 				$district_selected=$household->DISTRICT_ID;
 			}
@@ -59,22 +55,18 @@
 	<div class="form-group bg-gray">
     <label for="village" class="col-sm-2 control-label"><?=$this->village->desc?>*</label>
     <div class="col-sm-10">
-    	<?php if(empty($household))
+    	<?php if(!empty($household))
 		{
-    		$village=$this->village->get_by_district_id(set_value('DISTRICT_ID'));
-			$district_selected=set_value('DISTRICT_ID');
-		}
-		
-		else{
+
 				$village=$this->village->get_by_district_id($household->DISTRICT_ID);
-				$village_selected=$household->DISTRICT_ID;
+				$village_selected=$household->VILL_ID;
 			}
 			
     	?>
       <select class="form-control" name="VILL_ID" id="village" required="">
       	<option value=""></option>
-      	<?php foreach($district as $item):?>
-      		<option value="<?=$item->ID?>" <?php if($district_selected==$item->ID) print ' selected'?>><?=$item->DISTRICT_NAME?></option>
+      	<?php foreach($village as $item):?>
+      		<option value="<?=$item->ID?>" <?php if($village_selected==$item->ID) print ' selected'?>><?=$item->VILLAGE_NAME?></option>
       	<?php endforeach?>
       </select>
     </div>

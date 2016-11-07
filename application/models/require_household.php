@@ -61,7 +61,9 @@ class Require_household extends CI_Model
 	}
 	function update($data,$id)
 	{
-		$this->update_id=$id;
+		
+
+		//$this->update_id=$id;
 		$this->db->where('ID',$id);
 		return $this->db->update($this->table,$data);
 	}

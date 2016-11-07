@@ -144,7 +144,32 @@ class Household extends CI_Controller {
 	function update($id=null)
 	{
 		if(empty($id)) show_404();
-				if(empty($data['AFFLICTION_ETC'])) $data['AFFLICTION_ETC']='0';
+		$data=$this->input->post();
+
+		if(empty($data['HOME_TYPE_A'])) $data['HOME_TYPE_A']='0';
+		if(empty($data['HOME_TYPE_B'])) $data['HOME_TYPE_B']='0';
+		if(empty($data['HOME_TYPE_C'])) $data['HOME_TYPE_C']='0';
+
+		if(empty($data['ATTIRUDE_GO_LEVEL_H'])) $data['ATTIRUDE_GO_LEVEL_H']='0';
+		if(empty($data['ATTIRUDE_GO_LEVEL_M'])) $data['ATTIRUDE_GO_LEVEL_M']='0';
+		if(empty($data['ATTIRUDE_GO_LEVEL_L'])) $data['ATTIRUDE_GO_LEVEL_L']='0';
+		if(empty($data['ATTIRUDE_GO_LEVEL_ETC'])) $data['ATTIRUDE_GO_LEVEL_ETC']='0';
+
+		if(empty($data['AFFLICTION_INCOME'])) $data['AFFLICTION_INCOME']='0';
+		if(empty($data['AFFLICTION_AILING'])) $data['AFFLICTION_AILING']='0';
+		if(empty($data['AFFLICTION_HOUSE'])) $data['AFFLICTION_HOUSE']='0';
+		if(empty($data['AFFLICTION_SAFETY'])) $data['AFFLICTION_SAFETY']='0';
+
+		if(empty($data['AVOCATION_FARM'])) $data['AVOCATION_FARM']='0';
+		if(empty($data['AVOCATION_ANIMAL'])) $data['AVOCATION_ANIMAL']='0';
+		if(empty($data['AVOCATION_FISHER'])) $data['AVOCATION_FISHER']='0';
+		if(empty($data['AVOCATION_TECH'])) $data['AVOCATION_TECH']='0';
+		if(empty($data['AVOCATION_TRADE'])) $data['AVOCATION_TRADE']='0';
+		if(empty($data['AVOCATION_CAREER'])) $data['AVOCATION_CAREER']='0';
+		if(empty($data['AVOCATION_EDUCATION'])) $data['AVOCATION_EDUCATION']='0';
+
+
+		if(empty($data['AFFLICTION_ETC'])) $data['AFFLICTION_ETC']='0';
 		if(empty($data['AVOCATION_ETC'])) $data['AVOCATION_ETC']='0';
 
 		$data['MONEY_PER_MONTH']=str_replace(',','',$data['MONEY_PER_MONTH']); // remove comma , 'xxx,xxx,x' 
@@ -171,6 +196,7 @@ class Household extends CI_Controller {
 		if(!empty($data['PATIENT_LAST_NAME']))
 					$data['PATIENT_LAST_NAME']=implode(",",$data['PATIENT_LAST_NAME']);
 
+		//print_r($data);
 		if($this->require_household->update($data,$id)) 
 			redirect('household/view/'.$id);
 		else show_error('ไม่สามารถบันทึกได้');
