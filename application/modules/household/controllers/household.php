@@ -222,8 +222,8 @@ class Household extends CI_Controller {
 	function del($id=null)
 	{
 		if(empty($id)) show_404();
-		$province_id=$this->require_develop->get_by_id($id)->PROVINCE_ID;
-		if($this->require_develop->delete($id))
+		$province_id=$this->require_household->get_by_id($id)->PROVINCE_ID;
+		if($this->require_household->delete($id))
 		redirect(base_url($this->router->fetch_class()).'/get/'.$province_id);
 		 
 		
