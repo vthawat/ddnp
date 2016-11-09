@@ -1,11 +1,10 @@
             <!-- Optionally, you can add icons to the links -->          
             <li class="treeview">
-              <a href="<?=base_url($this->router->fetch_class())?>"><i class='fa fa-book text-green fa-fw'></i><span>ความต้องการในระดับครัวเรือน</span> <i class="fa fa-angle-left pull-right"></i></a>
+              <a href="<?=base_url($this->router->fetch_class())?>"><i class='fa fa-book text-white fa-fw'></i><span>โครงการพัฒนาศักยภาพ</span> <i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
               	<?php if(!empty($set_province)) foreach($set_province as $item):?>
-                <li><a href="<?=base_url('household/get/'.$item->ID)?>"><i class='fa fa-circle-o text-green fa-fw'></i><?=$this->province->desc.$item->PROVINCE_NAME?></a></li>
+                <li><a href="<?=base_url('planning/get/'.$item->ID)?>"><i class='fa fa-circle-o text-white fa-fw'></i><?=$this->province->desc.$item->PROVINCE_NAME?></a></li>
                 <?php endforeach;?>
-                <li><a href="#"><i class='fa fa-circle-o text-green fa-fw'></i>รายงานสรุปในภาพรวม</a></li>
               </ul>
             </li>
 	<!--

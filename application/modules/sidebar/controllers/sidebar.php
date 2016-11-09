@@ -21,6 +21,7 @@ function access_map()
 	{
 		if($role_id==1)
 		{
+			$this->sb_planning();
 			$this->sb_household();
 			$this->sb_basic();
 		}
@@ -35,6 +36,11 @@ function access_map()
 		   $this->sidebar_set.=$item;
 		
 		return $this->sidebar_set;
+	}
+	function sb_planning()
+	{
+		$data['set_province']=$this->province->get_all();
+	  array_push($this->sidebar_items,$this->load->view('planning',$data,TRUE));	
 	}
 	function sb_household()
 	{
