@@ -194,7 +194,7 @@
  		<input type="checkbox" name="AFFLICTION_AILING" value="1" id="ailing" <?php if(!empty($household)) if($household->AFFLICTION_AILING):?> checked<?php endif?>> <label for="ailing">ความเจ็บป่วย</label><br>
  		<input type="checkbox" name="AFFLICTION_HOUSE" value="1" id="house" <?php if(!empty($household)) if($household->AFFLICTION_HOUSE):?> checked<?php endif?>> <label for="house">ที่อยู่อาศัย</label><br>
  		<input type="checkbox" name="AFFLICTION_SAFETY" value="1" id="safety" <?php if(!empty($household)) if($household->AFFLICTION_SAFETY):?> checked<?php endif?>> <label for="safety">ความปลอดภัย</label><br>
- 		<label for="affliction-etc">อื่นๆ</label><input type="text" name="AFFLICTION_ETC" class="form-control" <?php if(!empty($household&&$household->AFFLICTION_ETC!='0')):?> value="<?=$household->AFFLICTION_ETC?>"<?php endif?>><br>
+ 		<label for="affliction-etc">อื่นๆ</label><input type="text" name="AFFLICTION_ETC" class="form-control" <?php if(!empty($household)&&$household->AFFLICTION_ETC!='0'):?> value="<?=$household->AFFLICTION_ETC?>"<?php endif?>><br>
  	</div>
  </div>
 
@@ -208,7 +208,7 @@
  		<input type="checkbox" name="AVOCATION_TRADE" value="1" id="trade" <?php if(!empty($household)) if($household->AVOCATION_TRADE):?> checked<?php endif?>> <label for="trade">ค้าขาย</label><br>
  		<input type="checkbox" name="AVOCATION_CAREER" value="1" id="career" <?php if(!empty($household)) if($household->AVOCATION_CAREER):?> checked<?php endif?>> <label for="career">ทุนประกอบอาชีพ</label><br>
  		<input type="checkbox" name="AVOCATION_EDUCATION" value="1" id="education" <?php if(!empty($household)) if($household->AVOCATION_EDUCATION):?> checked<?php endif?>> <label for="education">ทุนการศึกษา</label><br>
- 		<label for="avocation-etc">อื่นๆ</label><input type="text" name="AVOCATION_ETC" class="form-control" <?php if(!empty($household&&$household->AVOCATION_ETC!='0')):?> value="<?=$household->AVOCATION_ETC?>"<?php endif?>><br>
+ 		<label for="avocation-etc">อื่นๆ</label><input type="text" name="AVOCATION_ETC" class="form-control" <?php if(!empty($household)&&$household->AVOCATION_ETC!='0'):?> value="<?=$household->AVOCATION_ETC?>"<?php endif?>><br>
  	</div>
  </div>
 

@@ -123,9 +123,9 @@
   	 </div>
   </div>
    <div class="form-group">
-  	<label for="notation" class="col-sm-2 control-label">หมายเหตุ/หมู่บ้านพื้นที่ระดับ</label>
+  	<label for="notation" class="col-sm-2 control-label">หมายเหตุ</label>
   	 <div class="col-sm-10">
-  	 	 <?php if(empty($Project)) $notation='หมู่บ้านพื้นที่ระดับ 3';
+  	 	 <?php if(empty($Project)) $notation='';
 				else $notation=$Project->NOTATION;
     	?>
   	 	<textarea id="notation" name="NOTATION" class="form-control"><?=$notation?></textarea>

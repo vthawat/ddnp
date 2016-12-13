@@ -16,7 +16,7 @@ class Guest extends CI_Controller {
 	{
 		
 		$data['silde_intro']=$this->load->view('guest/slide-intro',null,TRUE);
-		$data['contents']=$this->load->view('guest/sumary',null,TRUE);
+		//$data['contents']=$this->load->view('guest/sumary',null,TRUE);
 		//$data['contact']=$this->load->view('guest/contact',null,TRUE);
 		//$data['frm_login']=$this->load->view('guest/form_login',null,TRUE);
 		$this->template->write_view('content','guest/content',$data);
