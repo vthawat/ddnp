@@ -53,7 +53,7 @@
 
 
 	<div class="form-group bg-gray">
-    <label for="village" class="col-sm-2 control-label"><?=$this->village->desc?>*</label>
+    <label for="village" class="col-sm-2 control-label">ชื่อ<?=$this->village->desc?>*</label>
     <div class="col-sm-10">
     	<?php if(!empty($household))
 		{
@@ -73,13 +73,25 @@
   </div>
 
 <div class="form-group">
- 	<label for="home-number" class="col-sm-2 control-label">บ้านเลขที่*</label>
- 	<div class="col-sm-2"><input type="text" class="form-control" name="HOME_NUMBER" id="home-number" <?php if(!empty($household)):?> value="<?=$household->HOME_NUMBER?>"<?php endif?> required=""></div>
+ 	<label for="home-number" class="col-sm-2 control-label">บ้านเลขที่</label>
+ 	<div class="col-sm-2"><div class="input-group">
+  <input type="text" class="form-control" name="HOME_NUMBER" id="home-number" <?php if(!empty($household)):?> value="<?=$household->HOME_NUMBER?>"<?php endif?>>
+  <span class="input-group-btn">
+        <button class="btn btn-info null-home-number" type="button">ไม่มีบ้านเลขที่ให้คลิกปุ่มนี้</button>
+      </span>
+  </div></div>
 </div>
 
 <div class="form-group">
- 	<label for="vill-number" class="col-sm-2 control-label">หมู่ที่*</label>
- 	<div class="col-sm-1"><input type="text" class="form-control" name="VILL_NUMBER" id="vill-number" <?php if(!empty($household)):?> value="<?=$household->VILL_NUMBER?>"<?php endif?> required=""></div>
+ 	<label for="vill-number" class="col-sm-2 control-label">หมู่ที่</label>
+ 	<div class="col-sm-2">
+<div class="input-group">
+  <input type="text" class="form-control" name="VILL_NUMBER" id="vill-number" <?php if(!empty($household)):?> value="<?=$household->VILL_NUMBER?>"<?php endif?>>
+    <span class="input-group-btn">
+        <button class="btn btn-info null-vill-number" type="button">ไม่มีหมู่ที่ให้คลิกปุ่มนี้</button>
+      </span>
+  </div>
+  </div>
 </div>
 
 <div class="form-group">
@@ -88,7 +100,14 @@
  		<input type="checkbox" name="HOME_TYPE_A" value="1" id="home-type-a" <?php if(!empty($household)) if($household->HOME_TYPE_A):?> checked<?php endif?>> <label for="home-type-a">บ้านพักของตนเอง</label><br>
  		<input type="checkbox" name="HOME_TYPE_B" value="1" id="home-type-b" <?php if(!empty($household)) if($household->HOME_TYPE_B):?> checked<?php endif?>> <label for="home-type-b">บ้านเช่า</label><br>
  		<input type="checkbox" name="HOME_TYPE_C" value="1" id="home-type-c" <?php if(!empty($household)) if($household->HOME_TYPE_C):?> checked<?php endif?>> <label for="home-type-c">บ้านพัก/แฟรตราชการ</label>
+    <p class="help-block">*หากไม่มีบ้านพักไม่ต้องคลิกเลือกรายการใดๆ ให้ไปกรอกข้อมูลในด้านความเดือนร้อนของที่อยู่อาศัยด้านล่าง</p>
  	</div>
+</div>
+<div class="form-group">
+  <label for="prename" class="col-sm-2 control-label">หมายเลขบัตรประจำตัวประชาชน</label>
+  <div class="col-sm-2">
+  <input type="text" name="PERSON_ID" class="form-control person-id" <?php if(!empty($household)):?> value="<?=$household->PERSON_ID?>"<?php endif?>>
+  </div>
 </div>
 
 <div class="form-group">
@@ -187,28 +206,41 @@
      </div>
  </div>
 
- <div class="form-group">
+ <div class="form-group bg-danger">
  	<label class="col-sm-2 control-label">ความเดือดร้อน</label>
  	<div class="col-sm-10">
  		<input type="checkbox" name="AFFLICTION_INCOME" value="1" id="income" <?php if(!empty($household)) if($household->AFFLICTION_INCOME):?> checked<?php endif?>> <label for="income">รายได้</label><br>
+    <label>(ระบุรายละเอียด)</label><br><textarea class="form-control" name="AFFLICTION_INCOME_DESC"><?php if(!empty($household)):?><?=$household->AFFLICTION_INCOME_DESC?><?php endif?></textarea><br>
  		<input type="checkbox" name="AFFLICTION_AILING" value="1" id="ailing" <?php if(!empty($household)) if($household->AFFLICTION_AILING):?> checked<?php endif?>> <label for="ailing">ความเจ็บป่วย</label><br>
+    <label>(ระบุรายละเอียด)</label><br><textarea class="form-control" name="AFFLICTION_AILING_DESC"><?php if(!empty($household)):?><?=$household->AFFLICTION_AILING_DESC?><?php endif?></textarea><br>
  		<input type="checkbox" name="AFFLICTION_HOUSE" value="1" id="house" <?php if(!empty($household)) if($household->AFFLICTION_HOUSE):?> checked<?php endif?>> <label for="house">ที่อยู่อาศัย</label><br>
+    <label>(ระบุรายละเอียด)</label><br><textarea class="form-control" name="AFFLICTION_HOUSE_DESC"><?php if(!empty($household)):?><?=$household->AFFLICTION_HOUSE_DESC?><?php endif?></textarea><br>
  		<input type="checkbox" name="AFFLICTION_SAFETY" value="1" id="safety" <?php if(!empty($household)) if($household->AFFLICTION_SAFETY):?> checked<?php endif?>> <label for="safety">ความปลอดภัย</label><br>
- 		<label for="affliction-etc">อื่นๆ</label><input type="text" name="AFFLICTION_ETC" class="form-control" <?php if(!empty($household)&&$household->AFFLICTION_ETC!='0'):?> value="<?=$household->AFFLICTION_ETC?>"<?php endif?>><br>
+    <label>(ระบุรายละเอียด)</label><br><textarea class="form-control" name="AFFLICTION_SAFETY_DESC"><?php if(!empty($household)):?><?=$household->AFFLICTION_SAFETY_DESC?><?php endif?></textarea><br>
+ 		<input type="checkbox" <?php if(!empty($household)) if($household->AFFLICTION_ETC):?> checked<?php endif?>> <label for="affliction-etc">อื่นๆ</label><br><label>(ระบุรายละเอียด)</label><br><textarea name="AFFLICTION_ETC" class="form-control"><?php if(!empty($household)&&$household->AFFLICTION_ETC!='0'):?><?=$household->AFFLICTION_ETC?><?php endif?></textarea><br>
  	</div>
  </div>
 
-  <div class="form-group">
+  <div class="form-group bg-info">
  	<label class="col-sm-2 control-label">ความต้องการอาชีพ</label>
  	<div class="col-sm-10">
- 		<input type="checkbox" name="AVOCATION_FARM" value="1" id="farm" <?php if(!empty($household)) if($household->AVOCATION_FARM):?> checked<?php endif?>> <label for="farm">เกษตร(อุปกรณ์การเกษตร ปุ๋ย การพัฒนาความรู้ ที่ดินทำกิน)</label><br>
+ 		<input type="checkbox" name="AVOCATION_FARM" value="1" id="farm" <?php if(!empty($household)) if($household->AVOCATION_FARM):?> checked<?php endif?>> <label for="farm">เกษตร</label><br>
+    <label>(ระบุรายละเอียด)</label><br><textarea class="form-control" name="AVOCATION_FARM_DESC"><?php if(!empty($household)):?><?=$household->AVOCATION_FARM_DESC?><?php endif?></textarea>
+    <p class="help-block">ตัวอย่างเช่น อุปกรณ์การเกษตร ปุ๋ย การพัฒนาความรู้ ที่ดินทำกิน</p>
  		<input type="checkbox" name="AVOCATION_ANIMAL" value="1" id="animal" <?php if(!empty($household)) if($household->AVOCATION_ANIMAL):?> checked<?php endif?>> <label for="animal">เลี้ยงสัตว์</label><br>
+    <label>(ระบุรายละเอียด)</label><br><textarea class="form-control" name="AVOCATION_ANIMAL_DESC"><?php if(!empty($household)):?><?=$household->AVOCATION_ANIMAL_DESC?><?php endif?></textarea><br>
  		<input type="checkbox" name="AVOCATION_FISHER" value="1" id="fisher" <?php if(!empty($household)) if($household->AVOCATION_FISHER):?> checked<?php endif?>> <label for="fisher">ประมง</label><br>
- 		<input type="checkbox" name="AVOCATION_TECH" value="1" id="tech" <?php if(!empty($household)) if($household->AVOCATION_TECH):?> checked<?php endif?>> <label for="tech">ช่างฝีมือ/คหกรรม (ช่างไฟฟา ประปา ช่างซ่อมอุปกรณ์ต่างๆ ช่างตัดผม การทำขนม อาหาร)</label><br>
+    <label>(ระบุรายละเอียด)</label><br><textarea class="form-control" name="AVOCATION_FISHER_DESC"><?php if(!empty($household)):?><?=$household->AVOCATION_FISHER_DESC?><?php endif?></textarea><br>
+ 		<input type="checkbox" name="AVOCATION_TECH" value="1" id="tech" <?php if(!empty($household)) if($household->AVOCATION_TECH):?> checked<?php endif?>> <label for="tech">ช่างฝีมือ/คหกรรม</label><br>
+    <label>(ระบุรายละเอียด)</label><br><textarea class="form-control" name="AVOCATION_TECH_DESC"><?php if(!empty($household)):?><?=$household->AVOCATION_TECH_DESC?><?php endif?></textarea>
+    <p class="help-block">ตัวอย่างเช่น ช่างไฟฟ้า ประปา ช่างซ่อมอุปกรณ์ต่างๆ ช่างตัดผม การทำขนม อาหาร</p>
  		<input type="checkbox" name="AVOCATION_TRADE" value="1" id="trade" <?php if(!empty($household)) if($household->AVOCATION_TRADE):?> checked<?php endif?>> <label for="trade">ค้าขาย</label><br>
+    <label>(ระบุรายละเอียด)</label><br><textarea class="form-control" name="AVOCATION_TRADE_DESC"><?php if(!empty($household)):?><?=$household->AVOCATION_TRADE_DESC?><?php endif?></textarea><br>
  		<input type="checkbox" name="AVOCATION_CAREER" value="1" id="career" <?php if(!empty($household)) if($household->AVOCATION_CAREER):?> checked<?php endif?>> <label for="career">ทุนประกอบอาชีพ</label><br>
+    <label>(ระบุรายละเอียด)</label><br><textarea class="form-control" name="AVOCATION_CAREER_DESC"><?php if(!empty($household)):?><?=$household->AVOCATION_CAREER_DESC?><?php endif?></textarea><br>
  		<input type="checkbox" name="AVOCATION_EDUCATION" value="1" id="education" <?php if(!empty($household)) if($household->AVOCATION_EDUCATION):?> checked<?php endif?>> <label for="education">ทุนการศึกษา</label><br>
- 		<label for="avocation-etc">อื่นๆ</label><input type="text" name="AVOCATION_ETC" class="form-control" <?php if(!empty($household)&&$household->AVOCATION_ETC!='0'):?> value="<?=$household->AVOCATION_ETC?>"<?php endif?>><br>
+    <label>(ระบุรายละเอียด)</label><br><textarea class="form-control" name="AVOCATION_EDUCATION_DESC"><?php if(!empty($household)):?><?=$household->AVOCATION_EDUCATION_DESC?><?php endif?></textarea><br>
+ 		<input type="checkbox" <?php if(!empty($household)) if($household->AVOCATION_ETC):?> checked<?php endif?>> <label for="avocation-etc">อื่นๆ</label><label>(ระบุรายละเอียด)</label><br><textarea name="AVOCATION_ETC" class="form-control"><?php if(!empty($household)&&$household->AVOCATION_ETC!='0'):?><?=$household->AVOCATION_ETC?><?php endif?></textarea><br>
  	</div>
  </div>
 
@@ -231,7 +263,7 @@
       <?php $patient_prename=explode(',', $household->PATIENT_PRENAME);
               $patient_first_name=explode(',', $household->PATIENT_FIRST_NAME);
               $patient_last_name=explode(',', $household->PATIENT_LAST_NAME);
-
+              $patient_desc=explode(',', $household->PATIENT_DESC);
       foreach($patient_prename as $key=>$value):?>
             <div class="col-sm-offset-2 col-sm-10"><div class="col-sm-2">
                         <select name="PATIENT_PRENAME[]" class="form-control">
@@ -244,6 +276,7 @@
                       </div>
                      <div class="col-sm-3"><input type="text" name="PATIENT_FIRST_NAME[]" class="form-control" placeholder="ชื่อ" value="<?=$patient_first_name[$key]?>"></div>
                       <div class="col-sm-3"><input type="text" name="PATIENT_LAST_NAME[]" class="form-control" placeholder="นามสกุล" value="<?=$patient_last_name[$key]?>"></div>
+                      <div class="col-sm-3"><input type="text" name="PATIENT_DESC[]" class="form-control" placeholder="คนเจ็บป่วย" value="<?=$patient_desc[$key]?>"></div>
                 </div>
       <?php endforeach;endif?> 
      </div>

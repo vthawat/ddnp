@@ -112,6 +112,10 @@ class Household extends CI_Controller {
 
 		$data['MONEY_PER_MONTH']=str_replace(',','',$data['MONEY_PER_MONTH']); // remove comma , 'xxx,xxx,x' 
 		
+		
+
+		$data['PERSON_ID']=str_replace('-','',$data['PERSON_ID']);  // remove dash 'x-xx-xxx-'
+
 		/*  prepare data   */
 		if(!empty($data['FUGITIVE_PRENAME']))
 					$data['FUGITIVE_PRENAME']=implode(",",$data['FUGITIVE_PRENAME']);
@@ -133,6 +137,9 @@ class Household extends CI_Controller {
 
 		if(!empty($data['PATIENT_LAST_NAME']))
 					$data['PATIENT_LAST_NAME']=implode(",",$data['PATIENT_LAST_NAME']);
+
+		if(!empty($data['PATIENT_DESC']))
+					$data['PATIENT_DESC']=implode(",",$data['PATIENT_DESC']);
 
 		if($this->require_household->post($data)) 
 			redirect('household/get/'.$province_id);
@@ -173,7 +180,7 @@ class Household extends CI_Controller {
 		if(empty($data['AVOCATION_ETC'])) $data['AVOCATION_ETC']='0';
 
 		$data['MONEY_PER_MONTH']=str_replace(',','',$data['MONEY_PER_MONTH']); // remove comma , 'xxx,xxx,x' 
-		
+		$data['PERSON_ID']=str_replace('-','',$data['PERSON_ID']);  // remove dash 'x-xx-xxx-'
 		/*  prepare data   */
 		if(!empty($data['FUGITIVE_PRENAME']))
 					$data['FUGITIVE_PRENAME']=implode(",",$data['FUGITIVE_PRENAME']);
@@ -195,6 +202,9 @@ class Household extends CI_Controller {
 
 		if(!empty($data['PATIENT_LAST_NAME']))
 					$data['PATIENT_LAST_NAME']=implode(",",$data['PATIENT_LAST_NAME']);
+
+		if(!empty($data['PATIENT_DESC']))
+					$data['PATIENT_DESC']=implode(",",$data['PATIENT_DESC']);
 
 		//print_r($data);
 		if($this->require_household->update($data,$id)) 

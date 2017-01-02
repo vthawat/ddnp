@@ -80,6 +80,7 @@ $(function () {
 		 		$name_list+='</div>'
 		 		$name_list+='<div class="col-sm-2"><input type="text" name="PATIENT_FIRST_NAME[]" class="form-control" placeholder="ชื่อ"></div>';
 		 		$name_list+='<div class="col-sm-3"><input type="text" name="PATIENT_LAST_NAME[]" class="form-control" placeholder="นามสกุล"></div>';
+		 		$name_list+='<div class="col-sm-3"><input type="text" name="PATIENT_DESC[]" class="form-control" placeholder="ความเจ็บป่วย -อาการ หรือชื่อโรค"></div>';
 		 		$name_list+='</div>';
 		 	$('.patient-name').html('');
 		 	for (i = 1; i <= $num_person; i++) {
@@ -93,5 +94,16 @@ $(function () {
 			$(this).val(parseInt($('.num-male').val())+parseInt($('.num-female').val()));
 
 	});
+
+	$('.null-home-number').click(function(){
+
+			$('#home-number').val('N/A');
+	});
+
+		$('.null-vill-number').click(function(){
+
+			$('#vill-number').val('N/A');
+	});
+
 
 });
