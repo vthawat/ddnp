@@ -105,5 +105,19 @@ $(function () {
 			$('#vill-number').val('N/A');
 	});
 
+	$('.cls-desc').click(function(){
+
+		$(this).next().next().next().next().next().text('');
+		if((this).prop('checked',true))
+			$(this).next().next().next().next().next().focus();
+		//alert('dd');
+	});
+
+		$('.auto-check').keyup(function(){
+			$('#income').attr('checked', true);;
+		//$(this).previous().previous().previous().previous().previous().prop('checked');
+		//alert('dd');
+	});
+
 
 });

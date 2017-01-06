@@ -35,6 +35,10 @@
 				<td><?=prename($household->PRE_NAME)?><?=$household->FIRST_NAME?> <?=$household->LAST_NAME?></td>
 			</tr>
 			<tr>
+				<th class="text-right">หมายเลขบัตรประจำตัวประชาชน</th>
+				<td><?=$household->PERSON_ID?></td>
+			</tr>
+			<tr>
 				<th class="text-right">สถานะการเป็นเจ้าของบ้านพักอาศัย</th>
 				<td><?=home_type_checked($household->HOME_TYPE_A)?> <label>บ้านพักของตนเอง</label><br>
  		<?=home_type_checked($household->HOME_TYPE_B)?> <label>บ้านเช่า</label><br>
@@ -92,28 +96,61 @@
 	<h3>รายละเอียดเกี่ยวกับความต้องการและความเดือดร้อน</h3>
 <table class="table table-responsive">		
 		<tbody>
-			<tr>
+			<tr class="bg-danger">
 				<th class="text-right">ความเดือดร้อน</th>
 				<td>
 					<?=affliction_checked($household->AFFLICTION_INCOME)?> <label>รายได้</label><br>
+					<?php if($household->AFFLICTION_INCOME_DESC):?>
+						<blockquote><small><?=$household->AFFLICTION_INCOME_DESC?></small></blockquote>
+					<?php endif?>
  		<?=affliction_checked($household->AFFLICTION_AILING)?> <label>ความเจ็บป่วย</label><br>
+ 		<?php if($household->AFFLICTION_AILING_DESC):?>
+						<blockquote><small><?=$household->AFFLICTION_AILING_DESC?></small></blockquote>
+					<?php endif?>
  		<?=affliction_checked($household->AFFLICTION_HOUSE)?> <label>ที่อยู่อาศัย</label><br>
+ 		<?php if($household->AFFLICTION_HOUSE_DESC):?>
+						<blockquote><small><?=$household->AFFLICTION_HOUSE_DESC?></small></blockquote>
+					<?php endif?>
  		<?=affliction_checked($household->AFFLICTION_SAFETY)?> <label>ความปลอดภัย</label><br>
- 		<?=affliction_checked($household->AFFLICTION_ETC)?> <label>อื่นๆ</label> <label><?php if($household->AFFLICTION_ETC!='0'):?><?=$household->AFFLICTION_ETC?><?php endif;?></label>
+ 		<?php if($household->AFFLICTION_SAFETY_DESC):?>
+						<blockquote><small><?=$household->AFFLICTION_SAFETY_DESC?></small></blockquote>
+					<?php endif?>
+ 		<?=affliction_checked($household->AFFLICTION_ETC)?> <label>อื่นๆ</label> <?php if($household->AFFLICTION_ETC!='0'):?><blockquote><small><?=$household->AFFLICTION_ETC?><?php endif;?></small></blockquote>
 
 				</td>
 			</tr>
-		<tr>
+		<tr class="bg-info">
 			<th class="text-right">ความต้องการอาชีพ</th>
 			<td>
 				<?=avocation_checked($household->AVOCATION_FARM)?> <label>เกษตร(อุปกรณ์การเกษตร ปุ๋ย การพัฒนาความรู้ ที่ดินทำกิน)</label><br>
+				<?php if($household->AVOCATION_FARM_DESC):?>
+						<blockquote><small><?=$household->AVOCATION_FARM_DESC?></small></blockquote>
+					<?php endif?>
  		<?=avocation_checked($household->AVOCATION_ANIMAL)?> <label>เลี้ยงสัตว์</label><br>
+ 		<?php if($household->AVOCATION_ANIMAL_DESC):?>
+						<blockquote><small><?=$household->AVOCATION_ANIMAL_DESC?></small></blockquote>
+					<?php endif?>
  		<?=avocation_checked($household->AVOCATION_FISHER)?> <label>ประมง</label><br>
+ 		<?php if($household->AVOCATION_FISHER_DESC):?>
+						<blockquote><small><?=$household->AVOCATION_FISHER_DESC?></small></blockquote>
+					<?php endif?>
  		<?=avocation_checked($household->AVOCATION_TECH)?> <label>ช่างฝีมือ/คหกรรม (ช่างไฟฟา ประปา ช่างซ่อมอุปกรณ์ต่างๆ ช่างตัดผม การทำขนม อาหาร)</label><br>
+ 		<?php if($household->AVOCATION_TECH_DESC):?>
+						<blockquote><small><?=$household->AVOCATION_TECH_DESC?></small></blockquote>
+					<?php endif?>
  		<?=avocation_checked($household->AVOCATION_TRADE)?> <label>ค้าขาย</label><br>
+ 		<?php if($household->AVOCATION_TRADE_DESC):?>
+						<blockquote><small><?=$household->AVOCATION_TRADE_DESC?></small></blockquote>
+					<?php endif?>
  		<?=avocation_checked($household->AVOCATION_CAREER)?> <label>ทุนประกอบอาชีพ</label><br>
+ 		<?php if($household->AVOCATION_CAREER_DESC):?>
+						<blockquote><small><?=$household->AVOCATION_CAREER_DESC?></small></blockquote>
+					<?php endif?>
  		<?=avocation_checked($household->AVOCATION_EDUCATION)?> <label>ทุนการศึกษา</label><br>
- 		<?=avocation_checked($household->AVOCATION_ETC)?> <label>อื่นๆ</label> <label><?php if($household->AVOCATION_ETC!='0'):?><?=$household->AVOCATION_ETC?><?php endif;?></label>
+ 		<?php if($household->AVOCATION_EDUCATION_DESC):?>
+						<blockquote><small><?=$household->AVOCATION_EDUCATION_DESC?></small></blockquote>
+					<?php endif?>
+ 		<?=avocation_checked($household->AVOCATION_ETC)?> <label>อื่นๆ</label> <blockquote><small><?php if($household->AVOCATION_ETC!='0'):?><?=$household->AVOCATION_ETC?><?php endif;?></small></blockquote>
 			</td>
 		</tr>
 
@@ -127,11 +164,12 @@
 							$patient_prename=explode(',', $household->PATIENT_PRENAME);
 							$patient_first_name=explode(',', $household->PATIENT_FIRST_NAME);
 							$patient_last_name=explode(',', $household->PATIENT_LAST_NAME);
+							$patient_desc=explode(',', $household->PATIENT_DESC);
 						?>
 						<ul class="list-group">
 						<?php foreach($patient_prename as $key=>$value):?>
 							
-								<li class="list-group-item"><span><?=$key+1;?>.<?=fugitive_prename($value)?><?=$patient_first_name[$key]?> <?=$patient_last_name[$key]?></span></li>
+								<li class="list-group-item"><span><?=$key+1;?>.<?=fugitive_prename($value)?><?=$patient_first_name[$key]?> <?=$patient_last_name[$key]?> <br><label>ความเจ็บป่วย/อาการ</label><blockquote><small><?=$patient_desc[$key]?></small></blockquote></span></li>
 							
 						<?php endforeach;?>
 						</ul>
