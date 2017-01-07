@@ -212,12 +212,12 @@
  		<input type="checkbox" class="cls-desc" name="AFFLICTION_INCOME" value="1" id="income" <?php if(!empty($household)) if($household->AFFLICTION_INCOME):?> checked<?php endif?>> <label for="income">รายได้</label><br>
     <label>(ระบุรายละเอียด)</label><br><textarea class="form-control auto-check" name="AFFLICTION_INCOME_DESC"><?php if(!empty($household)):?><?=$household->AFFLICTION_INCOME_DESC?><?php endif?></textarea><br>
  		<input type="checkbox" class="cls-desc" name="AFFLICTION_AILING" value="1" id="ailing" <?php if(!empty($household)) if($household->AFFLICTION_AILING):?> checked<?php endif?>> <label for="ailing">ความเจ็บป่วย</label><br>
-    <label>(ระบุรายละเอียด)</label><br><textarea class="form-control" name="AFFLICTION_AILING_DESC"><?php if(!empty($household)):?><?=$household->AFFLICTION_AILING_DESC?><?php endif?></textarea><br>
+    <label>(ระบุรายละเอียด)</label><br><textarea class="form-control auto-check" name="AFFLICTION_AILING_DESC"><?php if(!empty($household)):?><?=$household->AFFLICTION_AILING_DESC?><?php endif?></textarea><br>
  		<input type="checkbox" class="cls-desc" name="AFFLICTION_HOUSE" value="1" id="house" <?php if(!empty($household)) if($household->AFFLICTION_HOUSE):?> checked<?php endif?>> <label for="house">ที่อยู่อาศัย</label><br>
-    <label>(ระบุรายละเอียด)</label><br><textarea class="form-control" name="AFFLICTION_HOUSE_DESC"><?php if(!empty($household)):?><?=$household->AFFLICTION_HOUSE_DESC?><?php endif?></textarea><br>
+    <label>(ระบุรายละเอียด)</label><br><textarea class="form-control auto-check" name="AFFLICTION_HOUSE_DESC"><?php if(!empty($household)):?><?=$household->AFFLICTION_HOUSE_DESC?><?php endif?></textarea><br>
  		<input type="checkbox" class="cls-desc" name="AFFLICTION_SAFETY" value="1" id="safety" <?php if(!empty($household)) if($household->AFFLICTION_SAFETY):?> checked<?php endif?>> <label for="safety">ความปลอดภัย</label><br>
-    <label>(ระบุรายละเอียด)</label><br><textarea class="form-control" name="AFFLICTION_SAFETY_DESC"><?php if(!empty($household)):?><?=$household->AFFLICTION_SAFETY_DESC?><?php endif?></textarea><br>
- 		<input type="checkbox" class="cls-desc" <?php if(!empty($household)) if($household->AFFLICTION_ETC):?> checked<?php endif?>> <label for="affliction-etc">อื่นๆ</label><br><label>(ระบุรายละเอียด)</label><br><textarea name="AFFLICTION_ETC" class="form-control"><?php if(!empty($household)&&$household->AFFLICTION_ETC!='0'):?><?=$household->AFFLICTION_ETC?><?php endif?></textarea><br>
+    <label>(ระบุรายละเอียด)</label><br><textarea class="form-control auto-check" name="AFFLICTION_SAFETY_DESC"><?php if(!empty($household)):?><?=$household->AFFLICTION_SAFETY_DESC?><?php endif?></textarea><br>
+ 		<input type="checkbox" class="cls-desc" <?php if(!empty($household)) if($household->AFFLICTION_ETC):?> checked<?php endif?>> <label for="affliction-etc">อื่นๆ</label><br><label>(ระบุรายละเอียด)</label><br><textarea name="AFFLICTION_ETC" class="form-control auto-check"><?php if(!empty($household)&&$household->AFFLICTION_ETC!='0'):?><?=$household->AFFLICTION_ETC?><?php endif?></textarea><br>
  	</div>
  </div>
 
@@ -225,22 +225,22 @@
  	<label class="col-sm-2 control-label">ความต้องการอาชีพ</label>
  	<div class="col-sm-10">
  		<input type="checkbox" class="cls-desc" name="AVOCATION_FARM" value="1" id="farm" <?php if(!empty($household)) if($household->AVOCATION_FARM):?> checked<?php endif?>> <label for="farm">เกษตร</label><br>
-    <label>(ระบุรายละเอียด)</label><br><textarea class="form-control" name="AVOCATION_FARM_DESC"><?php if(!empty($household)):?><?=$household->AVOCATION_FARM_DESC?><?php endif?></textarea>
+    <label>(ระบุรายละเอียด)</label><br><textarea class="form-control auto-check" name="AVOCATION_FARM_DESC"><?php if(!empty($household)):?><?=$household->AVOCATION_FARM_DESC?><?php endif?></textarea>
     <p class="help-block">ตัวอย่างเช่น อุปกรณ์การเกษตร ปุ๋ย การพัฒนาความรู้ ที่ดินทำกิน</p>
  		<input type="checkbox" class="cls-desc" name="AVOCATION_ANIMAL" value="1" id="animal" <?php if(!empty($household)) if($household->AVOCATION_ANIMAL):?> checked<?php endif?>> <label for="animal">เลี้ยงสัตว์</label><br>
-    <label>(ระบุรายละเอียด)</label><br><textarea class="form-control" name="AVOCATION_ANIMAL_DESC"><?php if(!empty($household)):?><?=$household->AVOCATION_ANIMAL_DESC?><?php endif?></textarea><br>
+    <label>(ระบุรายละเอียด)</label><br><textarea class="form-control auto-check" name="AVOCATION_ANIMAL_DESC"><?php if(!empty($household)):?><?=$household->AVOCATION_ANIMAL_DESC?><?php endif?></textarea><br>
  		<input type="checkbox" class="cls-desc" name="AVOCATION_FISHER" value="1" id="fisher" <?php if(!empty($household)) if($household->AVOCATION_FISHER):?> checked<?php endif?>> <label for="fisher">ประมง</label><br>
-    <label>(ระบุรายละเอียด)</label><br><textarea class="form-control" name="AVOCATION_FISHER_DESC"><?php if(!empty($household)):?><?=$household->AVOCATION_FISHER_DESC?><?php endif?></textarea><br>
+    <label>(ระบุรายละเอียด)</label><br><textarea class="form-control auto-check" name="AVOCATION_FISHER_DESC"><?php if(!empty($household)):?><?=$household->AVOCATION_FISHER_DESC?><?php endif?></textarea><br>
  		<input type="checkbox" class="cls-desc" name="AVOCATION_TECH" value="1" id="tech" <?php if(!empty($household)) if($household->AVOCATION_TECH):?> checked<?php endif?>> <label for="tech">ช่างฝีมือ/คหกรรม</label><br>
-    <label>(ระบุรายละเอียด)</label><br><textarea class="form-control" name="AVOCATION_TECH_DESC"><?php if(!empty($household)):?><?=$household->AVOCATION_TECH_DESC?><?php endif?></textarea>
+    <label>(ระบุรายละเอียด)</label><br><textarea class="form-control auto-check" name="AVOCATION_TECH_DESC"><?php if(!empty($household)):?><?=$household->AVOCATION_TECH_DESC?><?php endif?></textarea>
     <p class="help-block">ตัวอย่างเช่น ช่างไฟฟ้า ประปา ช่างซ่อมอุปกรณ์ต่างๆ ช่างตัดผม การทำขนม อาหาร</p>
  		<input type="checkbox" class="cls-desc" name="AVOCATION_TRADE" value="1" id="trade" <?php if(!empty($household)) if($household->AVOCATION_TRADE):?> checked<?php endif?>> <label for="trade">ค้าขาย</label><br>
-    <label>(ระบุรายละเอียด)</label><br><textarea class="form-control" name="AVOCATION_TRADE_DESC"><?php if(!empty($household)):?><?=$household->AVOCATION_TRADE_DESC?><?php endif?></textarea><br>
+    <label>(ระบุรายละเอียด)</label><br><textarea class="form-control auto-check" name="AVOCATION_TRADE_DESC"><?php if(!empty($household)):?><?=$household->AVOCATION_TRADE_DESC?><?php endif?></textarea><br>
  		<input type="checkbox" class="cls-desc" name="AVOCATION_CAREER" value="1" id="career" <?php if(!empty($household)) if($household->AVOCATION_CAREER):?> checked<?php endif?>> <label for="career">ทุนประกอบอาชีพ</label><br>
-    <label>(ระบุรายละเอียด)</label><br><textarea class="form-control" name="AVOCATION_CAREER_DESC"><?php if(!empty($household)):?><?=$household->AVOCATION_CAREER_DESC?><?php endif?></textarea><br>
+    <label>(ระบุรายละเอียด)</label><br><textarea class="form-control auto-check" name="AVOCATION_CAREER_DESC"><?php if(!empty($household)):?><?=$household->AVOCATION_CAREER_DESC?><?php endif?></textarea><br>
  		<input type="checkbox" class="cls-desc" name="AVOCATION_EDUCATION" value="1" id="education" <?php if(!empty($household)) if($household->AVOCATION_EDUCATION):?> checked<?php endif?>> <label for="education">ทุนการศึกษา</label><br>
-    <label>(ระบุรายละเอียด)</label><br><textarea class="form-control" name="AVOCATION_EDUCATION_DESC"><?php if(!empty($household)):?><?=$household->AVOCATION_EDUCATION_DESC?><?php endif?></textarea><br>
- 		<input type="checkbox" class="cls-desc" <?php if(!empty($household)) if($household->AVOCATION_ETC):?> checked<?php endif?>> <label for="avocation-etc">อื่นๆ</label><br><label>(ระบุรายละเอียด)</label><br><textarea name="AVOCATION_ETC" class="form-control"><?php if(!empty($household)&&$household->AVOCATION_ETC!='0'):?><?=$household->AVOCATION_ETC?><?php endif?></textarea><br>
+    <label>(ระบุรายละเอียด)</label><br><textarea class="form-control auto-check" name="AVOCATION_EDUCATION_DESC"><?php if(!empty($household)):?><?=$household->AVOCATION_EDUCATION_DESC?><?php endif?></textarea><br>
+ 		<input type="checkbox" class="cls-desc" <?php if(!empty($household)) if($household->AVOCATION_ETC):?> checked<?php endif?>> <label for="avocation-etc">อื่นๆ</label><br><label>(ระบุรายละเอียด)</label><br><textarea name="AVOCATION_ETC" class="form-control auto-check"><?php if(!empty($household)&&$household->AVOCATION_ETC!='0'):?><?=$household->AVOCATION_ETC?><?php endif?></textarea><br>
  	</div>
  </div>
 

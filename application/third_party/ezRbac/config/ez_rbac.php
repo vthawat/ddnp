@@ -109,8 +109,8 @@ $config['use_routing'] = TRUE;
 
 // config for database connection
 $config['db-rbac']=array('hostname'=>"localhost",
-						 'username'=>"root",
-						 'password'=>"",
+						 'username'=>"wat",
+						 'password'=>"vibp,ii8",
 						 'database'=>"ddnp_v2",
 						 'dbdriver'=>"mysql",
 						 'dbprefix'=>"",

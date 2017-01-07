@@ -107,16 +107,22 @@ $(function () {
 
 	$('.cls-desc').click(function(){
 
-		$(this).next().next().next().next().next().text('');
-		if((this).prop('checked',true))
+		//$(this).next().next().next().next().next().text('');
+		if($(this).prop('checked'))
 			$(this).next().next().next().next().next().focus();
+		//if(!$(this).prop('checked'))
+		else
+			$(this).next().next().next().next().next().val('');
+			//console.log('uncheck');
+
 		//alert('dd');
 	});
 
 		$('.auto-check').keyup(function(){
-			$('#income').attr('checked', true);;
-		//$(this).previous().previous().previous().previous().previous().prop('checked');
+			//$('#income').prop('checked', true);;
+		$(this).prev().prev().prev().prev().prev().prop('checked',true);
 		//alert('dd');
+		//console.log('test');
 	});
 
 

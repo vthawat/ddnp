@@ -96,7 +96,7 @@
 	<h3>รายละเอียดเกี่ยวกับความต้องการและความเดือดร้อน</h3>
 <table class="table table-responsive">		
 		<tbody>
-			<tr class="bg-danger">
+			<tr>
 				<th class="text-right">ความเดือดร้อน</th>
 				<td>
 					<?=affliction_checked($household->AFFLICTION_INCOME)?> <label>รายได้</label><br>
@@ -119,10 +119,10 @@
 
 				</td>
 			</tr>
-		<tr class="bg-info">
+		<tr>
 			<th class="text-right">ความต้องการอาชีพ</th>
 			<td>
-				<?=avocation_checked($household->AVOCATION_FARM)?> <label>เกษตร(อุปกรณ์การเกษตร ปุ๋ย การพัฒนาความรู้ ที่ดินทำกิน)</label><br>
+				<?=avocation_checked($household->AVOCATION_FARM)?> <label>เกษตร</label><br>
 				<?php if($household->AVOCATION_FARM_DESC):?>
 						<blockquote><small><?=$household->AVOCATION_FARM_DESC?></small></blockquote>
 					<?php endif?>
@@ -134,7 +134,7 @@
  		<?php if($household->AVOCATION_FISHER_DESC):?>
 						<blockquote><small><?=$household->AVOCATION_FISHER_DESC?></small></blockquote>
 					<?php endif?>
- 		<?=avocation_checked($household->AVOCATION_TECH)?> <label>ช่างฝีมือ/คหกรรม (ช่างไฟฟา ประปา ช่างซ่อมอุปกรณ์ต่างๆ ช่างตัดผม การทำขนม อาหาร)</label><br>
+ 		<?=avocation_checked($household->AVOCATION_TECH)?> <label>ช่างฝีมือ/คหกรรม</label><br>
  		<?php if($household->AVOCATION_TECH_DESC):?>
 						<blockquote><small><?=$household->AVOCATION_TECH_DESC?></small></blockquote>
 					<?php endif?>
