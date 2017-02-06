@@ -6,9 +6,13 @@
     </div>
   </div>
   <div class="form-group">
-   <label for="ministry" class="col-sm-2 control-label">เลือกจังหวัด*</label>
+   <label for="ministry" class="col-sm-2 control-label">จังหวัด*</label>
    <div class="col-sm-10">
    <select class="form-control provice_id">
+     <option >---เลือกจังหวัด----</option>
+     <?php foreach($this->province->get_all() as $item):?>
+      <option value="<?=$item->ID?>"><?=$item->PROVINCE_NAME?></option>
+     <?php endforeach;?>
    </select>
    </div>
   </div>
