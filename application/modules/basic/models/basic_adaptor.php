@@ -21,7 +21,7 @@ class Basic_adaptor extends CI_Model
 			break;
 			case 'ministry':
 				if(empty($data['MINISTRY_NAME']))	return FALSE;
-				return $this->potentiality->post($data);
+				return $this->ministry->post($data);
 			break;
 			case 'province':
 				if(empty($data['PROVINCE_ID']))	return FALSE;
@@ -29,7 +29,13 @@ class Basic_adaptor extends CI_Model
 			break;
 			case 'year_budget':
 				return $this->year_budget->post($data);
-			break;	
+			break;
+			case 'village':
+				unset($data['AMPHUR_ID']);
+				if(empty($data['VILLAGE_NAME']))	return FALSE;
+				return $this->village->post($data);
+			break;
+		
 						
 		}
 	}

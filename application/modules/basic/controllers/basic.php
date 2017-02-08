@@ -11,10 +11,7 @@ class Basic extends CI_Controller {
 
 		
 	}
-	function access_map()
-	{
-	return array('del'=>'view');
-	}
+
 	function index()
 	{
 		$this->template->render();
@@ -51,6 +48,7 @@ class Basic extends CI_Controller {
 	function village($action=null,$id=null)
 	{
 		$item=$this->router->fetch_method();
+		$this->template->add_js($this->load->view('js/select-box.js',null,TRUE),'embed',TRUE);
 		$this->load_basic($item,$action,$id);
 	}
 	function ministry($action=null,$id=null)
@@ -58,6 +56,26 @@ class Basic extends CI_Controller {
 		$item=$this->router->fetch_method();
 		$this->load_basic($item,$action,$id);
 	}	
+	function json_get_amphur_by_provice_id($provice_id)
+	{
+		$amphur=array();
+		foreach($this->amphur->get_by_province($provice_id) as $item)
+		{
+			array_push($amphur,array('id'=>$item->ID,'amphur_name'=>$item->AMPHUR_NAME));
+		}
+		//print_r($district);
+		print json_encode($amphur);
+	}
+	function json_get_district_by_amphur_id($amphur_id)
+	{
+		$district=array();
+		foreach($this->district->get_by_amphur_id($amphur_id) as $item)
+		{
+			array_push($district,array('id'=>$item->ID,'district_name'=>$item->DISTRICT_NAME));
+		}
+		//print_r($district);
+		print json_encode($district);
+	}
 	function load_basic($item=null,$action=null,$id=null)
 	{
 				
@@ -128,6 +146,7 @@ class Basic extends CI_Controller {
 	function post($item=null)
 	{
 		// this function add new record in to basic data
+		//print_r($this->input->post());
 		$result=$this->Basic->post($item);
 		if(!$result) {
 			$message=array('color'=>'info',
@@ -139,6 +158,7 @@ class Basic extends CI_Controller {
 			$this->load_basic($item,'new');
 		}
 		else redirect(base_url().'basic/'.$item);
+		
 		
 	}
 	function put($item=null,$id=null,$status=null)

@@ -29,7 +29,7 @@ class Potentiality extends CI_Model
 	}
 	function delete($id)
 	{
-		if($this->require_develop->find_potentiality($id)) return FALSE;	
+		//if($this->require_household->find_potentiality($id)) return FALSE;	
 		$this->db->where('id',$id);
 		return $this->db->delete($this->table);
 	}

@@ -28,8 +28,7 @@ class Ministry extends CI_Model
 		return $this->db->update($this->table,$data);	
 	}
 	function delete($id)
-	{
-		if($this->require_develop->find_potentiality($id)) return FALSE;	
+	{	
 		$this->db->where('ID',$id);
 		return $this->db->delete($this->table);
 	}

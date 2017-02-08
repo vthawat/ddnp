@@ -29,6 +29,10 @@ class Village extends CI_Model
 			$this->db->where_in($this->district->table.'.PROVINCE_ID', $this->province->set_province_id);
 			$this->db->not_like('district.DISTRICT_NAME','*');
 			return $this->db->get()->result();
+	}
+	function post($data)
+	{
+		return $this->db->insert($this->table,$data);
 	}	
 }
 
