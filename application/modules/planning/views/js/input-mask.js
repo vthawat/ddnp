@@ -13,5 +13,8 @@ $(function () {
 });
 $('#budget').inputmask("myNum");
 
+/* start-end date picker*/
+$('.input-group.date').datepicker({
+});
 
 });

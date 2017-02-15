@@ -1,4 +1,4 @@
-<form method="post" class="form-horizontal" action="">
+<form method="post" class="form-horizontal" action="<?=$action_url?>">
 	<div class="form-group bg-green">
     <label for="year_budget" class="col-sm-2 control-label"><?=$this->year_budget->desc?>*</label>
     <div class="col-sm-10">
@@ -90,6 +90,15 @@
     </div>
 	</div>
 
+ <div class="form-group <?php if(form_error('PROJECT_NAME')) print 'has-error'?>">
+    <label for="project_name" class="col-sm-2 control-label">ชื่อโครงการ*</label>
+    <div class="col-sm-10">
+    	<?php if(empty($Project)) $project_name=set_value('PROJECT_NAME');
+				else $project_name=$Project->PROJECT_NAME;
+    	?>
+      <input type="text" class="form-control" name="PROJECT_NAME" id="project_name" placeholder="ชื่อโครงการ" value="<?=$project_name?>" required>
+    </div>
+  </div>
 
 
   <div class="form-group <?php if(form_error('PROBLEM')) print 'has-error'?>">
@@ -101,15 +110,7 @@
   	 	<textarea id="problem" rows="8" name="PROBLEM" class="form-control" required><?=$problem?></textarea>
   	 </div>
   </div>
- <div class="form-group <?php if(form_error('PROJECT_NAME')) print 'has-error'?>">
-    <label for="project_name" class="col-sm-2 control-label">ชื่อโครงการ*</label>
-    <div class="col-sm-10">
-    	<?php if(empty($Project)) $project_name=set_value('PROJECT_NAME');
-				else $project_name=$Project->PROJECT_NAME;
-    	?>
-      <input type="text" class="form-control" name="PROJECT_NAME" id="project_name" placeholder="ชื่อโครงการ" value="<?=$project_name?>" required>
-    </div>
-  </div>
+
 
 	<div class="form-group">
 			<label for="problem" class="col-sm-2 control-label"><?=$this->budget_resource->desc?></label>
@@ -156,12 +157,19 @@
  
  
  <div class="form-group">
- 		<label for="end-start" class="col-sm-2 control-label">วันที่เริ่ม-สิ้นสุด โครงการ*</label>
+ 		<label for="end-start" class="col-sm-2 control-label">วันที่เริ่มโครงการ*</label>
 		  <div class="col-sm-3">
-				<input type="text" class="start-date form-control" name="START_DATE" required>
+				<div class="input-group date">
+						<input type="text" class="start-date form-control" name="START_DATE" required>
+						<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+				</div>
 			</div>
+			<label for="end-start" class="col-sm-2 control-label">วันที่เสร็จสิ้นโครงการ*</label>
 			<div class="col-sm-3">
-				<input type="text" class="end-date form-control" name="END_DATE" required>
+				<div class="input-group date">
+						<input type="text" class="end-date form-control" name="END_DATE" required>
+						<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+				</div>
 			</div>
 </div> 
 

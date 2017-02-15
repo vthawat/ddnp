@@ -63,6 +63,8 @@ class Planning extends CI_Controller {
 		$this->template->add_js('assets/plugins/input-mask/inputmask.extensions.js');
 		$this->template->add_js('assets/plugins/input-mask/inputmask.numeric.extensions.js');
 		$this->template->add_js('assets/plugins/input-mask/jquery.inputmask.js');
+		$this->template->add_js('assets/plugins/datepicker/bootstrap-datepicker.js');
+		$this->template->add_css('assets/plugins/datepicker/datepicker3.css');
 		$this->template->add_js($this->load->view('js/input-mask.js',null,TRUE),'embed',TRUE);
 		
 		$this->template->write('page_header',$this->project_planning->desc.' <i class="fa fa-fw fa-angle-double-right"></i>เพิ่มใหม่');
@@ -109,39 +111,8 @@ class Planning extends CI_Controller {
 	function post($province_id=null)
 	{
 		if(empty($province_id)) show_404();
-
-		
-		$data=array_merge(array('PROVINCE_ID'=>$province_id),$this->input->post());
-		if(empty($data['AFFLICTION_ETC'])) $data['AFFLICTION_ETC']='0';
-		if(empty($data['AVOCATION_ETC'])) $data['AVOCATION_ETC']='0';
-
-		$data['MONEY_PER_MONTH']=str_replace(',','',$data['MONEY_PER_MONTH']); // remove comma , 'xxx,xxx,x' 
-		
-		/*  prepare data   */
-		if(!empty($data['FUGITIVE_PRENAME']))
-					$data['FUGITIVE_PRENAME']=implode(",",$data['FUGITIVE_PRENAME']);
-		
-		if(!empty($data['FUGITIVE_FIRST_NAME']))
-					$data['FUGITIVE_FIRST_NAME']=implode(",",$data['FUGITIVE_FIRST_NAME']);
-
-		if(!empty($data['FUGITIVE_LAST_NAME']))
-					$data['FUGITIVE_LAST_NAME']=implode(",",$data['FUGITIVE_LAST_NAME']);
-
-		if(!empty($data['FUGITIVE_STATUS']))
-					$data['FUGITIVE_STATUS']=implode(",",$data['FUGITIVE_STATUS']);			
-
-		if(!empty($data['PATIENT_PRENAME']))
-					$data['PATIENT_PRENAME']=implode(",",$data['PATIENT_PRENAME']);
 	
-		if(!empty($data['PATIENT_FIRST_NAME']))
-					$data['PATIENT_FIRST_NAME']=implode(",",$data['PATIENT_FIRST_NAME']);
-
-		if(!empty($data['PATIENT_LAST_NAME']))
-					$data['PATIENT_LAST_NAME']=implode(",",$data['PATIENT_LAST_NAME']);
-
-		if($this->require_household->post($data)) 
-			redirect('household/get/'.$province_id);
-		else show_error('ไม่สามารถบันทึกได้');
+		print_r($this->input->post());
 
 
 	}

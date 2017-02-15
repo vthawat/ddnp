@@ -2,7 +2,7 @@
 class Budget_resource extends CI_Model 
 {
 	var $table='budget_resource';
-	var $desc='ที่มาของเงินทุน';
+	var $desc='แหล่งที่มาของเงินทุน';
 	function __construct()
 	{
 		parent::__construct();
