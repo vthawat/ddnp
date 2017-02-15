@@ -9,5 +9,6 @@
                  <li><a href="<?=base_url()?>basic/district"><i class='fa fa-circle-o text-orange fa-fw'></i>รายชื่อตำบล</a></li>
                  <li><a href="<?=base_url()?>basic/village"><i class='fa fa-circle-o text-orange fa-fw'></i>รายชื่อหมู่บ้าน</a></li>
                  <li><a href="<?=base_url()?>basic/ministry"><i class='fa fa-circle-o text-orange fa-fw'></i>รายชื่อกระทรวง</a></li>
+                 <li><a href="<?=base_url()?>basic/budget_resource"><i class='fa fa-circle-o text-orange fa-fw'></i>ที่มาของเงินทุน</a></li>
               </ul>
             </li>
