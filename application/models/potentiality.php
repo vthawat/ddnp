@@ -2,7 +2,7 @@
 class Potentiality extends CI_Model 
 {
 	var $table='potentiality';
-	var $desc='กลุ่มภารกิจงานงาน';
+	var $desc='กลุ่มภารกิจงาน';
 	function __construct()
 	{
 		parent::__construct();

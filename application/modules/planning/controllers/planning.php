@@ -58,18 +58,20 @@ class Planning extends CI_Controller {
 	{
 		if(empty($province_id)) show_404();
 		if(!in_array($province_id,$this->project_scope->project_scope)) show_404();
-		/*$this->template->add_js($this->load->view('js/select-box.js',null,TRUE),'embed',TRUE);
+		$this->template->add_js($this->load->view('js/select-box.js',null,TRUE),'embed',TRUE);
 		$this->template->add_js('assets/plugins/input-mask/inputmask.js');
 		$this->template->add_js('assets/plugins/input-mask/inputmask.extensions.js');
 		$this->template->add_js('assets/plugins/input-mask/inputmask.numeric.extensions.js');
 		$this->template->add_js('assets/plugins/input-mask/jquery.inputmask.js');
 		$this->template->add_js($this->load->view('js/input-mask.js',null,TRUE),'embed',TRUE);
-		*/
+		
 		$this->template->write('page_header',$this->project_planning->desc.' <i class="fa fa-fw fa-angle-double-right"></i>เพิ่มใหม่');
 		$data['potentiality']=$this->potentiality->get_all();
 		$data['provice_id']=$province_id;
 		$data['action_btn']=$this->load->view('action_btn',null,TRUE);
 		$data['year_budget']=$this->year_budget->get_all();
+		$data['ministry']=$this->ministry->get_all();
+		$data['budget_resource']=$this->budget_resource->get_all();
 		$data['amphur']=$this->amphur->get_by_province($province_id);
 		$data['action_url']=base_url('planning/post/'.$province_id);
 

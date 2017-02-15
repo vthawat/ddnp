@@ -2,7 +2,7 @@
 	<div class="form-group bg-green">
     <label for="year_budget" class="col-sm-2 control-label"><?=$this->year_budget->desc?>*</label>
     <div class="col-sm-10">
-      <select class="form-control" name="BUDGET_YEAR_ID" id="year_budget">
+      <select class="form-control" name="BUDGET_YEAR_ID" id="year_budget" required>
       	<?php if(!empty($year_budget)) foreach($year_budget as $item):?>
       		<?php if($Project->BUDGET_YEAR_ID!=$item->ID):?>
       		<option value="<?=$item->ID?>"><?=$item->YEAR?></option>
@@ -11,13 +11,12 @@
       		<?php endif;?>
       	<?php endforeach;?>
       </select>      	
-      </select>
     </div>
   </div>
 	<div class="form-group bg-yellow <?php if(form_error('AMPHUR_ID')) print 'has-error'?>">
     <label for="amphur" class="col-sm-2 control-label"><?=$this->amphur->desc?>*</label>
     <div class="col-sm-10">
-      <select class="form-control" name="AMPHUR_ID" id="amphur">
+      <select class="form-control" name="AMPHUR_ID" id="amphur" required>
       	<option value=""></option>
       	<?php if(!empty($amphur)) foreach($amphur as $item):?>
       		<?php if($item->ID==set_value('AMPHUR_ID')||$item->ID==$Project->AMPHUR_ID):?>
@@ -27,7 +26,6 @@
       		<?php endif;?>
       	<?php endforeach;?>
       </select>      	
-      </select>
     </div>
   </div>
 	<div class="form-group bg-aqua <?php if(form_error('DISTRICT_ID')) print 'has-error'?>">
@@ -45,7 +43,7 @@
 			}
 			
     	?>
-      <select class="form-control" name="DISTRICT_ID" id="district">
+      <select class="form-control" name="DISTRICT_ID" id="district" required>
       	<option value=""></option>
       	<?php foreach($district as $item):?>
       		<option value="<?=$item->ID?>" <?php if($district_selected==$item->ID) print ' selected'?>><?=$item->DISTRICT_NAME?></option>
@@ -53,7 +51,7 @@
       </select>
     </div>
   </div>
-	<div class="form-group bg-purple <?php if(form_error('POTENTIAL_LIST')) print 'has-error'?>">
+	<div class="form-group bg-blue <?php if(form_error('POTENTIAL_LIST')) print 'has-error'?>">
     <label for="potentiality" class="col-sm-2 control-label"><?=$this->potentiality->desc?></label>
     <div class="col-sm-10"><br>
     	<ul class="list-group">
@@ -77,31 +75,64 @@
 		</ul>
     </div>
  </div>
+	<div class="form-group">
+			<label for="problem" class="col-sm-2 control-label">กระทรวงที่รับผิดชอบ</label>
+			<div class="col-sm-10">
+      <select class="form-control" name="MINISTRY_ID" id="ministry">
+      	<?php if(!empty($ministry)) foreach($ministry as $item):?>
+      		<?php if($Project->MINISTRY_ID!=$item->ID):?>
+      		<option value="<?=$item->ID?>"><?=$item->MINISTRY_NAME?></option>
+      		<?php else:?>
+      			<option value="<?=$Project->MINISTRY_ID?>" selected><?=$item->MINISTRY_NAME?></option>
+      		<?php endif;?>
+      	<?php endforeach;?>
+      </select>      	
+    </div>
+	</div>
+
+
+
   <div class="form-group <?php if(form_error('PROBLEM')) print 'has-error'?>">
-  	<label for="problem" class="col-sm-2 control-label">ปัญหา/ความต้องการพัฒนา*</label>
+  	<label for="problem" class="col-sm-2 control-label">ความสำคัญและที่มาของปัญหา*</label>
   	 <div class="col-sm-10">
   	   <?php if(empty($Project)) $problem=set_value('PROBLEM');
 				else $problem=$Project->PROBLEM;
     	?>
-  	 	<textarea id="problem" name="PROBLEM" class="form-control"><?=$problem?></textarea>
+  	 	<textarea id="problem" rows="8" name="PROBLEM" class="form-control" required><?=$problem?></textarea>
   	 </div>
   </div>
  <div class="form-group <?php if(form_error('PROJECT_NAME')) print 'has-error'?>">
-    <label for="project_name" class="col-sm-2 control-label">โครงการ/กิจกรรมแก้ปัญหาหรือพัฒนา*</label>
+    <label for="project_name" class="col-sm-2 control-label">ชื่อโครงการ*</label>
     <div class="col-sm-10">
     	<?php if(empty($Project)) $project_name=set_value('PROJECT_NAME');
 				else $project_name=$Project->PROJECT_NAME;
     	?>
-      <input type="text" class="form-control" name="PROJECT_NAME" id="project_name" placeholder="ชื่อโครงการ" value="<?=$project_name?>">
+      <input type="text" class="form-control" name="PROJECT_NAME" id="project_name" placeholder="ชื่อโครงการ" value="<?=$project_name?>" required>
     </div>
   </div>
+
+	<div class="form-group">
+			<label for="problem" class="col-sm-2 control-label"><?=$this->budget_resource->desc?></label>
+			<div class="col-sm-10">
+      <select class="form-control" name="BUDGET_RESOURCE_ID" id="ministry">
+      	<?php if(!empty($budget_resource)) foreach($budget_resource as $item):?>
+      		<?php if($Project->BUDGET_RESOURCE_ID!=$item->ID):?>
+      		<option value="<?=$item->ID?>"><?=$item->RESOURCE_NAME?></option>
+      		<?php else:?>
+      			<option value="<?=$Project->BUDGET_RESOURCE_ID?>" selected><?=$item->RESOURCE_NAME?></option>
+      		<?php endif;?>
+      	<?php endforeach;?>
+      </select>      	
+    </div>
+	</div>
+
  <div class="form-group <?php if(form_error('BUDGET')) print 'has-error'?>">
     <label for="budget" class="col-sm-2 control-label">งบประมาณ(บาท)*</label>
     <div class="col-sm-10">
     	 <?php if(empty($Project)||form_error('BUDGET')) $budget=set_value('BUDGET');
 				else $budget=$Project->BUDGET;
     	?>
-      <input type="text" class="form-control" name="BUDGET" id="budget" value="<?=$budget?>">
+      <input type="text" class="form-control" name="BUDGET" id="budget" value="<?=$budget?>" required>
     </div>
   </div>
    <div class="form-group <?php if(form_error('RESPONSIBLE')) print 'has-error'?>">
@@ -110,7 +141,7 @@
   	 	<?php if(empty($Project)) $responsible=set_value('RESPONSIBLE');
 				else $responsible=$Project->RESPONSIBLE;
     	?>
-  	 	<textarea id="responsible" name="RESPONSIBLE" class="form-control"><?=$responsible?></textarea>
+  	 	<textarea id="responsible" name="RESPONSIBLE" class="form-control" required><?=$responsible?></textarea>
   	 </div>
   </div> 
    <div class="form-group">
@@ -119,9 +150,21 @@
   	 	 <?php if(empty($Project)) $outcome=set_value('OUTCOME');
 				else $outcome=$Project->OUTCOME;
     	?>
-  	 	<textarea id="outcome" name="OUTCOME" class="form-control"><?=$outcome?></textarea>
+  	 	<textarea id="outcome" rows="8" name="OUTCOME" class="form-control"><?=$outcome?></textarea>
   	 </div>
   </div>
+ 
+ 
+ <div class="form-group">
+ 		<label for="end-start" class="col-sm-2 control-label">วันที่เริ่ม-สิ้นสุด โครงการ*</label>
+		  <div class="col-sm-3">
+				<input type="text" class="start-date form-control" name="START_DATE" required>
+			</div>
+			<div class="col-sm-3">
+				<input type="text" class="end-date form-control" name="END_DATE" required>
+			</div>
+</div> 
+
    <div class="form-group">
   	<label for="notation" class="col-sm-2 control-label">หมายเหตุ</label>
   	 <div class="col-sm-10">
