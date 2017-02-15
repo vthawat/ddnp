@@ -14,6 +14,7 @@ class Init_basic extends CI_Model
 		$this->load->model('district');
 		$this->load->model('village');
 		$this->load->model('ministry');
+		$this->load->model('budget_resource');
 	}
 	
 

@@ -23,6 +23,10 @@ class Basic_adaptor extends CI_Model
 				if(empty($data['MINISTRY_NAME']))	return FALSE;
 				return $this->ministry->post($data);
 			break;
+			case 'budget_resource':
+				if(empty($data['RESOURCE_NAME']))	return FALSE;
+				return $this->budget_resource->post($data);
+			break;
 			case 'province':
 				if(empty($data['PROVINCE_ID']))	return FALSE;
 				return $this->project_scope->post($data);
@@ -51,6 +55,12 @@ class Basic_adaptor extends CI_Model
 			break;
 			case 'province':
 				return $this->project_scope->put($id,$status);
+			break;
+			case 'ministry':
+				return $this->ministry->put($data,$id);
+			break;
+			case 'budget_resource':
+				return $this->budget_resource->put($data,$id);
 			break;
 		
 		}
@@ -113,7 +123,14 @@ class Basic_adaptor extends CI_Model
 					return array('desc'=>'รายชื่อ'.$this->desc,
 								'items'=>$this->items,
 								'view'=>$this->load->view('basic_'.$item,array('Basic_items'=>$this->items),TRUE));	
-				break;																		
+				break;
+			case 'budget_resource':
+					$this->desc=$this->budget_resource->desc;
+					$this->items=$this->budget_resource->get_all();
+					return array('desc'=>$this->desc,
+								'items'=>$this->items,
+								'view'=>$this->load->view('basic_'.$item,array('Basic_items'=>$this->items),TRUE));	
+				break;																							
 			default:
 				return FALSE;
 				break;

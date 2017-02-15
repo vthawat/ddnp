@@ -20,6 +20,11 @@ class Basic extends CI_Controller {
 	{
 		return $this->load->view('user_menu',null,TRUE);
 	}
+	function budget_resource($action=null,$id=null)
+	{
+		$item=$this->router->fetch_method();
+		$this->load_basic($item,$action,$id);
+	}
 	function year_budget($action=null,$id=null)
 	{
 		$item=$this->router->fetch_method();
