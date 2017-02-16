@@ -51,13 +51,14 @@
       </select>
     </div>
   </div>
-	<div class="form-group bg-blue <?php if(form_error('POTENTIAL_LIST')) print 'has-error'?>">
+
+<div class="form-group bg-blue <?php if(form_error('POTENTIAL_LIST')) print 'has-error'?>">
     <label for="potentiality" class="col-sm-2 control-label"><?=$this->potentiality->desc?></label>
     <div class="col-sm-10"><br>
     	<ul class="list-group">
 		<?php if(!empty($potentiality)) foreach($potentiality as $item):?>
 			
-			<?php if(empty($this->require_potential_list->get_one(null,$item->ID))):?>
+			<?php if(empty($this->project_potential_list->get_one(null,$item->ID))):?>
 			<li class="list-group-item">
 			<div class="checkbox">
     			<label><input type="checkbox" value="<?=$item->ID?>" name="POTENTIAL_LIST[]"> <span class="text-purple"><span class="badge"><?=$item->ID?>.</span><?=$item->POTENTIALITY_NAME?></span></label>
@@ -75,20 +76,32 @@
 		</ul>
     </div>
  </div>
-	<div class="form-group">
-			<label for="problem" class="col-sm-2 control-label">กระทรวงที่รับผิดชอบ</label>
-			<div class="col-sm-10">
-      <select class="form-control" name="MINISTRY_ID" id="ministry">
-      	<?php if(!empty($ministry)) foreach($ministry as $item):?>
-      		<?php if($Project->MINISTRY_ID!=$item->ID):?>
-      		<option value="<?=$item->ID?>"><?=$item->MINISTRY_NAME?></option>
-      		<?php else:?>
-      			<option value="<?=$Project->MINISTRY_ID?>" selected><?=$item->MINISTRY_NAME?></option>
-      		<?php endif;?>
-      	<?php endforeach;?>
-      </select>      	
+
+<div class="form-group bg-gray <?php if(form_error('POTENTIAL_LIST')) print 'has-error'?>">
+    <label for="ministry" class="col-sm-2 control-label">กระทรวงที่เกี่ยวข้องกับโครงการ</label>
+    <div class="col-sm-10"><br>
+    	<ul class="list-group">
+		<?php if(!empty($ministry)) foreach($ministry as $item):?>
+			
+			<?php if(empty($this->project_potential_list->get_one(null,$item->ID))):?>
+			<li class="list-group-item">
+			<div class="checkbox">
+    			<label><input type="checkbox" value="<?=$item->ID?>" name="MINISTRY_LIST[]"> <span class="text-purple"><span class="badge"><?=$item->ID?>.</span><?=$item->MINISTRY_NAME?></span></label>
+    		</div>
+    		</li>
+    			<?php else:?>
+    	 	<li class="list-group-item list-group-item-warning">
+    		 <div class="checkbox">
+    			<label><input checked type="checkbox" value="<?=$item->ID?>" name="MINISTRY_LIST[]"> <span class="text-purple"><span class="badge"><?=$item->ID?>.</span><?=$item->MINISTRY_NAME?></span></label>
+    		</div>
+    		</li>
+    		<?php endif?>
+    		
+		<?php endforeach;?>
+		</ul>
     </div>
-	</div>
+ </div>
+
 
  <div class="form-group <?php if(form_error('PROJECT_NAME')) print 'has-error'?>">
     <label for="project_name" class="col-sm-2 control-label">ชื่อโครงการ*</label>
@@ -111,21 +124,52 @@
   	 </div>
   </div>
 
+   <div class="form-group">
+  	<label for="objective" class="col-sm-2 control-label">วัตถุประสงค์</label>
+  	 <div class="col-sm-10">
+  	 	 <?php if(empty($Project)) $objective=set_value('OBJECTIVE');
+				else $objective=$Project->OBJECTIVE;
+    	?>
+  	 	<textarea id="objective" rows="8" name="OBJECTIVE" class="form-control"><?=$objective?></textarea>
+  	 </div>
+  </div>
 
-	<div class="form-group">
-			<label for="problem" class="col-sm-2 control-label"><?=$this->budget_resource->desc?></label>
-			<div class="col-sm-10">
-      <select class="form-control" name="BUDGET_RESOURCE_ID" id="ministry">
-      	<?php if(!empty($budget_resource)) foreach($budget_resource as $item):?>
-      		<?php if($Project->BUDGET_RESOURCE_ID!=$item->ID):?>
-      		<option value="<?=$item->ID?>"><?=$item->RESOURCE_NAME?></option>
-      		<?php else:?>
-      			<option value="<?=$Project->BUDGET_RESOURCE_ID?>" selected><?=$item->RESOURCE_NAME?></option>
-      		<?php endif;?>
-      	<?php endforeach;?>
-      </select>      	
+   <div class="form-group">
+  	<label for="outcome" class="col-sm-2 control-label">ผลที่คาดว่าจะได้รับ</label>
+  	 <div class="col-sm-10">
+  	 	 <?php if(empty($Project)) $outcome=set_value('OUTCOME');
+				else $outcome=$Project->OUTCOME;
+    	?>
+  	 	<textarea id="outcome" rows="8" name="OUTCOME" class="form-control"><?=$outcome?></textarea>
+  	 </div>
+  </div>
+
+
+	<div class="form-group bg-gray">
+    <label for="budget_resource" class="col-sm-2 control-label"><?=$this->budget_resource->desc?></label>
+    <div class="col-sm-10"><br>
+    	<ul class="list-group">
+		<?php if(!empty($budget_resource)) foreach($budget_resource as $item):?>
+			
+			<?php if(empty($this->project_budget_resource_list->get_one(null,$item->ID))):?>
+			<li class="list-group-item">
+			<div class="checkbox">
+    			<label><input type="checkbox" value="<?=$item->ID?>" name="BUDGET_RESOURCE_LIST[]"> <span class="text-purple"><span class="badge"><?=$item->ID?>.</span><?=$item->RESOURCE_NAME?></span></label>
+    		</div>
+    		</li>
+    			<?php else:?>
+    	 	<li class="list-group-item list-group-item-warning">
+    		 <div class="checkbox">
+    			<label><input checked type="checkbox" value="<?=$item->ID?>" name="BUDGET_RESOURCE_LIST[]"> <span class="text-purple"><span class="badge"><?=$item->ID?>.</span><?=$item->RESOURCE_NAME?></span></label>
+    		</div>
+    		</li>
+    		<?php endif?>
+    		
+		<?php endforeach;?>
+		</ul>
     </div>
-	</div>
+ </div>
+
 
  <div class="form-group <?php if(form_error('BUDGET')) print 'has-error'?>">
     <label for="budget" class="col-sm-2 control-label">งบประมาณ(บาท)*</label>
@@ -145,15 +189,7 @@
   	 	<textarea id="responsible" name="RESPONSIBLE" class="form-control" required><?=$responsible?></textarea>
   	 </div>
   </div> 
-   <div class="form-group">
-  	<label for="outcome" class="col-sm-2 control-label">ผลที่คาดว่าจะได้รับ</label>
-  	 <div class="col-sm-10">
-  	 	 <?php if(empty($Project)) $outcome=set_value('OUTCOME');
-				else $outcome=$Project->OUTCOME;
-    	?>
-  	 	<textarea id="outcome" rows="8" name="OUTCOME" class="form-control"><?=$outcome?></textarea>
-  	 </div>
-  </div>
+
  
  
  <div class="form-group">
@@ -167,7 +203,7 @@
 			<label for="end-start" class="col-sm-2 control-label">วันที่เสร็จสิ้นโครงการ*</label>
 			<div class="col-sm-3">
 				<div class="input-group date">
-						<input type="text" class="end-date form-control" name="END_DATE" required>
+						<input type="text" class="end-date form-control" name="FINISH_DATE" required>
 						<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 				</div>
 			</div>

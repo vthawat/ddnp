@@ -9,7 +9,9 @@ class Init_basic extends CI_Model
 		$this->load->model('year_budget');
 		$this->load->model('province');
 		$this->load->model('potentiality');
-		$this->load->model('require_potential_list');
+		$this->load->model('project_potential_list');
+		$this->load->model('project_ministry_list');
+		$this->load->model('project_budget_resource_list');
 		$this->load->model('amphur');
 		$this->load->model('district');
 		$this->load->model('village');

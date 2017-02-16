@@ -64,6 +64,7 @@ class Planning extends CI_Controller {
 		$this->template->add_js('assets/plugins/input-mask/inputmask.numeric.extensions.js');
 		$this->template->add_js('assets/plugins/input-mask/jquery.inputmask.js');
 		$this->template->add_js('assets/plugins/datepicker/bootstrap-datepicker.js');
+		$this->template->add_js('assets/plugins/datepicker/locales/bootstrap-datepicker.th.js');
 		$this->template->add_css('assets/plugins/datepicker/datepicker3.css');
 		$this->template->add_js($this->load->view('js/input-mask.js',null,TRUE),'embed',TRUE);
 		
@@ -112,7 +113,50 @@ class Planning extends CI_Controller {
 	{
 		if(empty($province_id)) show_404();
 	
-		print_r($this->input->post());
+			$potential_list=$this->input->post('POTENTIAL_LIST');
+			$ministry_list=$this->input->post('MINISTRY_LIST');
+			$budget_resource_list=$this->input->post('BUDGET_RESOURCE_LIST');
+			$planning_data=$this->input->post();
+			unset($planning_data['POTENTIAL_LIST']);
+			unset($planning_data['MINISTRY_LIST']);
+			unset($planning_data['BUDGET_RESOURCE_LIST']);
+			$planning_data['BUDGET']=str_ireplace(',','', $this->input->post('BUDGET'));
+			$planning_data=array_merge(array('PROVINCE_ID'=>$province_id),$planning_data);
+
+			// insert to project_planning
+		if($this->project_planning->post($planning_data))
+		{
+			// insert to  project_potential_list
+				foreach($potential_list as $potential_id)
+				{
+					$data=array('PROJECT_PLANING_ID'=>$this->project_planning->insert_id,
+								'POTENTIALITY_ID'=>$potential_id);				
+					$this->project_potential_list->post($data);
+				}
+			// insert to project_ministry_list
+				foreach($ministry_list as $id)
+				{
+					$data=array('PROJECT_PLANING_ID'=>$this->project_planning->insert_id,
+								'MINISTRY_ID'=>$id);				
+					$this->project_ministry_list->post($data);
+				}
+			// insert to project_budget_resource_list
+				foreach($budget_resource_list as $id)
+				{
+					$data=array('PROJECT_PLANING_ID'=>$this->project_planning->insert_id,
+								'BUDGET_RESOURCE_ID'=>$id);				
+					$this->project_budget_resource_list->post($data);
+				}
+
+			redirect(base_url('planning/view/'.$this->project_planning->insert_id));
+		}
+
+
+		else show_error('ไม่สามารถบันทึกข้อมูลได้');
+
+
+
+		//print_r($planning_data);
 
 
 	}
@@ -181,18 +225,19 @@ class Planning extends CI_Controller {
 	function view($id=null)
 	{
 		if(empty($id)) show_404();
-		$data['household']=$this->require_household->get_by_id($id);
-		if(empty($data['household'])) show_404();
-		$this->template->write('page_header',$this->require_household->desc.'<i class="fa fa-fw fa-angle-double-right"></i>รายละเอียด');
-		$this->load->helper('household');
-		
-		//$data['PROJECT_ID']=$id;
+		$data['project_planning']=$this->project_planning->get_by_id($id);
+		if(empty($data['project_planning'])) show_404();
+		$this->template->write('page_header',$this->project_planning->desc.'<i class="fa fa-fw fa-angle-double-right"></i>รายละเอียด');
+		$data['ministry_list']=$this->project_ministry_list->get_by_project_planning_id($id);
+		$data['budget_list']=$this->project_budget_resource_list->get_by_project_planning_id($id);
+		$data['potential_list']=$this->project_potential_list->get_by_project_planning_id($id);
 		$data['content']=array('color'=>'primary',
 								'toolbar'=>$this->load->view('view_btn',$data,TRUE),
-								'title'=>'<h3>บ้านเลขที่ '.$data['household']->HOME_NUMBER.' <i class="fa fa-fw fa-angle-double-right"></i> เจ้าบ้าน '.prename($data['household']->PRE_NAME).$data['household']->FIRST_NAME.' '.$data['household']->LAST_NAME.'</h3>',
-								'detail'=>$this->load->view('view_household_details',$data,TRUE)
+								'title'=>'<h4>โครงการ<i class="fa fa-fw fa-angle-double-right"></i>'.$data['project_planning']->PROJECT_NAME.'</h4>',
+								'detail'=>$this->load->view('view_project_planning_details',$data,TRUE)
 							  );
 		$this->template->write_view('content','contents',$data);
+		
 		$this->template->render();
 	}
 	function del($id=null)

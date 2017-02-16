@@ -5,7 +5,6 @@ class Guest extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('init_basic');
-		$this->load->model('require_develop');
 		$this->template->add_css($this->load->view('guest/css/intro-contents.css',null,TRUE),'embed',TRUE);
 		$this->template->write_view('menu','guest/menu');
 		$this->template->write('band_name','<img class="img-responsive" src="'.base_url('images/logo.png').'">',TRUE);

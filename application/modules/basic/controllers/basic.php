@@ -187,15 +187,12 @@ class Basic extends CI_Controller {
 	}
 	function delete($item=null,$id=null)
 	{
-		$result=$this->{$item}->delete($id);
-		if(!$result) 
+		
+		if($this->{$item}->delete($id)) 
 		{
-			$res=$this->load->controller('message/error',array(211),FALSE);
-			$this->template->write('content',$res);
-			//$this->{$item}();
-			$this->template->render();
+			redirect(base_url().'basic/'.$item);
 		}
-		else redirect(base_url().'basic/'.$item);	
+		else show_error('ไม่สามารถลบรายการได้ เนื่องจากยังมีข้อมูลเชื่อมโยงอยู่');
 	}
 	
 }

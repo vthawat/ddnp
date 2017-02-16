@@ -13,12 +13,11 @@ class Project_planning extends CI_Model
 	}
 	function get_by_id($id)
 	{
-		$this->db->select($this->table.'.*,VILLAGE_NAME,PROVINCE_NAME,AMPHUR_NAME,DISTRICT_NAME,YEAR');
+		$this->db->select($this->table.'.*,PROVINCE_NAME,AMPHUR_NAME,DISTRICT_NAME,YEAR');
 		$this->db->join($this->year_budget->table,$this->table.'.BUDGET_YEAR_ID = '.$this->year_budget->table.'.ID');
 		$this->db->join('province',$this->table.'.PROVINCE_ID = province.ID');
 		$this->db->join('amphur','amphur.PROVINCE_ID = province.ID AND '.$this->table.'.AMPHUR_ID = amphur.ID');
 		$this->db->join('district','district.PROVINCE_ID = province.ID AND '.$this->table.'.DISTRICT_ID = district.ID');
-		$this->db->join('village',$this->table.'.VILL_ID = village.ID');
 		$this->db->where($this->table.'.ID', $id);
 		return $this->db->get($this->table)->row();
 	}
@@ -34,9 +33,9 @@ class Project_planning extends CI_Model
 	}
 	function get_by_province($id)
 	{
-		$this->db->select($this->table.'.*,MINISTRY_NAME,PROVINCE_NAME,AMPHUR_NAME,DISTRICT_NAME,YEAR');
+		$this->db->select($this->table.'.*,PROVINCE_NAME,AMPHUR_NAME,DISTRICT_NAME,YEAR');
 		$this->db->join($this->year_budget->table,$this->table.'.BUDGET_YEAR_ID = '.$this->year_budget->table.'.ID');
-		$this->db->join('ministry',$this->table.'.MINISTRY_ID = ministry.ID');
+		//$this->db->join('ministry',$this->table.'.MINISTRY_ID = ministry.ID');
 		$this->db->join('province',$this->table.'.PROVINCE_ID = province.ID');
 		$this->db->join('amphur','amphur.PROVINCE_ID = province.ID AND '.$this->table.'.AMPHUR_ID = amphur.ID');
 		$this->db->join('district','district.PROVINCE_ID = province.ID AND '.$this->table.'.DISTRICT_ID = district.ID');
@@ -54,6 +53,7 @@ class Project_planning extends CI_Model
 	}
 	function post($data)
 	{
+		//exit(print_r($data));
 		$this->db->insert($this->table,$data);
 		$this->insert_id=$this->db->insert_id();
 		if(!empty($this->insert_id)) return TRUE;

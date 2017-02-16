@@ -1,8 +1,7 @@
 <table class="table table-hover table-responsive">
 	<thead>
 		<th>#</th>
-		<th>ชื่อโครงการ/กิจกรรมแก้ปัญหาหรือพัฒนา</th>
-		<th>กระทรวง</th>
+		<th>ชื่อโครงการ</th>
 		<th>ปีงบประมาณ</th>
 		<th>ตำบล</th>
 		<th>อำเภอ</th>
@@ -13,7 +12,6 @@
 		<tr>
 			<td><?=$num?></td>
 			<td><?=$item->PROJECT_NAME?></td>
-			<td></td>
 			<td><?=$item->YEAR?></td>
 			<td><?=$item->DISTRICT_NAME?></td>
 			<td><?=$item->AMPHUR_NAME?></td>

@@ -1,17 +1,18 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Require_potential_list extends CI_Model 
+class Project_potential_list extends CI_Model 
 
 {
-	var $table='require_potential_list';
+	var $table='project_potential_list';
 	var $desc='รายการภารกิจ';
 	function __construct()
 	{
 		parent::__construct();
 			
 	}
-	function get_by_require_develop_id($require_develop_id=null)
+	function get_by_project_planning_id($project_planning_id=null)
 	{
-		$this->db->where('REQUIRE_DEVELOP_ID',$require_develop_id);
+		$this->db->join('potentiality',$this->table.'.POTENTIALITY_ID=potentiality.ID');
+		$this->db->where($this->table.'.PROJECT_PLANING_ID',$project_planning_id);
 		return $this->db->get($this->table)->result();
 	}
 	function get_by_potentiality($potentiality_id)
@@ -21,11 +22,11 @@ class Require_potential_list extends CI_Model
 		$this->db->from($this->table);
 		return $this->db->get()->result();
 	}
-	function get_one($require_develop_id=null,$potentiality_id)
+	function get_one($project_planning_id=null,$potentiality_id)
 	{
-	  if($require_develop_id!=null)	
+	  if($project_planning_id!=null)	
 	  {	
-		$this->db->where('REQUIRE_DEVELOP_ID',$require_develop_id);
+		$this->db->where('PROJECT_PLANNING_ID',$project_planning_id);
 		$this->db->where('POTENTIALITY_ID',$potentiality_id);
 		return $this->db->get($this->table)->row();
 	  }
@@ -34,12 +35,11 @@ class Require_potential_list extends CI_Model
 	}
 	function post($data)
 	{
-		$done=$this->db->insert($this->table,$data);
-		return $done;
+		return $this->db->insert($this->table,$data);
 	}
-	function delete_all_require_develop_id($require_develop_id)
+	function delete_all_project_planning_id($project_planning_id)
 	{
-		$this->db->where('REQUIRE_DEVELOP_ID',$require_develop_id);
+		$this->db->where('PROJECT_PLANNING_ID',$project_planning_id);
 		$this->db->delete($this->table);
 	}
 	function count_by_id($potentiality_id)
