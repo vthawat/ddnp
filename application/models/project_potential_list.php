@@ -26,7 +26,7 @@ class Project_potential_list extends CI_Model
 	{
 	  if($project_planning_id!=null)	
 	  {	
-		$this->db->where('PROJECT_PLANNING_ID',$project_planning_id);
+		$this->db->where('PROJECT_PLANING_ID',$project_planning_id);
 		$this->db->where('POTENTIALITY_ID',$potentiality_id);
 		return $this->db->get($this->table)->row();
 	  }
@@ -37,9 +37,10 @@ class Project_potential_list extends CI_Model
 	{
 		return $this->db->insert($this->table,$data);
 	}
+
 	function delete_all_project_planning_id($project_planning_id)
 	{
-		$this->db->where('PROJECT_PLANNING_ID',$project_planning_id);
+		$this->db->where('PROJECT_PLANING_ID',$project_planning_id);
 		$this->db->delete($this->table);
 	}
 	function count_by_id($potentiality_id)

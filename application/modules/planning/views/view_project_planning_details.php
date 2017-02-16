@@ -46,7 +46,8 @@
 	 	 <td>
 		  		<ul class="list-group">
 				  <?php if(!empty($potential_list)) foreach($potential_list as $item):?>
-				  <li class="list-group-item"><?=$item->POTENTIALITY_NAME?></li>
+					  <li class="list-group-item"><span><?=$item->ID?>.</span><?=$item->POTENTIALITY_NAME?></li>
+				 
 				  <?php endforeach;?>
 				</ul>
 		  </td>

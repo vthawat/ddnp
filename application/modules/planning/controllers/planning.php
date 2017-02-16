@@ -87,26 +87,36 @@ class Planning extends CI_Controller {
 
 	function edit($id=null)
 	{
-		
-		$data['household']=$this->require_household->get_by_id($id);
-		$province_id=$data['household']->PROVINCE_ID;
-		if(!in_array($province_id,$this->project_scope->project_scope)) show_404();
+		if(empty($id)) show_404();
+		$data['project_planning']=$this->project_planning->get_by_id($id);
+		if(empty($data['project_planning'])) show_404();
 		$this->template->add_js($this->load->view('js/select-box.js',null,TRUE),'embed',TRUE);
 		$this->template->add_js('assets/plugins/input-mask/inputmask.js');
 		$this->template->add_js('assets/plugins/input-mask/inputmask.extensions.js');
 		$this->template->add_js('assets/plugins/input-mask/inputmask.numeric.extensions.js');
 		$this->template->add_js('assets/plugins/input-mask/jquery.inputmask.js');
+		$this->template->add_js('assets/plugins/datepicker/bootstrap-datepicker.js');
+		$this->template->add_js('assets/plugins/datepicker/locales/bootstrap-datepicker.th.js');
+		$this->template->add_css('assets/plugins/datepicker/datepicker3.css');
 		$this->template->add_js($this->load->view('js/input-mask.js',null,TRUE),'embed',TRUE);
-		$this->template->write('page_header',$this->require_household->desc.' <i class="fa fa-fw fa-angle-double-right"></i>แก้ไข');
+		
+		$this->template->write('page_header',$this->project_planning->desc.' <i class="fa fa-fw fa-angle-double-right"></i>แก้ไข');
+		$data['potentiality']=$this->potentiality->get_all();
+		//$data['provice_id']=$province_id;
 		$data['action_btn']=$this->load->view('action_btn',null,TRUE);
 		$data['year_budget']=$this->year_budget->get_all();
-		$data['amphur']=$this->amphur->get_by_province($province_id);
-		$data['action_url']=base_url('household/update/'.$id);
+		$data['ministry']=$this->ministry->get_all();
+		$data['budget_resource']=$this->budget_resource->get_all();
+		$data['amphur']=$this->amphur->get_by_province($data['project_planning']->PROVINCE_ID);
+		$data['action_url']=base_url('planning/update/'.$id);
 
 		$data['content']=array('color'=>'primary',
-								'title'=>'<h3>'.$this->province->desc.$this->province->get_by_id($province_id)->PROVINCE_NAME.'</h3>',
-								'detail'=>$this->load->view('form_household',$data,TRUE));
+								'title'=>'<h3>'.$this->province->desc.$data['project_planning']->PROVINCE_NAME.'</h3>',
+								'detail'=>$this->load->view('form_planning',$data,TRUE));
 		$this->template->write_view('content','contents',$data);
+
+
+
 		$this->template->render();
 	}
 	function post($province_id=null)
@@ -155,72 +165,53 @@ class Planning extends CI_Controller {
 		else show_error('ไม่สามารถบันทึกข้อมูลได้');
 
 
-
-		//print_r($planning_data);
-
-
 	}
 
 	function update($id=null)
 	{
 		if(empty($id)) show_404();
-		$data=$this->input->post();
+		$data['project_planning']=$this->project_planning->get_by_id($id);
+		if(empty($data['project_planning'])) show_404();
+			$potential_list=$this->input->post('POTENTIAL_LIST');
+			$ministry_list=$this->input->post('MINISTRY_LIST');
+			$budget_resource_list=$this->input->post('BUDGET_RESOURCE_LIST');
+			$planning_data=$this->input->post();
+			unset($planning_data['POTENTIAL_LIST']);
+			unset($planning_data['MINISTRY_LIST']);
+			unset($planning_data['BUDGET_RESOURCE_LIST']);
+			$planning_data['BUDGET']=str_ireplace(',','', $this->input->post('BUDGET'));
 
-		if(empty($data['HOME_TYPE_A'])) $data['HOME_TYPE_A']='0';
-		if(empty($data['HOME_TYPE_B'])) $data['HOME_TYPE_B']='0';
-		if(empty($data['HOME_TYPE_C'])) $data['HOME_TYPE_C']='0';
+	 if($this->project_planning->update($planning_data,$id))
+		{
+			// update to  project_potential_list
+			$this->project_potential_list->delete_all_project_planning_id($id);
+				foreach($potential_list as $potential_id)
+				{
+					$data=array('PROJECT_PLANING_ID'=>$id,
+								'POTENTIALITY_ID'=>$potential_id);				
+					$this->project_potential_list->post($data,$id);
+				}
+			// update to project_ministry_list
+			$this->project_ministry_list->delete_all_project_planning_id($id);
+				foreach($ministry_list as $ministry_id)
+				{
+					$data=array('PROJECT_PLANING_ID'=>$id,
+								'MINISTRY_ID'=>$ministry_id);				
+					$this->project_ministry_list->post($data,$id);
+				}
+			// update to project_budget_resource_list
+			$this->project_budget_resource_list->delete_all_project_planning_id($id);
+				foreach($budget_resource_list as $budget_resource_id)
+				{
+					$data=array('PROJECT_PLANING_ID'=>$id,
+								'BUDGET_RESOURCE_ID'=>$budget_resource_id);				
+					$this->project_budget_resource_list->post($data,$id);
+				}
 
-		if(empty($data['ATTIRUDE_GO_LEVEL_H'])) $data['ATTIRUDE_GO_LEVEL_H']='0';
-		if(empty($data['ATTIRUDE_GO_LEVEL_M'])) $data['ATTIRUDE_GO_LEVEL_M']='0';
-		if(empty($data['ATTIRUDE_GO_LEVEL_L'])) $data['ATTIRUDE_GO_LEVEL_L']='0';
-		if(empty($data['ATTIRUDE_GO_LEVEL_ETC'])) $data['ATTIRUDE_GO_LEVEL_ETC']='0';
 
-		if(empty($data['AFFLICTION_INCOME'])) $data['AFFLICTION_INCOME']='0';
-		if(empty($data['AFFLICTION_AILING'])) $data['AFFLICTION_AILING']='0';
-		if(empty($data['AFFLICTION_HOUSE'])) $data['AFFLICTION_HOUSE']='0';
-		if(empty($data['AFFLICTION_SAFETY'])) $data['AFFLICTION_SAFETY']='0';
-
-		if(empty($data['AVOCATION_FARM'])) $data['AVOCATION_FARM']='0';
-		if(empty($data['AVOCATION_ANIMAL'])) $data['AVOCATION_ANIMAL']='0';
-		if(empty($data['AVOCATION_FISHER'])) $data['AVOCATION_FISHER']='0';
-		if(empty($data['AVOCATION_TECH'])) $data['AVOCATION_TECH']='0';
-		if(empty($data['AVOCATION_TRADE'])) $data['AVOCATION_TRADE']='0';
-		if(empty($data['AVOCATION_CAREER'])) $data['AVOCATION_CAREER']='0';
-		if(empty($data['AVOCATION_EDUCATION'])) $data['AVOCATION_EDUCATION']='0';
-
-
-		if(empty($data['AFFLICTION_ETC'])) $data['AFFLICTION_ETC']='0';
-		if(empty($data['AVOCATION_ETC'])) $data['AVOCATION_ETC']='0';
-
-		$data['MONEY_PER_MONTH']=str_replace(',','',$data['MONEY_PER_MONTH']); // remove comma , 'xxx,xxx,x' 
-		
-		/*  prepare data   */
-		if(!empty($data['FUGITIVE_PRENAME']))
-					$data['FUGITIVE_PRENAME']=implode(",",$data['FUGITIVE_PRENAME']);
-		
-		if(!empty($data['FUGITIVE_FIRST_NAME']))
-					$data['FUGITIVE_FIRST_NAME']=implode(",",$data['FUGITIVE_FIRST_NAME']);
-
-		if(!empty($data['FUGITIVE_LAST_NAME']))
-					$data['FUGITIVE_LAST_NAME']=implode(",",$data['FUGITIVE_LAST_NAME']);
-
-		if(!empty($data['FUGITIVE_STATUS']))
-					$data['FUGITIVE_STATUS']=implode(",",$data['FUGITIVE_STATUS']);			
-
-		if(!empty($data['PATIENT_PRENAME']))
-					$data['PATIENT_PRENAME']=implode(",",$data['PATIENT_PRENAME']);
-	
-		if(!empty($data['PATIENT_FIRST_NAME']))
-					$data['PATIENT_FIRST_NAME']=implode(",",$data['PATIENT_FIRST_NAME']);
-
-		if(!empty($data['PATIENT_LAST_NAME']))
-					$data['PATIENT_LAST_NAME']=implode(",",$data['PATIENT_LAST_NAME']);
-
-		//print_r($data);
-		if($this->require_household->update($data,$id)) 
-			redirect('household/view/'.$id);
-		else show_error('ไม่สามารถบันทึกได้');
-		//redirect(base_url($this->router->fetch_class()).'/view/'.$id);
+			redirect(base_url('planning/view/'.$id));
+		}
+		else show_error('ไม่สามารถบันทึกข้อมูลได้');
 	}
 	function view($id=null)
 	{
@@ -238,6 +229,9 @@ class Planning extends CI_Controller {
 							  );
 		$this->template->write_view('content','contents',$data);
 		
+		$data['content']=array('title'=>'<h4>ความต้อง</h4>');
+		$this->template->write_view('content','contents',$data);
+
 		$this->template->render();
 	}
 	function del($id=null)

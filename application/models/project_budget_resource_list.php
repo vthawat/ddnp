@@ -26,7 +26,7 @@ class project_budget_resource_list extends CI_Model
 	{
 	  if($project_planning_id!=null)	
 	  {	
-		$this->db->where('PROJECT_PLANNING_ID',$project_planning_id);
+		$this->db->where('PROJECT_PLANING_ID',$project_planning_id);
 		$this->db->where('BUDGET_RESOURCE_ID',$budget_resource_id);
 		return $this->db->get($this->table)->row();
 	  }
@@ -39,7 +39,7 @@ class project_budget_resource_list extends CI_Model
 	}
 	function delete_all_project_planning_id($project_planning_id)
 	{
-		$this->db->where('PROJECT_PLANNING_ID',$project_planning_id);
+		$this->db->where('PROJECT_PLANING_ID',$project_planning_id);
 		$this->db->delete($this->table);
 	}
 	function count_by_id($budget_resource_id)
