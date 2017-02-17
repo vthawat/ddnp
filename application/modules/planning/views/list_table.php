@@ -23,8 +23,12 @@
 							    <span class="fa fa-cog fa-fw"></span><span class="caret"></span>
 							  </button>
 							  <ul class="dropdown-menu">
-							    <li><a href="<?=base_url($this->router->fetch_class())?>/edit/<?=$item->ID?>" class="text-yellow"><span class="fa fa-edit fa-fw"></span>แก้ไข</a></li>
-							    <li><a href="<?=base_url($this->router->fetch_class())?>/del/<?=$item->ID?>" class="text-red" onclick="return confirm('ยืนยันการลบรายการ: <?=$item->PROJECT_NAME?>?')"><span class="fa fa-remove fa-fw"></span>ลบ</a></li>
+									<li><a href="<?=base_url($this->router->fetch_class())?>/edit/response_household/<?=$item->ID?>"><i class="fa fa-fw fa-home"></i>ความครอบคลุมของครัวเรือน</a></li>
+									<li><a href="<?=base_url($this->router->fetch_class())?>/edit/location/<?=$item->ID?>"><i class="fa fa-fw fa-map-marker"></i>ภาพเกี่ยวกับโครงการและพื้นที่ตั้งของโครงการ</a></li>
+									<li><a href="<?=base_url($this->router->fetch_class())?>/edit/activity/<?=$item->ID?>"><i class="fa fa-fw fa-history"></i>แผนงานและกิจกรรมของโครงการ</a></li>
+									<li role="separator" class="divider"></li>
+							    <li><a href="<?=base_url($this->router->fetch_class())?>/edit/planning/<?=$item->ID?>" class="text-yellow"><span class="fa fa-edit fa-fw"></span>แก้ไขโครงการ</a></li>
+							    <li><a href="<?=base_url($this->router->fetch_class())?>/del/<?=$item->ID?>" class="text-red" onclick="return confirm('ยืนยันการลบรายการ: <?=$item->PROJECT_NAME?>?')"><span class="fa fa-remove fa-fw"></span>ลบโครงการ</a></li>
 							  </ul>
 							</div>
 			</td>

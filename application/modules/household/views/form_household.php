@@ -74,7 +74,7 @@
 
 <div class="form-group">
  	<label for="home-number" class="col-sm-2 control-label">บ้านเลขที่</label>
- 	<div class="col-sm-2"><div class="input-group">
+ 	<div class="col-sm-4 col-md-3"><div class="input-group">
   <input type="text" class="form-control" name="HOME_NUMBER" id="home-number" <?php if(!empty($household)):?> value="<?=$household->HOME_NUMBER?>"<?php endif?>>
   <span class="input-group-btn">
         <button class="btn btn-info null-home-number" type="button">ไม่มีบ้านเลขที่ให้คลิกปุ่มนี้</button>
@@ -84,7 +84,7 @@
 
 <div class="form-group">
  	<label for="vill-number" class="col-sm-2 control-label">หมู่ที่</label>
- 	<div class="col-sm-2">
+ 	<div class="col-sm-3">
 <div class="input-group">
   <input type="text" class="form-control" name="VILL_NUMBER" id="vill-number" <?php if(!empty($household)):?> value="<?=$household->VILL_NUMBER?>"<?php endif?>>
     <span class="input-group-btn">

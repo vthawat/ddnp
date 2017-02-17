@@ -72,12 +72,53 @@ class Require_household extends CI_Model
 		$this->db->where('ID',$id);
 		return $this->db->delete($this->table);
 	}
-	function count_by_province_id($province_id)
+	function count_village_by_district_id($district_id)
 	{
-		$this->db->where('PROVINCE_ID',$province_id);
-		$this->db->from($this->table);
-		return $this->db->count_all_results();
+		$sql="SELECT COUNT(DISTINCT require_household.VILL_ID) as TOTAL_VILLAGE
+				FROM
+				require_household
+				WHERE
+				require_household.DISTRICT_ID = '$district_id'";
+		return $this->db->query($sql)->row()->TOTAL_VILLAGE;
+
 	}
+	function count_household_by_district_id($district_id)
+	{
+		$sql="SELECT COUNT(require_household.VILL_ID) as TOTAL_HOUSEHOLD
+				FROM
+				require_household
+				WHERE
+				require_household.DISTRICT_ID = '$district_id'";
+		return $this->db->query($sql)->row()->TOTAL_HOUSEHOLD;
+
+	}
+	function count_affliction_by_district_id($affliction=null,$district_id)
+	{
+		$sql="SELECT COUNT(require_household.$affliction) as TOTAL_HOUSEHOLD
+				FROM
+				require_household
+				WHERE
+				require_household.DISTRICT_ID = '$district_id'";
+		if($affliction!="AFFLICTION_ETC")
+			$sql.="AND require_household.$affliction=1";
+		else $sql.="AND require_household.$affliction<>'0'";
+		return $this->db->query($sql)->row()->TOTAL_HOUSEHOLD;
+
+	}
+		function count_avocation_by_district_id($avocation=null,$district_id)
+	{
+		$sql="SELECT COUNT(require_household.$avocation) as TOTAL_HOUSEHOLD
+				FROM
+				require_household
+				WHERE
+				require_household.DISTRICT_ID = '$district_id'";
+		if($avocation!="AVOCATION_ETC")
+			$sql.="AND require_household.$avocation=1";
+		else $sql.="AND require_household.$avocation<>'0'";
+		return $this->db->query($sql)->row()->TOTAL_HOUSEHOLD;
+
+	}
+			
 }
 
 /* End of file template.php */

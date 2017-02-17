@@ -85,39 +85,54 @@ class Planning extends CI_Controller {
 		$this->template->render();
 	}
 
-	function edit($id=null)
+	function edit($action=null,$id=null)
 	{
 		if(empty($id)) show_404();
 		$data['project_planning']=$this->project_planning->get_by_id($id);
 		if(empty($data['project_planning'])) show_404();
-		$this->template->add_js($this->load->view('js/select-box.js',null,TRUE),'embed',TRUE);
-		$this->template->add_js('assets/plugins/input-mask/inputmask.js');
-		$this->template->add_js('assets/plugins/input-mask/inputmask.extensions.js');
-		$this->template->add_js('assets/plugins/input-mask/inputmask.numeric.extensions.js');
-		$this->template->add_js('assets/plugins/input-mask/jquery.inputmask.js');
-		$this->template->add_js('assets/plugins/datepicker/bootstrap-datepicker.js');
-		$this->template->add_js('assets/plugins/datepicker/locales/bootstrap-datepicker.th.js');
-		$this->template->add_css('assets/plugins/datepicker/datepicker3.css');
-		$this->template->add_js($this->load->view('js/input-mask.js',null,TRUE),'embed',TRUE);
 		
-		$this->template->write('page_header',$this->project_planning->desc.' <i class="fa fa-fw fa-angle-double-right"></i>แก้ไข');
-		$data['potentiality']=$this->potentiality->get_all();
-		//$data['provice_id']=$province_id;
-		$data['action_btn']=$this->load->view('action_btn',null,TRUE);
-		$data['year_budget']=$this->year_budget->get_all();
-		$data['ministry']=$this->ministry->get_all();
-		$data['budget_resource']=$this->budget_resource->get_all();
-		$data['amphur']=$this->amphur->get_by_province($data['project_planning']->PROVINCE_ID);
-		$data['action_url']=base_url('planning/update/'.$id);
+		switch($action)
+		{
+		case 'planning':
+				$this->template->add_js($this->load->view('js/select-box.js',null,TRUE),'embed',TRUE);
+				$this->template->add_js('assets/plugins/input-mask/inputmask.js');
+				$this->template->add_js('assets/plugins/input-mask/inputmask.extensions.js');
+				$this->template->add_js('assets/plugins/input-mask/inputmask.numeric.extensions.js');
+				$this->template->add_js('assets/plugins/input-mask/jquery.inputmask.js');
+				$this->template->add_js('assets/plugins/datepicker/bootstrap-datepicker.js');
+				$this->template->add_js('assets/plugins/datepicker/locales/bootstrap-datepicker.th.js');
+				$this->template->add_css('assets/plugins/datepicker/datepicker3.css');
+				$this->template->add_js($this->load->view('js/input-mask.js',null,TRUE),'embed',TRUE);
+				
+				$this->template->write('page_header',$this->project_planning->desc.' <i class="fa fa-fw fa-angle-double-right"></i>แก้ไข');
+				$data['potentiality']=$this->potentiality->get_all();
+				//$data['provice_id']=$province_id;
+				$data['action_btn']=$this->load->view('action_btn',null,TRUE);
+				$data['year_budget']=$this->year_budget->get_all();
+				$data['ministry']=$this->ministry->get_all();
+				$data['budget_resource']=$this->budget_resource->get_all();
+				$data['amphur']=$this->amphur->get_by_province($data['project_planning']->PROVINCE_ID);
+				$data['action_url']=base_url('planning/update/'.$id);
 
-		$data['content']=array('color'=>'primary',
-								'title'=>'<h3>'.$this->province->desc.$data['project_planning']->PROVINCE_NAME.'</h3>',
-								'detail'=>$this->load->view('form_planning',$data,TRUE));
-		$this->template->write_view('content','contents',$data);
-
-
-
-		$this->template->render();
+				$data['content']=array('color'=>'primary',
+										'title'=>'<h3>'.$this->province->desc.$data['project_planning']->PROVINCE_NAME.'</h3>',
+										'detail'=>$this->load->view('form_planning',$data,TRUE));
+				$this->template->write_view('content','contents',$data);
+				$this->template->render();
+		break;
+		case 'response_household':
+				$data['require_household']=$this->require_household;
+				$this->template->write('page_header',$this->project_planning->desc.' <i class="fa fa-fw fa-angle-double-right"></i>ความครอบคลุมความต้องการในระดับครัวเรือน');
+				$data['content']=array('color'=>'info',
+										'title'=>'ชื่อโครงการ<i class="fa fa-fw fa-angle-double-right"></i>'.$data['project_planning']->PROJECT_NAME,
+										'toolbar'=>'<a class="btn icon-btn btn-default cancel" href="javascript:history.back()"><span class="btn-glyphicon fa fa-stop img-circle text-gray"></span>ยกเลิก</a>',
+										'detail'=>$this->load->view('form_response_household',$data,TRUE));
+				$this->template->write_view('content','contents',$data);
+				$this->template->render();
+		break;
+		default;
+		show_404();
+		}
 	}
 	function post($province_id=null)
 	{
@@ -213,11 +228,14 @@ class Planning extends CI_Controller {
 		}
 		else show_error('ไม่สามารถบันทึกข้อมูลได้');
 	}
+
+
 	function view($id=null)
 	{
 		if(empty($id)) show_404();
 		$data['project_planning']=$this->project_planning->get_by_id($id);
 		if(empty($data['project_planning'])) show_404();
+		$data['require_household']=$this->require_household;
 		$this->template->write('page_header',$this->project_planning->desc.'<i class="fa fa-fw fa-angle-double-right"></i>รายละเอียด');
 		$data['ministry_list']=$this->project_ministry_list->get_by_project_planning_id($id);
 		$data['budget_list']=$this->project_budget_resource_list->get_by_project_planning_id($id);
@@ -229,7 +247,17 @@ class Planning extends CI_Controller {
 							  );
 		$this->template->write_view('content','contents',$data);
 		
-		$data['content']=array('title'=>'<h4>ความต้อง</h4>');
+		$data['content']=array('toolbar'=>'<a class="btn icon-btn btn-warning" href="'.base_url($this->router->fetch_class()).'/edit/response_household/'.$id.'"><span class="btn-glyphicon fa fa-edit img-circle text-warning"></span>แก้ไข</a>',
+								'color'=>'info','title'=>'ความครอบคลุมของครัวเรือนต่อโครงการ <i class="fa fa-fw fa-angle-double-right"></i>'.$data['project_planning']->PROJECT_NAME,
+								'detail'=>$this->load->view('view_region_response',$data,TRUE));
+		$this->template->write_view('content','contents',$data);
+
+		$data['content']=array('toolbar'=>'<a class="btn icon-btn btn-warning" href="'.base_url($this->router->fetch_class()).'/edit/location/'.$id.'"><span class="btn-glyphicon fa fa-edit img-circle text-warning"></span>แก้ไข</a>',
+								'color'=>'success','title'=>'ภาพเกี่ยวกับโครงการและพื้นที่ตั้งของโครงการ');
+		$this->template->write_view('content','contents',$data);
+
+		$data['content']=array('toolbar'=>'<a class="btn icon-btn btn-warning" href="'.base_url($this->router->fetch_class()).'/edit/activity/'.$id.'"><span class="btn-glyphicon fa fa-edit img-circle text-warning"></span>แก้ไข</a>',
+								'color'=>'warning','title'=>'แผนงานและกิจกรรมของโครงการ');
 		$this->template->write_view('content','contents',$data);
 
 		$this->template->render();
