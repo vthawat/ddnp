@@ -27,11 +27,28 @@
 				<td><?=$project_planning->DISTRICT_NAME?></td>
 			</tr>
             <tr>
-                <th colspan="2" class="text-center">ความต้องการในระดับครัวเรือน</th>
+                <th colspan="2" class="text-center">ความต้องการในระดับครัวเรือน                <!-- Split button -->
+                    <div class="btn-group pull-right">
+                    <button type="button" class="btn btn-success">ครอบคลุมทุกหมู่บ้าน</button>
+                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">ดำเนินการ</a></li>
+                        <li><a href="#">ยกเลิก</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                    </div></th>
             </tr>
             <tr>
 				<th class="bg-danger text-right col-lg-4">จำนวนหมู่บ้านทั้งหมด</th>
-				<td><h2 class="text-blue"><?=$require_household->count_village_by_district_id($project_planning->DISTRICT_ID)?></h2>หมู่บ้าน</td>
+				<td><h2 class="text-blue"><?=$require_household->count_village_by_district_id($project_planning->DISTRICT_ID)?></h2>หมู่บ้าน
+                    <div class="pull-right"><ul class="list-group">
+                        <li class="list-group-item"><input type="checkbox"> ddd</li>
+                    </ul></div>
+                </td>
 			</tr>
                         <tr>
 				<th class="bg-danger text-right col-lg-4">จำนวนครัวเรือนทั้งหมด</th>
