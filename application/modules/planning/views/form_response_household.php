@@ -1,6 +1,55 @@
 <div class="row">
         <div class="col-md-5">
          <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0"width="100%" height="440" src="https://maps.google.com/maps?hl=en&q=ต.<?=$project_planning->DISTRICT_NAME?> อ.<?=$project_planning->AMPHUR_NAME?> จ.<?=$project_planning->PROVINCE_NAME?>&ie=UTF8&t=roadmap&z=13&iwloc=B&output=embed"></iframe>
+            <div class="box box-solid bg-green-gradient">
+                <div class="box-header"><h3 class="box-title">กำหนดความครอบคลุม</h3>
+                <div class="btn-group pull-right">
+                    <button type="button" class="btn btn-success">เลือกทุกหมู่บ้าน</button>
+                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">ดำเนินการ</a></li>
+                    </ul>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <ul class="list-group">
+                    <?php $villages=$this->village->get_on_require_household_by_district_id($project_planning->DISTRICT_ID);
+                        if(!empty($villages)) foreach($villages as $item):
+                    ?>
+                        <li class="list-group-item"><input type="checkbox" id="vill-<?=$item->ID?>"> <label class="text-green" for="vill-<?=$item->ID?>"><?=$item->VILLAGE_NAME?></label></li>
+                        <?php endforeach;?>
+                        <?php if(empty($villages)):?>
+                        <div class="alert alert-warning">ไม่มีความต้องการในระดับครัวเรือน</div>
+                        <?php endif;?>
+                    </ul>
+
+                </div>
+            <div class="box-footer">
+            <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
+                    <h1 class="text-green"><?=$require_household->count_village_by_district_id($project_planning->DISTRICT_ID)?></h1>
+
+                  <div class="text-blue">จำนวนหมู่บ้านทั้งหมด</div>
+                </div>
+            <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
+                    <h1 class="text-green"><?=$require_household->count_household_by_district_id($project_planning->DISTRICT_ID)?></h1>
+
+                  <div class="text-blue">จำนวนครัวเรือนทั้งหมด</div>
+                </div>
+
+            <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
+                    <h1 class="text-green"><?=$require_household->count_household_by_district_id($project_planning->DISTRICT_ID)?></h1>
+
+                  <div class="text-blue">ความครอบคลุมที่กำหนด</div>
+                </div>
+
+
+            </div>
+            
+
+            </div>
         </div>
          
         <div class="col-md-7">
@@ -27,33 +76,8 @@
 				<td><?=$project_planning->DISTRICT_NAME?></td>
 			</tr>
             <tr>
-                <th colspan="2" class="text-center">ความต้องการในระดับครัวเรือน                <!-- Split button -->
-                    <div class="btn-group pull-right">
-                    <button type="button" class="btn btn-success">ครอบคลุมทุกหมู่บ้าน</button>
-                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="caret"></span>
-                        <span class="sr-only">Toggle Dropdown</span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">ดำเนินการ</a></li>
-                        <li><a href="#">ยกเลิก</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                    </ul>
-                    </div></th>
+                <th colspan="2" class="text-center">ความต้องการในระดับครัวเรือน</th>
             </tr>
-            <tr>
-				<th class="bg-danger text-right col-lg-4">จำนวนหมู่บ้านทั้งหมด</th>
-				<td><h2 class="text-blue"><?=$require_household->count_village_by_district_id($project_planning->DISTRICT_ID)?></h2>หมู่บ้าน
-                    <div class="pull-right"><ul class="list-group">
-                        <li class="list-group-item"><input type="checkbox"> ddd</li>
-                    </ul></div>
-                </td>
-			</tr>
-                        <tr>
-				<th class="bg-danger text-right col-lg-4">จำนวนครัวเรือนทั้งหมด</th>
-				<td><h2 class="text-blue"><?=$require_household->count_household_by_district_id($project_planning->DISTRICT_ID)?></h2>ครัวเรือน</td>
-			</tr>
             <tr>
 				<th class="bg-danger text-right">ความเดือดร้อน</th>
 				<td>
