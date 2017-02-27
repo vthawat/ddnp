@@ -4,7 +4,7 @@
             <div class="box box-solid bg-green-gradient">
                 <div class="box-header"><h3 class="box-title">กำหนดความครอบคลุม</h3>
                 <div class="btn-group pull-right">
-                    <button type="button" class="btn btn-success">เลือกทุกหมู่บ้าน</button>
+                    <button type="button" class="btn btn-success btn-select-all">เลือกทุกหมู่บ้าน</button>
                     <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="caret"></span>
                         <span class="sr-only">Toggle Dropdown</span>

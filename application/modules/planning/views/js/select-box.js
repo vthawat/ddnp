@@ -34,7 +34,18 @@ $(function () {
 		});
 	});
 
+	// select all village
 var total_household=0;
+	$('.btn-select-all').click(function()
+	{
+		$('.village').prop('checked',true);
+		$('.num-respone').text(<?=$require_household->count_household_by_district_id($project_planning->DISTRICT_ID)?>);
+		total_household=<?=$require_household->count_household_by_district_id($project_planning->DISTRICT_ID)?>;
+	});
+
+
+	// select village and calculate
+	
 	$('.village').click(function()
 	{
 		
