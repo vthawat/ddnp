@@ -121,6 +121,8 @@ class Planning extends CI_Controller {
 				$this->template->render();
 		break;
 		case 'response_household':
+				$this->template->add_js($this->load->view('js/select-box.js',null,TRUE),'embed',TRUE);
+
 				$data['require_household']=$this->require_household;
 				$this->template->write('page_header',$this->project_planning->desc.' <i class="fa fa-fw fa-angle-double-right"></i>ความครอบคลุมความต้องการในระดับครัวเรือน');
 				$data['content']=array('color'=>'info',

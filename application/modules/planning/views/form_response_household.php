@@ -19,7 +19,7 @@
                     <?php $villages=$this->village->get_on_require_household_by_district_id($project_planning->DISTRICT_ID);
                         if(!empty($villages)) foreach($villages as $item):
                     ?>
-                        <li class="list-group-item"><input type="checkbox" id="vill-<?=$item->ID?>"> <label class="text-green" for="vill-<?=$item->ID?>"><?=$item->VILLAGE_NAME?></label></li>
+                        <li class="list-group-item"><span class="badge bg-yellow"><?=$require_household->count_by_village_id($item->ID)?></span><input type="checkbox" class="village" id="vill-<?=$item->ID?>" value="<?=$item->ID?>"> <label class="text-green" for="vill-<?=$item->ID?>"><?=$item->VILLAGE_NAME?></label></li>
                         <?php endforeach;?>
                         <?php if(empty($villages)):?>
                         <div class="alert alert-warning">ไม่มีความต้องการในระดับครัวเรือน</div>
@@ -29,20 +29,20 @@
                 </div>
             <div class="box-footer">
             <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
-                    <h1 class="text-green"><?=$require_household->count_village_by_district_id($project_planning->DISTRICT_ID)?></h1>
+                    <h1 class="text-info"><?=$require_household->count_village_by_district_id($project_planning->DISTRICT_ID)?></h1>
 
                   <div class="text-blue">จำนวนหมู่บ้านทั้งหมด</div>
                 </div>
             <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
-                    <h1 class="text-green"><?=$require_household->count_household_by_district_id($project_planning->DISTRICT_ID)?></h1>
+                    <h1 class="text-info"><?=$require_household->count_household_by_district_id($project_planning->DISTRICT_ID)?></h1>
 
                   <div class="text-blue">จำนวนครัวเรือนทั้งหมด</div>
                 </div>
 
             <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
-                    <h1 class="text-green"><?=$require_household->count_household_by_district_id($project_planning->DISTRICT_ID)?></h1>
+                    <h1 class="text-green num-respone">0</h1>
 
-                  <div class="text-blue">ความครอบคลุมที่กำหนด</div>
+                  <div class="text-blue">จำนวนครัวเรือนที่ครอบคลุม</div>
                 </div>
 
 

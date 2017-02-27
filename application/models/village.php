@@ -45,7 +45,8 @@ class Village extends CI_Model
 	function post($data)
 	{
 		return $this->db->insert($this->table,$data);
-	}	
+	}
+	
 }
 
 /* End of file template.php */

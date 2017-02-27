@@ -34,5 +34,21 @@ $(function () {
 		});
 	});
 
+var total_household=0;
+	$('.village').click(function()
+	{
+		
+		if($(this).is(':checked')){
+			 //alert($(this).prev().text());
+			 total_household=total_household+parseInt($(this).prev().text());
+			 $('.num-respone').text(total_household);
+			}
+		else
+		{
+		 total_household=total_household-parseInt($(this).prev().text());
+		  $('.num-respone').text(total_household);	
+		}
+
+	});
 
 });

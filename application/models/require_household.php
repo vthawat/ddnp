@@ -118,6 +118,14 @@ class Require_household extends CI_Model
 		return $this->db->query($sql)->row()->TOTAL_HOUSEHOLD;
 
 	}
+  function count_by_village_id($village_id)
+	{
+			$sql="SELECT COUNT(VILL_ID) as TOTAL_VILLAGE
+				FROM
+				require_household
+				WHERE VILL_ID='$village_id'";	
+		return $this->db->query($sql)->row()->TOTAL_VILLAGE;
+	}
 			
 }
 
