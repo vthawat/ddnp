@@ -22,7 +22,7 @@
                     <li class="list-group-item bg-yellow"><label>ชื่อหมู่บ้าน</label><label class="pull-right">จำนวนครัวเรือน</label></li>
                     <?php endif;?>
                     <?php if(!empty($villages)) foreach($villages as $item):   ?>
-                        <li class="list-group-item"><span class="badge bg-yellow"><?=$require_household->count_by_village_id($item->ID)?></span><input type="checkbox" class="village" id="vill-<?=$item->ID?>" value="<?=$item->ID?>"> <label class="text-green" for="vill-<?=$item->ID?>"><?=$item->VILLAGE_NAME?></label></li>
+                        <li class="list-group-item"><span class="badge bg-yellow"><?=$require_household->count_by_village_id($item->ID)?></span><input <?php if(in_array($item->ID,$response_require_list->get_village_response($project_planning->ID))):?>checked<?php endif;?> type="checkbox" class="village" id="vill-<?=$item->ID?>" value="<?=$item->ID?>"> <label class="text-green" for="vill-<?=$item->ID?>"><?=$item->VILLAGE_NAME?></label></li>
                         <?php endforeach;?>
                         <?php if(empty($villages)):?>
                         <div class="alert alert-warning">ไม่มีความต้องการในระดับครัวเรือน</div>
@@ -41,10 +41,8 @@
 
                   <div class="text-blue">จำนวนครัวเรือนทั้งหมด</div>
                 </div>
-
             <div class="col-xs-4 text-center">
-                    <h1 class="text-green num-respone">0</h1>
-
+                    <h1 class="text-green num-respone"><?=count($response_require_list->get_household_response($project_planning->ID))?></h1>
                   <div class="text-blue">จำนวนครัวเรือนที่ครอบคลุม</div>
                 </div>
 

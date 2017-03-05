@@ -25,6 +25,29 @@ class Response_require_list extends CI_Model
     return TRUE;
 
    }
+   function get_household_response($project_planning_id)
+   {
+       $array_household=array();
+       $this->db->where('PROJECT_PLANING_ID',$project_planning_id);
+       $result=$this->db->get($this->table)->row();
+       if(!empty($result))
+       {
+         $array_household=explode(',',$result->REQUIRE_HOUSEHOLD_ID);
+         return $array_household;
+       }
+       else return $array_household;
+
+   }
+   function get_village_response($project_planning_id)
+   {
+       $this->load->model('require_household');
+     $array_household=$this->get_household_response($project_planning_id);
+    return $this->require_household->get_village_by_id($array_household);
+    // return $project_planning_id;
+   // return $array_household;
+
+
+   }
 
    function remove_by_project_planning_id($project_planning_id)
    {

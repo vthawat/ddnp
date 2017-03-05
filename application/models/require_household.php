@@ -32,6 +32,21 @@ class Require_household extends CI_Model
 		$this->db->join('district','district.PROVINCE_ID = province.ID AND project.DISTRICT_ID = district.ID');
 		return $this->db->get($this->table)->result();*/
 	}
+	function get_village_by_id($array_id)
+	{
+		$array_village=array();
+		$this->db->distinct();
+		$this->db->select('VILL_ID');
+		$this->db->where_in('ID',$array_id);
+		$result=$this->db->get($this->table)->result();
+		if(!empty($result))
+			foreach($result as $item)
+				array_push($array_village,$item->VILL_ID);
+		//else return $array_village
+	//	exit(print $this->db->last_query());
+		return $array_village;
+
+	}
 	function get_by_province($id)
 	{
 		$this->db->select($this->table.'.*,VILLAGE_NAME,PROVINCE_NAME,AMPHUR_NAME,DISTRICT_NAME,YEAR');

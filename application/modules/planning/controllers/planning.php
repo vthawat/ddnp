@@ -131,7 +131,6 @@ class Planning extends CI_Controller {
 		break;
 		case 'response_household':
 				
-
 				$data['require_household']=$this->require_household;
 				$data['response_require_list']=$this->response_require_list;
 				$this->template->write('page_header',$this->project_planning->desc.' <i class="fa fa-fw fa-angle-double-right"></i>ความครอบคลุมความต้องการในระดับครัวเรือน');
