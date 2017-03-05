@@ -11,7 +11,7 @@
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="#">ดำเนินการ</a></li>
+                        <li><a href="#" class="process-response">ดำเนินการ</a></li>
                     </ul>
                     </div>
                 <?php endif;?>
@@ -42,7 +42,7 @@
                   <div class="text-blue">จำนวนครัวเรือนทั้งหมด</div>
                 </div>
 
-            <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
+            <div class="col-xs-4 text-center">
                     <h1 class="text-green num-respone">0</h1>
 
                   <div class="text-blue">จำนวนครัวเรือนที่ครอบคลุม</div>

@@ -84,7 +84,10 @@ class Planning extends CI_Controller {
 		$this->template->write_view('content','contents',$data);
 		$this->template->render();
 	}
-
+	function json_post_define_household($villages,$project_planning_id)
+	{
+		print_r($villages);
+	}
 	function edit($action=null,$id=null)
 	{
 		if(empty($id)) show_404();

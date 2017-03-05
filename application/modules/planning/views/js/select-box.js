@@ -34,6 +34,7 @@ $(function () {
 		});
 	});
 
+
 	// select all village
 var total_household=0;
 	$('.btn-select-all').click(function()
@@ -43,6 +44,28 @@ var total_household=0;
 		total_household=<?=$require_household->count_household_by_district_id($project_planning->DISTRICT_ID)?>;
 	});
 
+
+// process respone village
+$('.process-response').click(function(event){
+	if(total_household==0) alert('ยังไม่กำหนดความครอบคลุม');
+	else{
+		//begin process
+		$list_village=[];
+ 	$('.village').each(function() {
+		if($(this).is(':checked')){
+			$list_village.push($(this).val());
+		}
+ 	});
+	 $url='<?=base_url('planning/json_post_define_household')?>';
+	$.post( $url, { villages:$list_village , project_planning_id:<?=$project_planning->ID?>})
+ 		 
+		  .done(function( data ) {
+  		  alert( "Data Loaded: " + data );
+ 	 
+	});
+
+	}
+});
 
 	// select village and calculate
 	
