@@ -84,9 +84,15 @@ class Planning extends CI_Controller {
 		$this->template->write_view('content','contents',$data);
 		$this->template->render();
 	}
-	function json_post_define_household($villages,$project_planning_id)
+	function json_post_define_household()
 	{
-		print_r($villages);
+		$this->load->model('require_household');
+		$planning_project_id=$this->input->post('project_planning_id');
+		$villages=$this->input->post('villages');
+		if($this->response_require_list->post($villages,$planning_project_id))
+		print 1;
+		else print 0;
+		//print_r($this->input->post());
 	}
 	function edit($action=null,$id=null)
 	{
@@ -127,6 +133,7 @@ class Planning extends CI_Controller {
 				
 
 				$data['require_household']=$this->require_household;
+				$data['response_require_list']=$this->response_require_list;
 				$this->template->write('page_header',$this->project_planning->desc.' <i class="fa fa-fw fa-angle-double-right"></i>ความครอบคลุมความต้องการในระดับครัวเรือน');
 				$data['content']=array('color'=>'info',
 										'title'=>'ชื่อโครงการ<i class="fa fa-fw fa-angle-double-right"></i>'.$data['project_planning']->PROJECT_NAME,

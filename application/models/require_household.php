@@ -44,6 +44,16 @@ class Require_household extends CI_Model
 		return $this->db->get($this->table)->result();
 
 	}
+	function get_by_village_id($array_village)
+	{
+		$require_house_id=array();
+		$this->db->select('ID');
+		$this->db->where_in('VILL_ID',$array_village);
+		foreach($this->db->get($this->table)->result() as $item)
+		 array_push($require_house_id,$item->ID);
+		 return $require_house_id;
+
+	}
 	function find_potentiality($POTENTIALITY_ID)
 	{
 		$this->db->where('POTENTIALITY_ID',$POTENTIALITY_ID);

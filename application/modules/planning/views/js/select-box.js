@@ -57,10 +57,16 @@ $('.process-response').click(function(event){
 		}
  	});
 	 $url='<?=base_url('planning/json_post_define_household')?>';
-	$.post( $url, { villages:$list_village , project_planning_id:<?=$project_planning->ID?>})
+	 $project_planning_id=<?=$project_planning->ID?>;
+	$.post( $url, { villages:$list_village , project_planning_id:$project_planning_id})
  		 
 		  .done(function( data ) {
-  		  alert( "Data Loaded: " + data );
+  		 // alert( "Data Loaded: " + data );
+		   if(data==1)
+		   document.location='<?=base_url('planning/view')?>/'+$project_planning_id;
+		   else alert('ไม่สามารถดำเนินการได้');
+		   //console.log(data);
+		   
  	 
 	});
 
