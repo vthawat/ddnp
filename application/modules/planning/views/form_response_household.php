@@ -3,6 +3,7 @@
          <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0"width="100%" height="440" src="https://maps.google.com/maps?hl=en&q=ต.<?=$project_planning->DISTRICT_NAME?> อ.<?=$project_planning->AMPHUR_NAME?> จ.<?=$project_planning->PROVINCE_NAME?>&ie=UTF8&t=roadmap&z=13&iwloc=B&output=embed"></iframe>
             <div class="box box-solid bg-green-gradient">
                 <div class="box-header"><h3 class="box-title">กำหนดความครอบคลุม</h3>
+                <?php $villages=$this->village->get_on_require_household_by_district_id($project_planning->DISTRICT_ID);if(!empty($villages)):?>
                 <div class="btn-group pull-right">
                     <button type="button" class="btn btn-success btn-select-all">เลือกทุกหมู่บ้าน</button>
                     <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -13,12 +14,14 @@
                         <li><a href="#">ดำเนินการ</a></li>
                     </ul>
                     </div>
+                <?php endif;?>
                 </div>
                 <div class="box-body">
                     <ul class="list-group">
-                    <?php $villages=$this->village->get_on_require_household_by_district_id($project_planning->DISTRICT_ID);
-                        if(!empty($villages)) foreach($villages as $item):
-                    ?>
+                    <?php if(!empty($villages)):?>
+                    <li class="list-group-item bg-yellow"><label>ชื่อหมู่บ้าน</label><label class="pull-right">จำนวนครัวเรือน</label></li>
+                    <?php endif;?>
+                    <?php if(!empty($villages)) foreach($villages as $item):   ?>
                         <li class="list-group-item"><span class="badge bg-yellow"><?=$require_household->count_by_village_id($item->ID)?></span><input type="checkbox" class="village" id="vill-<?=$item->ID?>" value="<?=$item->ID?>"> <label class="text-green" for="vill-<?=$item->ID?>"><?=$item->VILLAGE_NAME?></label></li>
                         <?php endforeach;?>
                         <?php if(empty($villages)):?>
