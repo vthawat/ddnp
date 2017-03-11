@@ -47,6 +47,16 @@ class Require_household extends CI_Model
 		return $array_village;
 
 	}
+	function get_year_list_all()
+	{
+		
+		$sql="SELECT DISTINCT
+			budget_year.`YEAR`
+			FROM
+			require_household
+			INNER JOIN budget_year ON require_household.BUDGET_YEAR_ID = budget_year.ID";
+		return $this->db->query($sql)->result();
+	}
 	function get_by_province($id)
 	{
 		$this->db->select($this->table.'.*,VILLAGE_NAME,PROVINCE_NAME,AMPHUR_NAME,DISTRICT_NAME,YEAR');

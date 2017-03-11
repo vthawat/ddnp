@@ -1,6 +1,7 @@
 <div class="row">
         <div class="col-md-5">
          <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0"width="100%" height="440" src="https://maps.google.com/maps?hl=en&q=ต.<?=$project_planning->DISTRICT_NAME?> อ.<?=$project_planning->AMPHUR_NAME?> จ.<?=$project_planning->PROVINCE_NAME?>&ie=UTF8&t=roadmap&z=13&iwloc=B&output=embed"></iframe>
+           <!-- start block -->
             <div class="box box-solid bg-green-gradient">
                 <div class="box-header"><h3 class="box-title">กำหนดความครอบคลุม</h3>
                 <?php $villages=$this->village->get_on_require_household_by_district_id($project_planning->DISTRICT_ID);if(!empty($villages)):?>
@@ -45,12 +46,9 @@
                     <h1 class="text-green num-respone"><?=count($response_require_list->get_household_response($project_planning->ID))?></h1>
                   <div class="text-blue">จำนวนครัวเรือนที่ครอบคลุม</div>
                 </div>
+            </div>            
 
-
-            </div>
-            
-
-            </div>
+            </div><!-- end block -->
         </div>
          
         <div class="col-md-7">
@@ -77,7 +75,12 @@
 				<td><?=$project_planning->DISTRICT_NAME?></td>
 			</tr>
             <tr>
-                <th colspan="2" class="text-center">ความต้องการในระดับครัวเรือน</th>
+                <th colspan="2" class="text-center">ความต้องการในระดับครัวเรือน ปีที่สำรวจ<select class="form-control household_year" name="require_household_year">
+                <option value="">--เลือกปีทำการสำรวจ--</option>
+                <?php foreach($require_household->get_year_list_all() as $item):?>
+                    <option value="<?=$item->YEAR?>"><?=$item->YEAR?></option>
+                <?php endforeach;?>
+                </select></th>
             </tr>
             <tr>
 				<th class="bg-danger text-right">ความเดือดร้อน</th>

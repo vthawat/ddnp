@@ -1,5 +1,12 @@
 $(function () {
 
+// set household year
+
+$('.household_year').change(function(){
+
+		alert($(this).val());
+});
+
 
 //var total_household=0;
 var total_household=parseInt($('.num-respone').text());

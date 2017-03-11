@@ -248,6 +248,7 @@ class Planning extends CI_Controller {
 		$data['project_planning']=$this->project_planning->get_by_id($id);
 		if(empty($data['project_planning'])) show_404();
 		$data['require_household']=$this->require_household;
+		$data['response_require_list']=$this->response_require_list;
 		$this->template->write('page_header',$this->project_planning->desc.'<i class="fa fa-fw fa-angle-double-right"></i>รายละเอียด');
 		$data['ministry_list']=$this->project_ministry_list->get_by_project_planning_id($id);
 		$data['budget_list']=$this->project_budget_resource_list->get_by_project_planning_id($id);
@@ -257,6 +258,8 @@ class Planning extends CI_Controller {
 								'title'=>'<h4>โครงการ<i class="fa fa-fw fa-angle-double-right"></i>'.$data['project_planning']->PROJECT_NAME.'</h4>',
 								'detail'=>$this->load->view('view_project_planning_details',$data,TRUE)
 							  );
+
+
 		$this->template->write_view('content','contents',$data);
 		
 		$data['content']=array('toolbar'=>'<a class="btn icon-btn btn-warning" href="'.base_url($this->router->fetch_class()).'/edit/response_household/'.$id.'"><span class="btn-glyphicon fa fa-edit img-circle text-warning"></span>แก้ไข</a>',

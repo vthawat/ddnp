@@ -1,6 +1,43 @@
 <div class="row">
         <div class="col-md-5">
          <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0"width="100%" height="440" src="https://maps.google.com/maps?hl=en&q=ต.<?=$project_planning->DISTRICT_NAME?> อ.<?=$project_planning->AMPHUR_NAME?> จ.<?=$project_planning->PROVINCE_NAME?>&ie=UTF8&t=roadmap&z=13&iwloc=B&output=embed"></iframe>
+        <!-- start block -->
+            <div class="box box-solid bg-green-gradient">
+                <div class="box-header"><h3 class="box-title">ความครอบคลุมของครัวเรือนที่กำหนดไว้</h3>
+                <?php $villages=$this->village->get_on_require_household_by_district_id($project_planning->DISTRICT_ID);?>
+                </div>
+                <div class="box-body">
+                    <ul class="list-group">
+                    <?php if(!empty($villages)):?>
+                    <li class="list-group-item bg-yellow"><label>ชื่อหมู่บ้าน</label><label class="pull-right">จำนวนครัวเรือน</label></li>
+                    <?php endif;?>
+                    <?php if(!empty($villages)) foreach($villages as $item):   ?>
+                        <li class="list-group-item <?php if(in_array($item->ID,$response_require_list->get_village_response($project_planning->ID))):?>bg-black<?php endif;?>"><span class="badge bg-yellow"><?=$require_household->count_by_village_id($item->ID)?></span><label class="text-green" for="vill-<?=$item->ID?>"><?=$item->VILLAGE_NAME?></label></li>
+                        <?php endforeach;?>
+                        <?php if(empty($villages)):?>
+                        <div class="alert alert-warning">ไม่มีความต้องการในระดับครัวเรือน</div>
+                        <?php endif;?>
+                    </ul>
+
+                </div>
+            <div class="box-footer">
+            <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
+                    <h1 class="text-info"><?=$require_household->count_village_by_district_id($project_planning->DISTRICT_ID)?></h1>
+
+                  <div class="text-blue">จำนวนหมู่บ้านทั้งหมด</div>
+                </div>
+            <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
+                    <h1 class="text-info"><?=$require_household->count_household_by_district_id($project_planning->DISTRICT_ID)?></h1>
+
+                  <div class="text-blue">จำนวนครัวเรือนทั้งหมด</div>
+                </div>
+            <div class="col-xs-4 text-center">
+                    <h1 class="text-green num-respone"><?=count($response_require_list->get_household_response($project_planning->ID))?></h1>
+                  <div class="text-blue">จำนวนครัวเรือนที่ครอบคลุม</div>
+                </div>
+            </div>            
+
+            </div><!-- end block -->
         </div>
          
         <div class="col-md-7">
@@ -29,14 +66,6 @@
             <tr>
                 <th colspan="2" class="text-center">ความต้องการในระดับครัวเรือน</th>
             </tr>
-            <tr>
-				<th class="bg-danger text-right col-lg-4">จำนวนหมู่บ้านทั้งหมด</th>
-				<td><h2 class="text-blue"><?=$require_household->count_village_by_district_id($project_planning->DISTRICT_ID)?></h2>หมู่บ้าน</td>
-			</tr>
-                        <tr>
-				<th class="bg-danger text-right col-lg-4">จำนวนครัวเรือนทั้งหมด</th>
-				<td><h2 class="text-blue"><?=$require_household->count_household_by_district_id($project_planning->DISTRICT_ID)?></h2>ครัวเรือน</td>
-			</tr>
             <tr>
 				<th class="bg-danger text-right">ความเดือดร้อน</th>
 				<td>
