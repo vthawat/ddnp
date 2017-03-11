@@ -108,7 +108,7 @@ $config['assets_base_directory'] = 'assets';
 $config['use_routing'] = TRUE;
 
 // config for database connection
-$config['db-rbac']=array('hostname'=>"localhost",
+$config['db-rbac']=array('hostname'=>"mysql",
 						 'username'=>"devops",
 						 'password'=>"vibp,ii8",
 						 'database'=>"ddnp_v2",

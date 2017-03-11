@@ -47,8 +47,7 @@
 
 $active_group = 'default';
 $active_record = TRUE;
-
-$db['default']['hostname'] = 'localhost';
+$db['default']['hostname'] = 'mysql';
 $db['default']['username'] = 'devops';
 $db['default']['password'] = 'vibp,ii8';
 $db['default']['database'] = 'ddnp_v2';

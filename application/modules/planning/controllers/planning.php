@@ -138,7 +138,7 @@ class Planning extends CI_Controller {
 										'title'=>'ชื่อโครงการ<i class="fa fa-fw fa-angle-double-right"></i>'.$data['project_planning']->PROJECT_NAME,
 										'toolbar'=>'<a class="btn icon-btn btn-default cancel" href="javascript:history.back()"><span class="btn-glyphicon fa fa-stop img-circle text-gray"></span>ยกเลิก</a>',
 										'detail'=>$this->load->view('form_response_household',$data,TRUE));
-				$this->template->add_js($this->load->view('js/select-box.js',$data,TRUE),'embed',TRUE);
+				$this->template->add_js($this->load->view('js/response_require_household.js',$data,TRUE),'embed',TRUE);
 				$this->template->write_view('content','contents',$data);
 				$this->template->render();
 		break;

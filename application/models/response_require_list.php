@@ -42,7 +42,9 @@ class Response_require_list extends CI_Model
    {
        $this->load->model('require_household');
      $array_household=$this->get_household_response($project_planning_id);
-    return $this->require_household->get_village_by_id($array_household);
+     if(!empty($array_household))
+        return $this->require_household->get_village_by_id($array_household);
+      else return array();
     // return $project_planning_id;
    // return $array_household;
 
