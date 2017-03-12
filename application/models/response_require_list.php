@@ -27,6 +27,11 @@ class Response_require_list extends CI_Model
     return TRUE;
 
    }
+   function count_project_all()
+   {
+     $sql="SELECT COUNT(PROJECT_PLANING_ID) AS TOTAL_PROJECT_RESPONSE FROM response_require_list";
+     return $this->db->query($sql)->row()->TOTAL_PROJECT_RESPONSE;
+   }
    function get_year_by_project_planning_id($project_planning_id)
    {
       //$this->load->model('require_household');
