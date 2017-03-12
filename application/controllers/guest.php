@@ -4,6 +4,8 @@ class Guest extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
+		$this->load->model('require_household');
+		$this->load->model('project_planning');
 		$this->load->model('init_basic');
 		$this->template->add_css($this->load->view('guest/css/intro-contents.css',null,TRUE),'embed',TRUE);
 		$this->template->write_view('menu','guest/menu');
@@ -14,8 +16,9 @@ class Guest extends CI_Controller {
 	public function index()
 	{
 		
+		$data['require_household']=$this->require_household;
 		$data['silde_intro']=$this->load->view('guest/slide-intro',null,TRUE);
-		//$data['contents']=$this->load->view('guest/sumary',null,TRUE);
+		$data['contents']=$this->load->view('guest/sumary',$data,TRUE);
 		//$data['contact']=$this->load->view('guest/contact',null,TRUE);
 		//$data['frm_login']=$this->load->view('guest/form_login',null,TRUE);
 		$this->template->write_view('content','guest/content',$data);

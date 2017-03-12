@@ -141,6 +141,33 @@ class Require_household extends CI_Model
 		return $this->db->query($sql)->row()->TOTAL_HOUSEHOLD;
 
 	}
+	function count_affliction_all($affliction=null)
+	{
+		$sql="SELECT COUNT(require_household.$affliction) as TOTAL_HOUSEHOLD
+				FROM
+				require_household
+				WHERE ";		
+		if($affliction!="AFFLICTION_ETC")
+			$sql.="require_household.$affliction=1";
+		else $sql.="require_household.$affliction<>'0'";
+		//exit(print $sql);
+		return $this->db->query($sql)->row()->TOTAL_HOUSEHOLD;
+
+	}
+	function count_avocation_all($avocation=null)
+	{
+				$sql="SELECT COUNT(require_household.$avocation) as TOTAL_HOUSEHOLD
+						FROM
+						require_household
+						WHERE";
+				if($avocation!="AVOCATION_ETC")
+					$sql.=" require_household.$avocation=1";
+				else $sql.=" require_household.$avocation<>'0'";
+				
+				return $this->db->query($sql)->row()->TOTAL_HOUSEHOLD;
+
+	}
+
 	function count_affliction_by_district_id($affliction=null,$district_id)
 	{
 		$sql="SELECT COUNT(require_household.$affliction) as TOTAL_HOUSEHOLD
@@ -157,7 +184,7 @@ class Require_household extends CI_Model
 		return $this->db->query($sql)->row()->TOTAL_HOUSEHOLD;
 
 	}
-		function count_avocation_by_district_id($avocation=null,$district_id)
+function count_avocation_by_district_id($avocation=null,$district_id)
 	{
 		$sql="SELECT COUNT(require_household.$avocation) as TOTAL_HOUSEHOLD
 				FROM

@@ -1,49 +1,36 @@
-      <div class="row">
-      	 <div class="box box-info">
-            <div class="box-header">
-      			<h3>จำนวนความต้องการพัฒนาคุณภาพชีวิตตามแผนชุมชน จำแนกตามพื้นที่ระดับจังหวัด</h3>
-      		</div>
-      	<div class="box-footer">	
-      	<?php $province_color=array('70'=>'gray','74'=>'aqua','75'=>'green','76'=>'yellow')?>
-      	<?php foreach($this->province->get_all(true) as $item):?>
-      	
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-<?=$province_color[$item->ID]?>-gradient"><img src="<?=base_url('images/location.png')?>"></span>
-
-            <div class="info-box-content">
-            	<a href="<?=base_url('guest/province_details/'.$item->ID)?>">
-              <span class="text-bold text-blue p-medium">จังหวัด<?=$item->PROVINCE_NAME?></span>
-              <span class="info-box-number text-red"><?=$this->require_develop->count_by_province_id($item->ID)?> <small>รายการ</small></span>
-              <span class="pull-right"><i class="fa fa-fw fa-search"></i>รายละเอียด</span></a>
-            </div>
-            <!-- /.info-box-content -->
+<h3>ความต้องการในระดับครัวเรือน</h3>
+<div class="col-md-6">
+  <div class="box box-solid bg-green-gradient">
+  <div class="box-header">
+            <h3 class="box-title"><i class="fa fa-tag"></i> ความเดือดร้อนทั้งหมด</h3>
           </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-		<?php endforeach?>
-			</div>
-		</div>
-      </div>
-      
-      <div class="row">
-          <!-- Widget: user widget style 1 -->
-          <div class="box box-success">
-            <div class="box-header">
-              <h3>จำนวนความต้องการพัฒนาคุณภาพชีวิตตามแผนชุมชน จำแนกตามกลุ่มภารกิจงาน</h3>
-            </div>
-            <div class="box-footer no-padding">
-              <ul class="nav nav-stacked">
-              	<?php foreach($this->potentiality->get_all() as  $item):?>
-                <li><a href="<?=base_url('guest/potential_details/'.$item->ID)?>"><span class="badge p-medium bg-aqua"><?=$item->ID?></span> <?=$item->POTENTIALITY_NAME?><span class="pull-right"><span class="text-bold text-red p-medium">
-                	<?=$this->require_potential_list->count_by_id($item->ID)?>
-                </span> <span>รายการ</span></span></a></li>
-                <div class="clearfix"></div>
-   				<?php endforeach?>
-   				
-              </ul>
-            </div>
+          <div class="box-body">
+                         <ul class="list-group">
+                        <li class="list-group-item text-black">รายได้<span class="pull-right"><span class="badge bg-red"><?=$require_household->count_affliction_all('AFFLICTION_INCOME')?></span> ครัวเรือน</span></li>
+                        <li class="list-group-item text-black">ความเจ็บป่วย<span class="pull-right"><span class="badge bg-red"><?=$require_household->count_affliction_all('AFFLICTION_AILING')?></span> ครัวเรือน</span></li>
+                        <li class="list-group-item text-black">ที่อยู่อาศัย<span class="pull-right"><span class="badge bg-red"><?=$require_household->count_affliction_all('AFFLICTION_HOUSE')?></span> ครัวเรือน</span></li>
+                        <li class="list-group-item text-black">ความปลอดภัย<span class="pull-right"><span class="badge bg-red"><?=$require_household->count_affliction_all('AFFLICTION_SAFETY')?></span> ครัวเรือน</span></li>
+                        <li class="list-group-item text-black">อื่นๆ<span class="pull-right"><span class="badge bg-red"><?=$require_household->count_affliction_all('AFFLICTION_ETC')?></span> ครัวเรือน</span></li>
+                </ul>
           </div>
-          <!-- /.widget-user -->
-      </div>
+  </div>
+</div>
+<div class="col-md-6">
+  <div class="box box-solid bg-yellow-gradient">
+  <div class="box-header">
+            <h3 class="box-title"><i class="fa fa-tag"></i> ความต้องการอาชีพทั้งหมด</h3>
+          </div>
+          <div class="box-body">
+                <ul class="list-group">
+                        <li class="list-group-item text-black">เกษตร<span class="pull-right"><span class="badge bg-red"><?=$require_household->count_avocation_all('AVOCATION_FARM')?></span> ครัวเรือน</span></li>
+                        <li class="list-group-item text-black">เลี้ยงสัตว์<span class="pull-right"><span class="badge bg-red"><?=$require_household->count_avocation_all('AVOCATION_ANIMAL')?></span> ครัวเรือน</span></li>
+                        <li class="list-group-item text-black">ประมง<span class="pull-right"><span class="badge bg-red"><?=$require_household->count_avocation_all('AVOCATION_FISHER')?></span> ครัวเรือน</span></li>
+                        <li class="list-group-item text-black">ช่างฝีมือ/คหกรรม<span class="pull-right"><span class="badge bg-red"><?=$require_household->count_avocation_all('AVOCATION_TECH')?></span> ครัวเรือน</span></li>
+                        <li class="list-group-item text-black">ค้าขาย<span class="pull-right"><span class="badge bg-red"><?=$require_household->count_avocation_all('AVOCATION_TRADE')?></span> ครัวเรือน</span></li>
+                        <li class="list-group-item text-black">ทุนประกอบอาชีพ<span class="pull-right"><span class="badge bg-red"><?=$require_household->count_avocation_all('AVOCATION_CAREER')?></span> ครัวเรือน</span></li>
+                        <li class="list-group-item text-black">ทุนการศึกษา<span class="pull-right"><span class="badge bg-red"><?=$require_household->count_avocation_all('AVOCATION_EDUCATION')?></span> ครัวเรือน</span></li>
+                        <li class="list-group-item text-black">อื่นๆ<span class="pull-right"><span class="badge bg-red"><?=$require_household->count_avocation_all('AVOCATION_ETC')?></span> ครัวเรือน</span></li>
+                    </ul>
+          </div>
+  </div>
+</div>
