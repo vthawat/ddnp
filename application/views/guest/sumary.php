@@ -13,6 +13,22 @@
                         <li class="list-group-item text-black">อื่นๆ<span class="pull-right"><span class="badge bg-red"><?=$require_household->count_affliction_all('AFFLICTION_ETC')?></span> ครัวเรือน</span></li>
                 </ul>
           </div>
+          <div class="box-footer">
+                <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
+                        <h1 class="text-info"><?=$require_household->count_village_all()?></h1>
+
+                      <div class="text-blue">จำนวนหมู่บ้านทั้งหมด</div>
+                    </div>
+                <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
+                        <h1 class="text-info"><?=$require_household->count_household_all()?></h1>
+
+                      <div class="text-blue">จำนวนครัวเรือนทั้งหมด</div>
+                    </div>
+                <div class="col-xs-4 text-center">
+                        <h1 class="text-green num-respone"><?=$this->project_planning->count_all()?></h1>
+                      <div class="text-blue">จำนวนโครงการทั้งหมด</div>
+                    </div>
+          </div>  
   </div>
 </div>
 <div class="col-md-6">

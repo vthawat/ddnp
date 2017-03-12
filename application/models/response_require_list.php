@@ -33,9 +33,9 @@ class Response_require_list extends CI_Model
       $household_year=null;
       $this->db->select('REQUIRE_HOUSEHOLD_YEAR');
       $this->db->where('PROJECT_PLANING_ID',$project_planning_id);
-      $household_year=$this->db->get($this->table)->row()->REQUIRE_HOUSEHOLD_YEAR;       
-    
-    //  exit(print $household_year);
+      $result=$this->db->get($this->table)->row();
+      if(!empty($result))
+        $household_year=$result->REQUIRE_HOUSEHOLD_YEAR;       
       return $household_year;
    }
    function get_household_response($project_planning_id)

@@ -76,6 +76,12 @@ class Project_planning extends CI_Model
 		$this->db->from($this->table);
 		return $this->db->count_all_results();
 	}
+	function count_all(){
+	$sql="SELECT COUNT(project_planning.ID) as TOTAL_PROJECT
+				FROM
+				project_planning";
+		return $this->db->query($sql)->row()->TOTAL_PROJECT;
+	}
 }
 
 /* End of file template.php */
