@@ -5,11 +5,19 @@ class Require_household extends CI_Model
 	var $desc='ความต้องการในระดับครัวเรือน';
 	var $insert_id;
 	var $update_id;
+	var $year=null;
 	function __construct()
 	{
 		parent::__construct();
 		
 			
+	}
+	function get_year_id()
+	{
+		$this->db->select('ID');
+		$this->db->where('YEAR',$this->year);
+		return $this->db->get('budget_year')->row()->ID;
+
 	}
 	function get_by_id($id)
 	{
@@ -71,12 +79,14 @@ class Require_household extends CI_Model
 	}
 	function get_by_village_id($array_village)
 	{
+
 		$require_house_id=array();
 		$this->db->select('ID');
+		if(!empty($this->year)) $this->db->where('BUDGET_YEAR_ID',$this->get_year_id());
 		$this->db->where_in('VILL_ID',$array_village);
 		foreach($this->db->get($this->table)->result() as $item)
-		 array_push($require_house_id,$item->ID);
-		 return $require_house_id;
+		 array_push($require_house_id,$item->ID);	
+		return $require_house_id;
 
 	}
 	function find_potentiality($POTENTIALITY_ID)
@@ -114,6 +124,8 @@ class Require_household extends CI_Model
 				require_household
 				WHERE
 				require_household.DISTRICT_ID = '$district_id'";
+		if(!empty($this->year))
+			$sql.="AND BUDGET_YEAR_ID =".$this->get_year_id();
 		return $this->db->query($sql)->row()->TOTAL_VILLAGE;
 
 	}
@@ -124,6 +136,8 @@ class Require_household extends CI_Model
 				require_household
 				WHERE
 				require_household.DISTRICT_ID = '$district_id'";
+		if(!empty($this->year))
+			$sql.="AND require_household.BUDGET_YEAR_ID =".$this->get_year_id();		
 		return $this->db->query($sql)->row()->TOTAL_HOUSEHOLD;
 
 	}
@@ -134,9 +148,12 @@ class Require_household extends CI_Model
 				require_household
 				WHERE
 				require_household.DISTRICT_ID = '$district_id'";
+		if(!empty($this->year))
+			$sql.=" AND require_household.BUDGET_YEAR_ID =".$this->get_year_id();				
 		if($affliction!="AFFLICTION_ETC")
-			$sql.="AND require_household.$affliction=1";
-		else $sql.="AND require_household.$affliction<>'0'";
+			$sql.=" AND require_household.$affliction=1";
+		else $sql.=" AND require_household.$affliction<>'0'";
+		//exit(print $sql);
 		return $this->db->query($sql)->row()->TOTAL_HOUSEHOLD;
 
 	}
@@ -147,9 +164,13 @@ class Require_household extends CI_Model
 				require_household
 				WHERE
 				require_household.DISTRICT_ID = '$district_id'";
+if(!empty($this->year))
+			$sql.=" AND require_household.BUDGET_YEAR_ID =".$this->get_year_id();
+
 		if($avocation!="AVOCATION_ETC")
-			$sql.="AND require_household.$avocation=1";
-		else $sql.="AND require_household.$avocation<>'0'";
+			$sql.=" AND require_household.$avocation=1";
+		else $sql.=" AND require_household.$avocation<>'0'";
+		
 		return $this->db->query($sql)->row()->TOTAL_HOUSEHOLD;
 
 	}
@@ -158,7 +179,9 @@ class Require_household extends CI_Model
 			$sql="SELECT COUNT(VILL_ID) as TOTAL_VILLAGE
 				FROM
 				require_household
-				WHERE VILL_ID='$village_id'";	
+				WHERE VILL_ID='$village_id'";
+			if(!empty($this->year))
+			$sql.="AND BUDGET_YEAR_ID =".$this->get_year_id();					
 		return $this->db->query($sql)->row()->TOTAL_VILLAGE;
 	}
 			

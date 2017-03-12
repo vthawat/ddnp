@@ -19,8 +19,9 @@ class Village extends CI_Model
 		$this->db->where('DISTRICT_ID',$district_id);
 		return $this->db->get($this->table)->result();
 	}
-	function get_on_require_household_by_district_id($district_id)
+	function get_on_require_household_by_district_id($district_id,$year=null)
 	{
+		$this->load->model('require_household');
 		$sql="SELECT DISTINCT
 			village.ID,
 			village.VILLAGE_NAME
@@ -29,6 +30,12 @@ class Village extends CI_Model
 			INNER JOIN village ON require_household.VILL_ID = village.ID
 			WHERE
 			require_household.DISTRICT_ID = '$district_id'";
+		if(!empty($year))
+		{
+			$this->require_household->year=$year;
+			$sql.="AND require_household.BUDGET_YEAR_ID =".$this->require_household->get_year_id();
+		}
+		//exit(print $sql);
 		return $this->db->query($sql)->result();
 	}
 	function get_all()

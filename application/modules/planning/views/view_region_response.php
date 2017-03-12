@@ -4,7 +4,7 @@
         <!-- start block -->
             <div class="box box-solid bg-green-gradient">
                 <div class="box-header"><h3 class="box-title">ความครอบคลุมของครัวเรือนที่กำหนดไว้</h3>
-                <?php $villages=$this->village->get_on_require_household_by_district_id($project_planning->DISTRICT_ID);?>
+                <?php $villages=$this->village->get_on_require_household_by_district_id($project_planning->DISTRICT_ID,$househould_year);?>
                 </div>
                 <div class="box-body">
                     <ul class="list-group">
@@ -44,7 +44,7 @@
         	<table class="table table-responsive">		
 		<tbody>
             <tr>
-                <th colspan="2" class="text-center">พื้นที่ลงโครงการ</th>
+                <th colspan="2" class="text-center bg-black">พื้นที่ลงโครงการ</th>
             </tr>
 			<tr>
 				<th class="bg-gray text-right col-lg-4">ปีงบประมาณ</th>
@@ -64,10 +64,10 @@
 				<td><?=$project_planning->DISTRICT_NAME?></td>
 			</tr>
             <tr>
-                <th colspan="2" class="text-center">ความต้องการในระดับครัวเรือน</th>
+                <th colspan="2" class="text-center bg-black">ใช้ข้อมูลความต้องการในระดับครัวเรือนของปีที่สำรวจ <?php if(!empty($househould_year)):?><?=$househould_year?><?php else:?>ทั้งหมด<?php endif;?></th>
             </tr>
             <tr>
-				<th class="bg-danger text-right">ความเดือดร้อน</th>
+				<th class="text-right">ความเดือดร้อน</th>
 				<td>
                     <ul class="list-group">
                         <li class="list-group-item">รายได้<span class="pull-right"><span class="badge bg-red"><?=$require_household->count_affliction_by_district_id('AFFLICTION_INCOME',$project_planning->DISTRICT_ID)?></span> ครัวเรือน</span></li>
@@ -79,7 +79,7 @@
                 </td>
 			</tr>
             <tr>
-				<th class="bg-danger text-right">ความต้องการอาชีพ</th>
+				<th class="text-right">ความต้องการอาชีพ</th>
 				<td>
                     <ul class="list-group">
                         <li class="list-group-item">เกษตร<span class="pull-right"><span class="badge bg-red"><?=$require_household->count_avocation_by_district_id('AVOCATION_FARM',$project_planning->DISTRICT_ID)?></span> ครัวเรือน</span></li>

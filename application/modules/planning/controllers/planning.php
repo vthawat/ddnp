@@ -89,12 +89,13 @@ class Planning extends CI_Controller {
 		$this->load->model('require_household');
 		$planning_project_id=$this->input->post('project_planning_id');
 		$villages=$this->input->post('villages');
-		if($this->response_require_list->post($villages,$planning_project_id))
+		$household_year=$this->input->post('household_year');
+		if($this->response_require_list->post($villages,$planning_project_id,$household_year))
 		print 1;
 		else print 0;
 		//print_r($this->input->post());
 	}
-	function edit($action=null,$id=null)
+	function edit($action=null,$id=null,$year=null)
 	{
 		if(empty($id)) show_404();
 		$data['project_planning']=$this->project_planning->get_by_id($id);
@@ -131,9 +132,11 @@ class Planning extends CI_Controller {
 		break;
 		case 'response_household':
 				
+				$this->require_household->year=$year;
 				$data['require_household']=$this->require_household;
+				$data['househould_year']=$year;
 				$data['response_require_list']=$this->response_require_list;
-				$this->template->write('page_header',$this->project_planning->desc.' <i class="fa fa-fw fa-angle-double-right"></i>ความครอบคลุมความต้องการในระดับครัวเรือน');
+				$this->template->write('page_header',$this->project_planning->desc.'<i class="fa fa-fw fa-angle-double-right"></i>แก้ไข <i class="fa fa-fw fa-angle-double-right"></i>ความครอบคลุมความต้องการในระดับครัวเรือน');
 				$data['content']=array('color'=>'info',
 										'title'=>'ชื่อโครงการ<i class="fa fa-fw fa-angle-double-right"></i>'.$data['project_planning']->PROJECT_NAME,
 										'toolbar'=>'<a class="btn icon-btn btn-default cancel" href="javascript:history.back()"><span class="btn-glyphicon fa fa-stop img-circle text-gray"></span>ยกเลิก</a>',
@@ -247,6 +250,8 @@ class Planning extends CI_Controller {
 		if(empty($id)) show_404();
 		$data['project_planning']=$this->project_planning->get_by_id($id);
 		if(empty($data['project_planning'])) show_404();
+		$data['househould_year']=$this->response_require_list->get_year_by_project_planning_id($id);
+		$this->require_household->year=$data['househould_year'];
 		$data['require_household']=$this->require_household;
 		$data['response_require_list']=$this->response_require_list;
 		$this->template->write('page_header',$this->project_planning->desc.'<i class="fa fa-fw fa-angle-double-right"></i>รายละเอียด');
@@ -262,7 +267,7 @@ class Planning extends CI_Controller {
 
 		$this->template->write_view('content','contents',$data);
 		
-		$data['content']=array('toolbar'=>'<a class="btn icon-btn btn-warning" href="'.base_url($this->router->fetch_class()).'/edit/response_household/'.$id.'"><span class="btn-glyphicon fa fa-edit img-circle text-warning"></span>แก้ไข</a>',
+		$data['content']=array('toolbar'=>'<a class="btn icon-btn btn-warning" href="'.base_url($this->router->fetch_class()).'/edit/response_household/'.$id.'/'.$data['househould_year'].'"><span class="btn-glyphicon fa fa-edit img-circle text-warning"></span>แก้ไข</a>',
 								'color'=>'info','title'=>'ความครอบคลุมของครัวเรือนต่อโครงการ <i class="fa fa-fw fa-angle-double-right"></i>'.$data['project_planning']->PROJECT_NAME,
 								'detail'=>$this->load->view('view_region_response',$data,TRUE));
 		$this->template->write_view('content','contents',$data);

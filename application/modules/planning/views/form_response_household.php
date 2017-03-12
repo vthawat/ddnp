@@ -4,7 +4,7 @@
            <!-- start block -->
             <div class="box box-solid bg-green-gradient">
                 <div class="box-header"><h3 class="box-title">กำหนดความครอบคลุม</h3>
-                <?php $villages=$this->village->get_on_require_household_by_district_id($project_planning->DISTRICT_ID);if(!empty($villages)):?>
+                <?php $villages=$this->village->get_on_require_household_by_district_id($project_planning->DISTRICT_ID,$househould_year);if(!empty($villages)):?>
                 <div class="btn-group pull-right">
                     <button type="button" class="btn btn-success btn-select-all">เลือกทุกหมู่บ้าน</button>
                     <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -55,7 +55,7 @@
         	<table class="table table-responsive">		
 		<tbody>
             <tr>
-                <th colspan="2" class="text-center">พื้นที่ลงโครงการ</th>
+                <th colspan="2" class="text-center bg-black">พื้นที่ลงโครงการ</th>
             </tr>
 			<tr>
 				<th class="bg-gray text-right col-lg-4">ปีงบประมาณ</th>
@@ -75,15 +75,24 @@
 				<td><?=$project_planning->DISTRICT_NAME?></td>
 			</tr>
             <tr>
-                <th colspan="2" class="text-center">ความต้องการในระดับครัวเรือน ปีที่สำรวจ<select class="form-control household_year" name="require_household_year">
-                <option value="">--เลือกปีทำการสำรวจ--</option>
-                <?php foreach($require_household->get_year_list_all() as $item):?>
-                    <option value="<?=$item->YEAR?>"><?=$item->YEAR?></option>
-                <?php endforeach;?>
-                </select></th>
+                <th colspan="2" class="text-center bg-black">ข้อมูลความต้องการในระดับครัวเรือน
+                        <div class="col-md-4 pull-right">
+                         <label>ปีที่สำรวจ</label>
+                        <select class="form-control household_year" name="require_household_year">
+                        <option value="">ทั้งหมด</option>
+                        <?php foreach($require_household->get_year_list_all() as $item):?>
+                            <?php if($househould_year!=$item->YEAR):?>
+                            <option value="<?=$item->YEAR?>"><?=$item->YEAR?></option>
+                            <?php else:?>
+                            <option value="<?=$item->YEAR?>" selected><?=$item->YEAR?></option>
+                            <?php endif;?>
+                        <?php endforeach;?>
+                        </select>
+                        </div>
+                </th>
             </tr>
             <tr>
-				<th class="bg-danger text-right">ความเดือดร้อน</th>
+				<th class="text-right">ความเดือดร้อน</th>
 				<td>
                     <ul class="list-group">
                         <li class="list-group-item">รายได้<span class="pull-right"><span class="badge bg-red"><?=$require_household->count_affliction_by_district_id('AFFLICTION_INCOME',$project_planning->DISTRICT_ID)?></span> ครัวเรือน</span></li>
@@ -95,7 +104,7 @@
                 </td>
 			</tr>
             <tr>
-				<th class="bg-danger text-right">ความต้องการอาชีพ</th>
+				<th class="text-right">ความต้องการอาชีพ</th>
 				<td>
                     <ul class="list-group">
                         <li class="list-group-item">เกษตร<span class="pull-right"><span class="badge bg-red"><?=$require_household->count_avocation_by_district_id('AVOCATION_FARM',$project_planning->DISTRICT_ID)?></span> ครัวเรือน</span></li>
