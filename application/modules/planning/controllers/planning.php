@@ -302,6 +302,27 @@ class Planning extends CI_Controller {
 		 
 		
 	}
+	function ajax_upload_photo()	
+ 	{
+ 		//$CI =& get_instance();
+		//$CI->load->helper('path');
+ 		//$CI->load->model('trader_profile');
+		 	if($trader_id!=null)
+			{
+			 	$x = explode('.', $_FILES[$images_type]['name']);
+				$ext_name='.'.end($x);	
+				  if($images_type=='images_logo') $file_name='trader-logo-'.$trader_id.$ext_name;
+				//  if($images_type=='images_about') $file_name='trader-about-'.$trader_id.$ext_name;
+			// upload physical data
+		
+			if(@move_uploaded_file($_FILES[$images_type]['tmp_name'], set_realpath('images/trader').$file_name)) print 1;
+			else print 'error';
+			// update in database
+			//$data=array($images_type=>$file_name);
+			//$CI->trader_profile->put($data,$trader_id);
+			}
+
+ 	}
 	function load_jquery_dtable()
 	{
 		$this->template->add_css('assets/plugins/datatables/dataTables.bootstrap.css');
