@@ -145,6 +145,17 @@ class Planning extends CI_Controller {
 				$this->template->write_view('content','contents',$data);
 				$this->template->render();
 		break;
+		case 'location':
+				$this->template->write('page_header',$this->project_planning->desc.'<i class="fa fa-fw fa-angle-double-right"></i>แก้ไข <i class="fa fa-fw fa-angle-double-right"></i>ภาพเกี่ยวกับโครงการและพื้นที่ตั้งของโครงการ');
+				//$data['project_planning']=
+				$data['content']=array('color'=>'info',
+										'title'=>'ชื่อโครงการ<i class="fa fa-fw fa-angle-double-right"></i>'.$data['project_planning']->PROJECT_NAME,
+										'toolbar'=>'<a class="btn icon-btn btn-default cancel" href="javascript:history.back()"><span class="btn-glyphicon fa fa-stop img-circle text-gray"></span>ยกเลิก</a>',
+										'detail'=>$this->load->view('form_location_images',$data,TRUE));
+				
+				$this->template->write_view('content','contents',$data);
+				$this->template->render();
+		break;
 		default;
 		show_404();
 		}
