@@ -1,0 +1,10 @@
+.board .nav-tabs li{
+	border-top-right-radius: 8px;
+	border-top-left-radius: 8px;
+}
+.board .nav-tabs li a{
+	color: #ECECEC;
+}
+.board .nav-tabs li a:hover{
+	color: #000080;
+}

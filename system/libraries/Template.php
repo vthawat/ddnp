@@ -439,6 +439,14 @@ class CI_Template {
       
       switch ($type)
       {
+	  	case 'link':
+		$js = '<script type="text/javascript" src="'. $script .'"';
+            if ($defer)
+            {
+               $js .= ' defer="defer"';
+            }
+            $js .= "></script>";
+		break;
          case 'import':
             $filepath = base_url() . $script;
             $js = '<script type="text/javascript" src="'. $filepath .'"';
