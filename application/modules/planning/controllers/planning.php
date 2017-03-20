@@ -151,8 +151,12 @@ class Planning extends CI_Controller {
 					$this->template->add_js('assets/gmaps/js/locationpicker.jquery.min.js');
 					$this->template->add_css($this->load->view('css/map.css',null,TRUE),'embed',TRUE);
 					$this->template->add_js($this->load->view('js/place-search.js',null,TRUE),'embed',TRUE);
-					
+				// tinymce
+				$this->template->add_js('assets/tinymce/js/tinymce/tinymce.min.js');
+				$this->template->add_js($this->load->view('js/tiny.js',null,TRUE),'embed',TRUE);
+
 				$this->template->write('page_header',$this->project_planning->desc.'<i class="fa fa-fw fa-angle-double-right"></i>แก้ไข <i class="fa fa-fw fa-angle-double-right"></i>ภาพโครงการและแผนที่ตั้งโครงการ');
+				$data['action_btn']=$this->load->view('action_btn',null,TRUE);
 				$data['content']=array('color'=>'info',
 										'title'=>'ชื่อโครงการ<i class="fa fa-fw fa-angle-double-right"></i>'.$data['project_planning']->PROJECT_NAME,
 										'toolbar'=>'<a class="btn icon-btn btn-default cancel" href="javascript:history.back()"><span class="btn-glyphicon fa fa-stop img-circle text-gray"></span>ยกเลิก</a>',

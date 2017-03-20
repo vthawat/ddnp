@@ -1,8 +1,14 @@
 <div class="col-md-6">
     <h4 class="text-success">ภาพเกี่ยวกับโครงการ</h4>
+	<p>อธิบายเกี่ยวกับภาพตัวอย่างเช่นภาพก่อนทำโครงการ โครงการที่เสร็จแล้ว</p>
+		<div class="form-group">
+		 <div class="col-md-12">
+		 	<textarea rows="28" class="form-control" name="IMAGES" id="content_detail"><?php if(!empty($edit_item)):?><?=$edit_item->content_detail?><?php endif;?></textarea>
+		 </div>
+	</div>	
 </div>
 <div class="col-md-6">
-<h4 class="text-success">กำหนดแผนที่ตั้งโครงการ</h4>
+<h4 class="text-success">แผนที่ตั้งโครงการ</h4>
 <label>ปีงบประมาณ</label> <?=$project_planning->YEAR?> <label>จังหวัด</label> <?=$project_planning->PROVINCE_NAME?> <label>อำเภอ</label> <?=$project_planning->AMPHUR_NAME?> <label>ตำบล</label> <?=$project_planning->DISTRICT_NAME?><br>
 		<div class="form-group">
 		  <div>
@@ -18,4 +24,14 @@
 		</div>
 	
 <div id="gm-map"></div>
+</div>
+<div class="col-md-12">
+  <?php if(!empty($action_btn)):?>
+  <br>
+  	<div class="form-group">
+    <div class="col-md-offset-5">
+      <?=$action_btn?>
+    </div>
+  </div>
+  <?php endif;?>	
 </div>
