@@ -19,10 +19,10 @@ $(document).ready(function(){
   toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink image responsivefilemanager media code | insertdatetime preview | forecolor backcolor",
   toolbar3: "table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | spellchecker | visualchars visualblocks nonbreaking template pagebreak restoredraft",
   image_advtab: true ,
-  external_filemanager_path:"http://devops.io/ddnp/filemanager/",
+  external_filemanager_path:"/ddnp/filemanager/",
   filemanager_title:"Filemanager" ,
   filemanager_access_key:"myPrivateKey",
-  external_plugins: { "filemanager" : "http://devops.io/ddnp/filemanager/plugin.min.js"},
+  external_plugins: { "filemanager" : "/ddnp/filemanager/plugin.min.js"},
   menubar: false,
   style_formats: [{
     title: 'Bold text',

@@ -58,8 +58,8 @@ $config = array(
 	| without final / (DON'T TOUCH)
 	|
 	*/
-	'base_url' => ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] && ! in_array(strtolower($_SERVER['HTTPS']), array( 'off', 'no' ))) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'].'/ddnp',
-	//'base_url'=>'/ridm/',
+	//'base_url' => ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] && ! in_array(strtolower($_SERVER['HTTPS']), array( 'off', 'no' ))) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'],
+	'base_url'=>'http://devops.io',
 	/*
 	|--------------------------------------------------------------------------
 	| path from base_url to base of upload folder
@@ -68,7 +68,7 @@ $config = array(
 	| with start and final /
 	|
 	*/
-	'upload_dir' => '/ddnp/filemanager/source/',
+	'upload_dir' => '/filemanager/source/',
 
 	/*
 	|--------------------------------------------------------------------------
