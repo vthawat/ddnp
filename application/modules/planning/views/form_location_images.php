@@ -1,4 +1,4 @@
-<div class="col-md-6">
+<div class="col-md-12">
     <h4 class="text-success">ภาพเกี่ยวกับโครงการ</h4>
 	<p>อธิบายเกี่ยวกับภาพตัวอย่างเช่นภาพก่อนทำโครงการ โครงการที่เสร็จแล้ว</p>
 		<div class="form-group">
@@ -7,7 +7,7 @@
 		 </div>
 	</div>	
 </div>
-<div class="col-md-6">
+<div class="col-md-12">
 <h4 class="text-success">แผนที่ตั้งโครงการ</h4>
 <label>ปีงบประมาณ</label> <?=$project_planning->YEAR?> <label>จังหวัด</label> <?=$project_planning->PROVINCE_NAME?> <label>อำเภอ</label> <?=$project_planning->AMPHUR_NAME?> <label>ตำบล</label> <?=$project_planning->DISTRICT_NAME?><br>
 		<div class="form-group">

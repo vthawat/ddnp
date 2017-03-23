@@ -8,16 +8,17 @@ $(document).ready(function(){
  // web_url='"http://devops.io/ddnp';
  tinymce.init({
   selector: "#content_detail",
-
+  relative_urls: false,
+   remove_script_host : false,
   plugins: [
     "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
-    "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-    "table contextmenu directionality emoticons template textcolor paste fullpage textcolor responsivefilemanager colorpicker textpattern"
+    "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media",
+    "table contextmenu directionality emoticons template textcolor paste textcolor responsivefilemanager colorpicker textpattern"
   ],
 
   toolbar1: "newdocument | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect",
   toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink image responsivefilemanager media code | insertdatetime preview | forecolor backcolor",
-  toolbar3: "table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | spellchecker | visualchars visualblocks nonbreaking template pagebreak restoredraft",
+  toolbar3: "table | hr removeformat | subscript superscript | charmap emoticons | print | spellchecker | visualchars visualblocks nonbreaking template restoredraft",
   image_advtab: true ,
   external_filemanager_path:"/ddnp/filemanager/",
   filemanager_title:"Filemanager" ,
@@ -57,7 +58,7 @@ $(document).ready(function(){
 
   templates: [{
     title: 'Test template 1',
-    content: 'Test 1'
+    content: '<h3>ภาพเริ่มโครงการ</h3>'
   }, {
     title: 'Test template 2',
     content: 'Test 2'

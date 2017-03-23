@@ -59,7 +59,7 @@ $config = array(
 	|
 	*/
 	//'base_url' => ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] && ! in_array(strtolower($_SERVER['HTTPS']), array( 'off', 'no' ))) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'],
-	'base_url'=>'http://devops.io',
+	'base_url'=>'http://devops.io/ddnp',
 	/*
 	|--------------------------------------------------------------------------
 	| path from base_url to base of upload folder
