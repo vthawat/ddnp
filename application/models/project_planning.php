@@ -59,6 +59,12 @@ class Project_planning extends CI_Model
 		if(!empty($this->insert_id)) return TRUE;
 		else return FALSE;
 	}
+	function update_location_images($data,$id)
+	{
+		$this->db->where('ID',$id);
+		return $this->db->update($this->table,$data);
+
+	}
 	function update($data,$id)
 	{
 

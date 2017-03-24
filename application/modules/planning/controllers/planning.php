@@ -155,7 +155,8 @@ class Planning extends CI_Controller {
 				$this->template->add_js('assets/tinymce/js/tinymce/tinymce.min.js');
 				$this->template->add_js($this->load->view('js/tiny.js',null,TRUE),'embed',TRUE);
 
-				$this->template->write('page_header',$this->project_planning->desc.'<i class="fa fa-fw fa-angle-double-right"></i>แก้ไข <i class="fa fa-fw fa-angle-double-right"></i>ภาพโครงการและแผนที่ตั้งโครงการ');
+				$this->template->write('page_header',$this->project_planning->desc.'<i class="fa fa-fw fa-angle-double-right"></i>แก้ไข <i class="fa fa-fw fa-angle-double-right"></i>เอกสารหรือสื่อประกอบและแผนที่ตั้งโครงการ');
+				$data['action_url']=base_url('planning/update_location_images/'.$id);
 				$data['action_btn']=$this->load->view('action_btn',null,TRUE);
 				$data['content']=array('color'=>'info',
 										'title'=>'ชื่อโครงการ<i class="fa fa-fw fa-angle-double-right"></i>'.$data['project_planning']->PROJECT_NAME,
@@ -216,7 +217,19 @@ class Planning extends CI_Controller {
 
 
 	}
+	function update_location_images($planning_project_id=null)
+	{
+		if(empty($planning_project_id)) show_404();
+		print_r($this->input->post());
+		$data=array('MEDIAS'=>$this->input->post('MEDIAS'),
+					'LATITUDE'=>$this->input->post('latitude'),
+					'LONGTITUDE'=>$this->input->post('longtitude'));
+		if($this->project_planning->update_location_images($data,$planning_project_id))
+			redirect(base_url('planning/view/'.$planning_project_id));
+		else show_error('ไม่สามารถบันทึกข้อมูลได้');
 
+
+	}
 	function update($id=null)
 	{
 		if(empty($id)) show_404();
@@ -293,7 +306,8 @@ class Planning extends CI_Controller {
 		$this->template->write_view('content','contents',$data);
 
 		$data['content']=array('toolbar'=>'<a class="btn icon-btn btn-warning" href="'.base_url($this->router->fetch_class()).'/edit/location/'.$id.'"><span class="btn-glyphicon fa fa-edit img-circle text-warning"></span>แก้ไข</a>',
-								'color'=>'success','title'=>'ภาพเกี่ยวกับโครงการและพื้นที่ตั้งของโครงการ');
+								'color'=>'success','title'=>'เอกสารหรือสื่อประกอบและแผนที่ตั้งโครงการ',
+								'detail'=>$this->load->view('view_project_location_images',$data,TRUE));
 		$this->template->write_view('content','contents',$data);
 
 		$data['content']=array('toolbar'=>'<a class="btn icon-btn btn-warning" href="'.base_url($this->router->fetch_class()).'/edit/activity/'.$id.'"><span class="btn-glyphicon fa fa-edit img-circle text-warning"></span>แก้ไข</a>',
@@ -311,27 +325,7 @@ class Planning extends CI_Controller {
 		 
 		
 	}
-	function ajax_upload_photo()	
- 	{
- 		//$CI =& get_instance();
-		//$CI->load->helper('path');
- 		//$CI->load->model('trader_profile');
-		 	if($trader_id!=null)
-			{
-			 	$x = explode('.', $_FILES[$images_type]['name']);
-				$ext_name='.'.end($x);	
-				  if($images_type=='images_logo') $file_name='trader-logo-'.$trader_id.$ext_name;
-				//  if($images_type=='images_about') $file_name='trader-about-'.$trader_id.$ext_name;
-			// upload physical data
-		
-			if(@move_uploaded_file($_FILES[$images_type]['tmp_name'], set_realpath('images/trader').$file_name)) print 1;
-			else print 'error';
-			// update in database
-			//$data=array($images_type=>$file_name);
-			//$CI->trader_profile->put($data,$trader_id);
-			}
 
- 	}
 	function load_jquery_dtable()
 	{
 		$this->template->add_css('assets/plugins/datatables/dataTables.bootstrap.css');

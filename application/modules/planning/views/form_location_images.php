@@ -1,9 +1,10 @@
+<form method="post" class="form-horizontal" action="<?=$action_url?>">
 <div class="col-md-12">
-    <h4 class="text-success">ภาพเกี่ยวกับโครงการ</h4>
-	<p>อธิบายเกี่ยวกับภาพตัวอย่างเช่นภาพก่อนทำโครงการ โครงการที่เสร็จแล้ว</p>
+    <h4 class="text-success">เอกสารหรือสื่อประกอบและแผนที่ตั้งโครงการ</h4>
+	<p>อธิบายเกี่ยวกับภาพตัวอย่างเช่นภาพก่อนทำโครงการ หรือสื่อวิดีโอ รูปภาพ ประกอบโครงการ</p>
 		<div class="form-group">
 		 <div class="col-md-12">
-		 	<textarea rows="28" class="form-control" name="IMAGES" id="content_detail"><?php if(!empty($edit_item)):?><?=$edit_item->content_detail?><?php endif;?></textarea>
+		 	<textarea rows="28" class="form-control" name="MEDIAS" id="content_detail"><?php if(!empty($project_planning->MEDIAS)):?><?=$project_planning->MEDIAS?><?php endif;?></textarea>
 		 </div>
 	</div>	
 </div>
@@ -18,9 +19,9 @@
 		 </div>		
 		<div class="input-group">
       		<span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i>Latitude</span>
-			<input <?php if(!empty($trader)):?>value="<?=$trader->latitude?>"<?php endif?> class="form-control" type="text" name="latitude" id="latitude" />
+			<input <?php if(!empty($project_planning->LATITUDE)):?>value="<?=$project_planning->LATITUDE?>"<?php endif?> class="form-control" type="text" name="latitude" id="latitude" />
 			<span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i>Longtitude</span>
-			<input <?php if(!empty($trader)):?>value="<?=$trader->longtitude?>"<?php endif?> class="form-control" type="text" name="longtitude"  id="longtitude" />
+			<input <?php if(!empty($project_planning->LONGTITUDE)):?>value="<?=$project_planning->LONGTITUDE?>"<?php endif?> class="form-control" type="text" name="longtitude"  id="longtitude" />
 		</div>
 	
 <div id="gm-map"></div>
@@ -35,3 +36,4 @@
   </div>
   <?php endif;?>	
 </div>
+</form>
