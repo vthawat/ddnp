@@ -16,7 +16,7 @@
 | environments.
 |
 */
-$config['base_url'] = 'http://devops.io/ddnp';
+$config['base_url'] = 'http://watdevops.net/ddnp';
 
 /*
 |--------------------------------------------------------------------------
