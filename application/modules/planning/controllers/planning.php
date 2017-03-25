@@ -1,16 +1,17 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Planning extends CI_Controller {
-
+//var $rbac;
 	public function __construct()
 	{
 		parent::__construct();
 		$this->template->set_template('admin');
 		$this->load->model('require_household');
 		$this->load->model('project_planning');
+		$this->load->model('project_tasking');
 		$this->load->model('init_basic');
 		$this->template->write('sidebar',$this->load->controller('sidebar/get_sidebar',array(),FALSE));
-
+		//$this->rbac=$this->ezrbac;
 	}
 
  
@@ -166,9 +167,57 @@ class Planning extends CI_Controller {
 				$this->template->write_view('content','contents',$data);
 				$this->template->render();
 		break;
+		case 'activity':
+			$this->template->write('page_header',$this->project_planning->desc.'<i class="fa fa-fw fa-angle-double-right"></i>จัดการ <i class="fa fa-fw fa-angle-double-right"></i>แผนงานและกิจกรรมของโครงการ');
+			$data['project_tasking']=$this->project_tasking->get_by_project_id($id);
+			$data['project_status']=$this->project_status;
+			$data['content']=array('color'=>'info',
+										'title'=>'ชื่อโครงการ<i class="fa fa-fw fa-angle-double-right"></i>'.$data['project_planning']->PROJECT_NAME,
+										'toolbar'=>$this->load->view('activity-toolbar',$data,TRUE),
+										'detail'=>$this->load->view('view_activity',$data,TRUE));
+			$this->template->write_view('content','contents',$data);
+
+			$this->template->render();
+		break;
 		default;
 		show_404();
 		}
+	}
+	function addnew_activity($planning_project_id=null)
+	{
+		if(empty($planning_project_id)) show_404();
+		$this->template->add_js('assets/plugins/datepicker/bootstrap-datepicker.js');
+		$this->template->add_js('assets/plugins/datepicker/locales/bootstrap-datepicker.th.js');
+		$this->template->add_css('assets/plugins/datepicker/datepicker3.css');
+		$this->template->add_js('assets/plugins/knob/jquery.knob.js');
+		$this->template->add_js($this->load->view('js/knob.js',null,TRUE),'embed',TRUE);
+
+		$this->template->add_js($this->load->view('js/calendar.js',null,TRUE),'embed',TRUE);
+		
+		$data['project_planning']=$this->project_planning->get_by_id($planning_project_id);
+		$this->template->write('page_header',$this->project_planning->desc.'<i class="fa fa-fw fa-angle-double-right"></i>เพิ่มกิจกรรม <i class="fa fa-fw fa-angle-double-right"></i>แผนงานและกิจกรรมของโครงการ');
+
+		$data['project_status']=$this->project_status->get_all();
+		$data['action_url']=base_url('planning/post_activity/'.$planning_project_id);
+		$data['action_btn']=$this->load->view('action_btn',null,TRUE);
+		$data['content']=array('color'=>'info',
+										'title'=>'ชื่อโครงการ<i class="fa fa-fw fa-angle-double-right"></i>'.$data['project_planning']->PROJECT_NAME,
+										'detail'=>$this->load->view('form_activity',$data,TRUE));
+		$this->template->write_view('content','contents',$data);
+
+		$this->template->render();
+	}
+	function post_activity($planning_project_id=null)
+	{
+		if(empty($planning_project_id)) show_404();
+		$data=$this->input->post();
+		$data['PROJECT_PLANING_ID']=$planning_project_id;
+		$data['TIME_STAMP']=date("Y-m-d H:i:s");
+		if($this->project_tasking->post($data))
+			redirect(base_url('planning/edit/activity/'.$planning_project_id));
+		else show_error('ไม่สามารถบันทึกข้อมูลได้');
+		//print_r($data);
+
 	}
 	function post($province_id=null)
 	{
@@ -304,6 +353,20 @@ class Planning extends CI_Controller {
 								'color'=>'info','title'=>'ความครอบคลุมของครัวเรือนต่อโครงการ <i class="fa fa-fw fa-angle-double-right"></i>'.$data['project_planning']->PROJECT_NAME,
 								'detail'=>$this->load->view('view_region_response',$data,TRUE));
 		$this->template->write_view('content','contents',$data);
+
+			// map helpers
+					$this->template->add_js('https://maps.google.com/maps/api/js?key=AIzaSyBGE-KGQB9PP6uq4wErMO0Xbxmz4FWxy3Q&libraries=places&language=th','link');
+					$this->template->add_js('assets/gmaps/js/gmap3.min.js');
+					$this->template->add_css($this->load->view('css/map.css',null,TRUE),'embed',TRUE);
+					$this->template->add_js($this->load->view('js/view-single-map.js',null,TRUE),'embed',TRUE);
+					
+					$map=json_encode(array('lat'=>$data['project_planning']->LATITUDE,'lon'=>$data['project_planning']->LONGTITUDE));
+					$project_title=json_encode(array('name'=>'โครงการ'.$data['project_planning']->PROJECT_NAME));
+					$images_path=json_encode(array('imgpath'=>base_url('images')));
+					$json_val='var view_location='.$map.';';
+					$json_val.='var images_path='.$images_path.';';
+					$json_val.='var project_title='.$project_title.';';
+					$this->template->add_js($json_val,'embed',TRUE);
 
 		$data['content']=array('toolbar'=>'<a class="btn icon-btn btn-warning" href="'.base_url($this->router->fetch_class()).'/edit/location/'.$id.'"><span class="btn-glyphicon fa fa-edit img-circle text-warning"></span>แก้ไข</a>',
 								'color'=>'success','title'=>'เอกสารหรือสื่อประกอบและแผนที่ตั้งโครงการ',

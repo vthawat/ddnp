@@ -1,0 +1,2 @@
+<a href="<?=base_url($this->router->fetch_class())?>/addnew_activity/<?=$project_planning->ID?>" class="btn btn-success add-new"><span class="fa fa-plus fa-fw"></span>เพิ่มกิจกรรมใหม่</a>
+<a class="btn icon-btn btn-default cancel" href="javascript:history.back()"><span class="btn-glyphicon fa fa-stop img-circle text-gray"></span>ยกเลิก</a>
