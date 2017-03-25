@@ -73,8 +73,19 @@ class Project_planning extends CI_Model
 	}
 	function delete($id)
 	{
-		$this->db->where('ID',$id);
-		return $this->db->delete($this->table);
+		// delete in project_tasking
+		$this->load->model('project_tasking');
+		if($this->project_tasking->delete_by_project_id($id))
+			if($this->project_budget_resource_list->delete_by_project_id($id))
+				if($this->project_ministry_list->delete_by_project_id($id))
+					if($this->project_potential_list->delete_by_project_id($id))
+						if($this->response_require_list->delete_by_project_id($id))
+						{
+		
+							$this->db->where('ID',$id);
+							return $this->db->delete($this->table);
+						}
+						else return FALSE;
 	}
 	function count_by_province_id($province_id)
 	{

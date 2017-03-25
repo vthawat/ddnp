@@ -75,5 +75,11 @@ class Response_require_list extends CI_Model
      $this->db->delete($this->table);
      
    }
+    function delete_by_project_id($project_id)
+    {
+        $this->db->where('PROJECT_PLANING_ID',$project_id);
+		return $this->db->delete($this->table);
+
+    }
 
 }

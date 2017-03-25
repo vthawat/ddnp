@@ -28,7 +28,7 @@
 									<li><a href="<?=base_url($this->router->fetch_class())?>/edit/activity/<?=$item->ID?>"><i class="fa fa-fw fa-history"></i>แผนงานและกิจกรรมของโครงการ</a></li>
 									<li role="separator" class="divider"></li>
 							    <li><a href="<?=base_url($this->router->fetch_class())?>/edit/planning/<?=$item->ID?>" class="text-yellow"><span class="fa fa-edit fa-fw"></span>แก้ไขโครงการ</a></li>
-							    <li><a href="<?=base_url($this->router->fetch_class())?>/del/<?=$item->ID?>" class="text-red" onclick="return confirm('ยืนยันการลบรายการ: <?=$item->PROJECT_NAME?>?')"><span class="fa fa-remove fa-fw"></span>ลบโครงการ</a></li>
+							    <li><a href="<?=base_url($this->router->fetch_class())?>/del/<?=$item->PROVINCE_ID?>/<?=$item->ID?>" class="text-red" onclick="return confirm('ยืนยันการลบรายการ: <?=$item->PROJECT_NAME?>?')"><span class="fa fa-remove fa-fw"></span>ลบโครงการ</a></li>
 							  </ul>
 							</div>
 			</td>

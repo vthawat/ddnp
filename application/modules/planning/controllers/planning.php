@@ -243,6 +243,14 @@ class Planning extends CI_Controller {
 		//print_r($data);
 
 	}
+	function remove_activity($planning_project_id=null,$task_id=null)
+	{
+		if(empty($task_id)&&empty($planning_project_id)) show_404();
+		if($this->project_tasking->delete($task_id))
+			redirect(base_url('planning/edit/activity/'.$planning_project_id));
+		else show_error('ไม่สามารถลบข้อมูลได้');
+
+	}
 	function put_activity($planning_project_id,$task_id=null)
 	{
 		if(empty($task_id)) show_404();
@@ -416,12 +424,13 @@ class Planning extends CI_Controller {
 
 		$this->template->render();
 	}
-	function del($id=null)
+	function del($province_id=null,$id=null)
 	{
 		if(empty($id)) show_404();
-		$province_id=$this->require_household->get_by_id($id)->PROVINCE_ID;
-		if($this->require_household->delete($id))
-		redirect(base_url($this->router->fetch_class()).'/get/'.$province_id);
+		
+		if($this->project_planning->delete($id))
+			redirect(base_url($this->router->fetch_class()).'/get/'.$province_id);
+		else show_error('ไม่สามารถลบข้อมูลโครงการได้');
 		 
 		
 	}

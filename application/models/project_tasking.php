@@ -39,6 +39,12 @@ class Project_tasking extends CI_Model
 		$this->db->where('ID',$id);
 		return $this->db->delete($this->table);
 	}
+    function delete_by_project_id($project_id)
+    {
+        $this->db->where('PROJECT_PLANING_ID',$project_id);
+		return $this->db->delete($this->table);
+
+    }
 }
 
 /* End of file template.php */

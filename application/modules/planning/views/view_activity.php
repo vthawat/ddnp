@@ -14,7 +14,12 @@
     <?php $num_act=1;foreach($project_tasking as $item):?>
         <tr>
             <td><?=$num_act?></td>
-            <td><?=$item->TASK_TITLE?></td>
+            <td><?=$item->TASK_TITLE?>
+                <blockquote>
+                <small>วันที่เริ่ม <span><?=$item->DATE_START?></span></small>
+                <small>วันที่สิ้นสุด <span><?=$item->DATE_FINISH?></span></small>
+                </blockquote>
+            </td>
             <td>
             <div class="clearfix">
                     <small class="pull-right"><?=$item->PERCENT_COMITTED?>%</small>
@@ -37,7 +42,7 @@
 							  <ul class="dropdown-menu">
 			
 							    <li><a href="<?=base_url($this->router->fetch_class())?>/update_activity/<?=$item->ID?>" class="text-yellow"><span class="fa fa-edit fa-fw"></span>แก้ไขรายการกิจกรรม</a></li>
-							    <li><a href="<?=base_url($this->router->fetch_class())?>/remove_activity/<?=$item->ID?>" class="text-red" onclick="return confirm('ยืนยันการลบรายการ: <?=$item->TASK_TITLE?>?')"><span class="fa fa-remove fa-fw"></span>ลบรายการกิจกรรม</a></li>
+							    <li><a href="<?=base_url($this->router->fetch_class())?>/remove_activity/<?=$item->PROJECT_PLANING_ID?>/<?=$item->ID?>" class="text-red" onclick="return confirm('ยืนยันการลบรายการ: <?=$item->TASK_TITLE?>?')"><span class="fa fa-remove fa-fw"></span>ลบรายการกิจกรรม</a></li>
 							  </ul>
 							</div>
             </td>
