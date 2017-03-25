@@ -1,7 +1,7 @@
 <form method="post" class="form-horizontal" action="<?=$action_url?>">
 <div class="form-group">
     <label for="task-title" class="col-sm-2 control-label">กิจกรรม/แผนการดำเนินงาน</label>
-     <div class="col-sm-10"><input class="form-control" type="text" name="TASK_TITLE" id="task-title" required></div>
+     <div class="col-sm-10"><input class="form-control" type="text" name="TASK_TITLE" id="task-title" value="<?php if(!empty($project_task)) print $project_task->TASK_TITLE?>" required></div>
 </div>
 <div class="form-group">
     <label class="col-sm-2 control-label">วันที่เริ่ม-สิ้นสุดของโครงการ</label>
@@ -13,7 +13,7 @@
     <label for="date-start" class="col-sm-2 control-label">วันที่เริ่มกิจกรรม</label>
     <div class="col-sm-3 col-md-2">
         <div class="input-group date">
-            <input class="form-control" type="text" name="DATE_START" id="date-start" required>
+            <input class="form-control" type="text" name="DATE_START" id="date-start" value="<?php if(!empty($project_task)) print $project_task->DATE_START?>" required>
             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
         </div>
     </div>
@@ -22,7 +22,7 @@
     <label for="date-finish" class="col-sm-2 control-label">วันที่เสร็จสิ้นกิจกรรม</label>
     <div class="col-sm-3 col-md-2">
             <div class="input-group date">
-            <input class="form-control" type="text" name="DATE_FINISH" id="date-finish" required>
+            <input class="form-control" type="text" name="DATE_FINISH" id="date-finish" value="<?php if(!empty($project_task)) print $project_task->DATE_FINISH?>" required>
             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
         </div>
     </div>
@@ -33,7 +33,11 @@
         <select class="form-control" name="PROJECT_STATUS_ID" id="project-status" required>
         <option value="">-เลือกสถานะ-</option>
         <?php foreach($project_status as $item):?>
+            <?php if(!empty($project_task)&&$project_task->PROJECT_STATUS_ID===$item->ID):?>
+                <option value="<?=$item->ID?>" selected><?=$item->STATUS?></option>
+            <?php else:?>
             <option value="<?=$item->ID?>"><?=$item->STATUS?></option>
+            <?php endif?>
         <?php endforeach?>
         </select>
     </div>
@@ -41,18 +45,18 @@
 <div class="form-group">
     <label for="percent-comitted" class="col-sm-2 control-label">% ความสำเร็จ</label>
     <div class="col-sm-3 col-md-5">
-        <input type="text" id="percent-comitted" class="knob" name="PERCENT_COMITTED" data-readonly="false" value="0" data-width="100" data-height="100" data-fgColor="#39CCCC">
+        <input type="text" id="percent-comitted" class="knob" name="PERCENT_COMITTED" data-readonly="false" value="<?php if(!empty($project_task)) print $project_task->PERCENT_COMITTED;else print 0;?>" data-width="100" data-height="100" data-fgColor="#39CCCC">
     </div>
 </div> 
 
 <div class="form-group">
     <label for="responsible" class="col-sm-2 control-label">ผู้รับผิดชอบ</label>
-    <div class="col-sm-3 col-md-4"><input class="form-control" type="text" name="RESPONSIBLE" id="responsible" required></div>
+    <div class="col-sm-3 col-md-4"><input class="form-control" type="text" name="RESPONSIBLE" id="responsible" value="<?php if(!empty($project_task)) print $project_task->RESPONSIBLE?>" required></div>
 </div> 
 <div class="form-group">
     <label for="comment" class="col-sm-2 control-label">หมายเหตุ</label>
     <div class="col-md-10">
-       <textarea rows="5" id="comment" name="COMMENT" class="form-control"></textarea>
+       <textarea rows="5" id="comment" name="COMMENT" class="form-control"><?php if(!empty($project_task)) print $project_task->COMMENT?></textarea>
     </div>
 </div>
 

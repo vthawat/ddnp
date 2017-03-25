@@ -171,6 +171,7 @@ class Planning extends CI_Controller {
 			$this->template->write('page_header',$this->project_planning->desc.'<i class="fa fa-fw fa-angle-double-right"></i>จัดการ <i class="fa fa-fw fa-angle-double-right"></i>แผนงานและกิจกรรมของโครงการ');
 			$data['project_tasking']=$this->project_tasking->get_by_project_id($id);
 			$data['project_status']=$this->project_status;
+			$data['view_activity_mode']=TRUE;
 			$data['content']=array('color'=>'info',
 										'title'=>'ชื่อโครงการ<i class="fa fa-fw fa-angle-double-right"></i>'.$data['project_planning']->PROJECT_NAME,
 										'toolbar'=>$this->load->view('activity-toolbar',$data,TRUE),
@@ -207,6 +208,29 @@ class Planning extends CI_Controller {
 
 		$this->template->render();
 	}
+	function update_activity($task_id=null)
+	{
+		if(empty($task_id)) show_404();
+		$this->template->add_js('assets/plugins/datepicker/bootstrap-datepicker.js');
+		$this->template->add_js('assets/plugins/datepicker/locales/bootstrap-datepicker.th.js');
+		$this->template->add_css('assets/plugins/datepicker/datepicker3.css');
+		$this->template->add_js('assets/plugins/knob/jquery.knob.js');
+		$this->template->add_js($this->load->view('js/knob.js',null,TRUE),'embed',TRUE);
+		$this->template->add_js($this->load->view('js/calendar.js',null,TRUE),'embed',TRUE);
+		$data['project_task']=$this->project_tasking->get_by_id($task_id);
+
+		$data['project_planning']=$this->project_planning->get_by_id($data['project_task']->PROJECT_PLANING_ID);
+		$data['project_status']=$this->project_status->get_all();
+		$this->template->write('page_header',$this->project_planning->desc.'<i class="fa fa-fw fa-angle-double-right"></i>แก้ไข <i class="fa fa-fw fa-angle-double-right"></i>แผนงานและกิจกรรมของโครงการ');
+		$data['action_url']=base_url('planning/put_activity/'.$data['project_task']->PROJECT_PLANING_ID.'/'.$task_id);
+		$data['action_btn']=$this->load->view('action_btn',null,TRUE);
+		$data['content']=array('color'=>'info',
+										'title'=>'ชื่อโครงการ<i class="fa fa-fw fa-angle-double-right"></i>'.$data['project_planning']->PROJECT_NAME,
+										'detail'=>$this->load->view('form_activity',$data,TRUE));
+		$this->template->write_view('content','contents',$data);
+
+		$this->template->render();
+	}
 	function post_activity($planning_project_id=null)
 	{
 		if(empty($planning_project_id)) show_404();
@@ -218,6 +242,14 @@ class Planning extends CI_Controller {
 		else show_error('ไม่สามารถบันทึกข้อมูลได้');
 		//print_r($data);
 
+	}
+	function put_activity($planning_project_id,$task_id=null)
+	{
+		if(empty($task_id)) show_404();
+			$data=$this->input->post();
+		if($this->project_tasking->put($data,$task_id))
+			redirect(base_url('planning/edit/activity/'.$planning_project_id));
+		else show_error('ไม่สามารถบันทึกข้อมูลได้');
 	}
 	function post($province_id=null)
 	{
@@ -373,8 +405,13 @@ class Planning extends CI_Controller {
 								'detail'=>$this->load->view('view_project_location_images',$data,TRUE));
 		$this->template->write_view('content','contents',$data);
 
+
+		$data['project_tasking']=$this->project_tasking->get_by_project_id($id);
+		$data['project_status']=$this->project_status;
+		$data['view_activity_mode']=FALSE;
 		$data['content']=array('toolbar'=>'<a class="btn icon-btn btn-warning" href="'.base_url($this->router->fetch_class()).'/edit/activity/'.$id.'"><span class="btn-glyphicon fa fa-edit img-circle text-warning"></span>แก้ไข</a>',
-								'color'=>'warning','title'=>'แผนงานและกิจกรรมของโครงการ');
+								'color'=>'warning','title'=>'แผนงานและกิจกรรมของโครงการ',
+								'detail'=>$this->load->view('view_activity',$data,TRUE));
 		$this->template->write_view('content','contents',$data);
 
 		$this->template->render();

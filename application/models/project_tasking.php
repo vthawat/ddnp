@@ -14,6 +14,11 @@ class Project_tasking extends CI_Model
 		$this->db->where('PROJECT_PLANING_ID', $id);
 		return $this->db->get($this->table)->result();
 	}
+    function get_by_id($id)
+    {
+        $this->db->where('ID', $id);
+		return $this->db->get($this->table)->row();  
+    }
 	function get_all()
 	{
 		return $this->db->get($this->table)->result();
@@ -25,7 +30,8 @@ class Project_tasking extends CI_Model
 	}
 	function put($data,$id)
 	{
-		$this->db->where('ID',$id);
+		$data['USER_ID']=$this->ezrbac->getCurrentUser()->id;
+        $this->db->where('ID',$id);
 		return $this->db->update($this->table,$data);	
 	}
 	function delete($id)
