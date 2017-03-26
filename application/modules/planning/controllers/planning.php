@@ -19,7 +19,7 @@ class Planning extends CI_Controller {
 	{
 		$this->template->write('page_header',$this->project_planning->desc);
 				
-
+		// view chart projects
 		$data['project_planning']=$this->project_planning;
 		$data['year_list']=$this->project_planning->get_json_year_list();
 		$data['provice_list']=$this->project_planning->get_provice_active();
@@ -33,15 +33,22 @@ class Planning extends CI_Controller {
 		$this->template->write_view('content','contents',$data);
 
 
-		
+		// view chart potential
+		$data['potential_list']=$this->potentiality->get_on_project_planning();
+		$data['year_list']=$this->potentiality->get_year_list();
+		$data['potentiality']=$this->potentiality;
+	//	exit(print_r($this->potentiality->get_json_count_by_potential_id(2)));
+		//$this->template->add_js($this->load->view('js/chart-potential.js',$data,TRUE),'embed',TRUE);
+		//exit(print_r($data['potential_list']));
 		$data['content']=array('color'=>'primary',
 								'toolbar'=>'',
 								'title'=>'สรุปจำนวนโครงการแยกตามกลุ่มภารกิจงานและปีงบประมาณ',
-								'detail'=>'');
+								'detail'=>$this->load->view('view_chart_potential',$data,TRUE));
 		$this->template->write_view('content','contents',$data);
 
 		$this->template->render();
 	}
+
 	function get($province_id=null)
 	{
 		if(empty($province_id)) show_404();
