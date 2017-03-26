@@ -21,15 +21,27 @@ class Project_planning extends CI_Model
 		$this->db->where($this->table.'.ID', $id);
 		return $this->db->get($this->table)->row();
 	}
-	function get_all()
+	function get_all($fillter=array())
 	{
-		/*$this->db->select('*');
-		$this->db->join('village','project.POTENTIALITY_ID = potentiality.ID');
-		$this->db->join($this->year_budget->table,'project.YEAR_BUDGET_ID = year_budget.ID');
-		$this->db->join('province','project.PROVINCE_ID = province.ID');
-		$this->db->join('amphur','amphur.PROVINCE_ID = province.ID AND project.AMPHUR_ID = amphur.ID');
-		$this->db->join('district','district.PROVINCE_ID = province.ID AND project.DISTRICT_ID = district.ID');
-		return $this->db->get($this->table)->result();*/
+		//exit(print_r($fillter));
+		foreach($fillter as $key=>$item)
+				 if(empty($item)) unset($fillter[$key]);
+		$query=$this->db->get_where($this->table,$fillter);
+		return $query->result();
+	}
+	
+	function get_json_gis_all($fillter=null)
+	{
+		$gis=array();
+		foreach ($this->get_all($fillter) as $item) {
+			//if(!empty($item->LATITUDE)&&!empty($item->LONGTITUDE))
+			//{
+				array_push($gis,array('position'=>array($item->LATITUDE,$item->LONGTITUDE),
+				array('content'=>array($item->ID))));
+			//}
+		}
+		//exit(print_r($gis));
+		return json_encode($gis);
 	}
 	function get_by_province($id)
 	{
@@ -98,6 +110,19 @@ class Project_planning extends CI_Model
 				FROM
 				project_planning";
 		return $this->db->query($sql)->row()->TOTAL_PROJECT;
+	}
+
+ function get_year_list()
+	{
+		$sql="SELECT DISTINCT
+				budget_year.`YEAR`,
+				project_planning.BUDGET_YEAR_ID 
+				FROM
+				project_planning
+				INNER JOIN budget_year ON project_planning.BUDGET_YEAR_ID = budget_year.ID
+				ORDER BY budget_year.`YEAR` DESC";
+		$result=$this->db->query($sql)->result();
+		return $result;
 	}
 	function get_json_year_list()
 	{
