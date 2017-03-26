@@ -18,6 +18,11 @@ class Project_status extends CI_Model
 	{
 		return $this->db->get($this->table)->result();
 	}
+	function get_all_customize()
+	{
+		$this->db->where_not_in('ID',array(1,2,3,4,5,6,7,8));
+		return $this->db->get($this->table)->result();
+	}
 	function post($data)
 	{
 		return $this->db->insert($this->table,$data);

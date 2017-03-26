@@ -39,6 +39,10 @@ class Basic_adaptor extends CI_Model
 				if(empty($data['VILLAGE_NAME']))	return FALSE;
 				return $this->village->post($data);
 			break;
+			case 'project_status':
+				if(empty($data['STATUS']))	return FALSE;
+				return $this->project_status->post($data);
+			break;
 		
 						
 		}
@@ -62,6 +66,9 @@ class Basic_adaptor extends CI_Model
 			case 'budget_resource':
 				return $this->budget_resource->put($data,$id);
 			break;
+			case 'project_status':
+				return $this->project_status->put($data,$id);
+			break;			
 		
 		}
 		
@@ -130,7 +137,14 @@ class Basic_adaptor extends CI_Model
 					return array('desc'=>$this->desc,
 								'items'=>$this->items,
 								'view'=>$this->load->view('basic_'.$item,array('Basic_items'=>$this->items),TRUE));	
-				break;																							
+				break;
+			case 'project_status':
+					$this->desc=$this->project_status->desc;
+					$this->items=$this->project_status->get_all_customize();
+					return array('desc'=>'ชื่อ'.$this->desc,
+								'items'=>$this->items,
+								'view'=>$this->load->view('basic_'.$item,array('Basic_items'=>$this->items),TRUE));	
+				break;																											
 			default:
 				return FALSE;
 				break;
