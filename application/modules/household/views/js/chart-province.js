@@ -12,13 +12,13 @@ $(function () {
          // pointStrokeColor: "#c1c7d1",
           pointHighlightFill: "#fff",
          // pointHighlightStroke: "rgba(220,220,220,1)",
-          data: <?=$project_planning->get_json_count_by_province_id($item->PROVINCE_ID)?>
+          data: <?=$require_household->get_json_count_by_province_id($item->PROVINCE_ID)?>
         },
      <?php endforeach;?>
       ]
     };
 
-    var barChartCanvas = $("#barChartPlanning").get(0).getContext("2d");
+    var barChartCanvas = $("#barChartHousehold").get(0).getContext("2d");
     var barChart = new Chart(barChartCanvas);
     var barChartData = areaChartData;
     //barChartData.datasets[1].fillColor = "#00a65a";

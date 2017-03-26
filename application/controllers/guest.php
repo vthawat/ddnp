@@ -17,11 +17,42 @@ class Guest extends CI_Controller {
 	{
 		
 		$data['require_household']=$this->require_household;
+		$data['project_planning']=$this->project_planning;
 		$data['silde_intro']=$this->load->view('guest/slide-intro',null,TRUE);
 		$data['contents']=$this->load->view('guest/sumary',$data,TRUE);
-		//$data['contact']=$this->load->view('guest/contact',null,TRUE);
-		//$data['frm_login']=$this->load->view('guest/form_login',null,TRUE);
 		$this->template->write_view('content','guest/content',$data);
+
+		// view chart household
+		$data['year_list']=$this->require_household->get_json_year_list();
+		$data['provice_list']=$this->require_household->get_provice_active();
+								// add chart js component
+		$this->template->add_js('assets/plugins/chartjs/Chart.min.js');
+		$this->template->add_js($this->load->view('household/js/chart-province.js',$data,TRUE),'embed',TRUE);
+
+		$data['silde_intro']=null;
+		$data['content']=array('color'=>'primary',
+								'toolbar'=>'',
+								'title'=>'กราฟแสดงจำนวนความต้องการในระดับครัวเรือนแยกตามจังหวัดและปีที่สำรวจ',
+								'detail'=>$this->load->view('household/view_chart_province',$data,TRUE));
+		$data['contents']=$this->load->view('household/contents',$data,TRUE);
+		$this->template->write_view('content','guest/content',$data);
+
+
+
+		$data['year_list']=$this->project_planning->get_json_year_list();
+		$data['provice_list']=$this->project_planning->get_provice_active();
+				// view chart planning project
+		$this->template->add_js($this->load->view('planning/js/chart-province.js',$data,TRUE),'embed',TRUE);
+		$data['content']=array('color'=>'success',
+								'toolbar'=>'',
+								'title'=>'กราฟแสดงจำนวนโครงการพัฒนาศักยภาพแยกตามจังหวัดและปีงบประมาณ',
+								'detail'=>$this->load->view('planning/view_chart_province',$data,TRUE));
+		$data['contents']=$this->load->view('planning/contents',$data,TRUE);
+		$this->template->write_view('content','guest/content',$data);
+
+
+
+
 		$this->template->render();
 	}
 	function province_details($province_id=null)

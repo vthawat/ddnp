@@ -1,4 +1,3 @@
-<h3>ความต้องการในระดับครัวเรือน</h3>
 <div class="col-md-6">
   <div class="box box-solid bg-green-gradient">
   <div class="box-header">
@@ -20,7 +19,7 @@
                       <div class="text-blue">จำนวนครัวเรือนทั้งหมด</div>
                     </div>
                 <div class="col-xs-4 text-center">
-                        <h1 class="text-green num-respone"><?=$this->project_planning->count_all()?></h1>
+                        <h1 class="text-green num-respone"><?=$project_planning->count_all()?></h1>
                       <div class="text-blue">จำนวนโครงการทั้งหมด</div>
                     </div>
                 <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">

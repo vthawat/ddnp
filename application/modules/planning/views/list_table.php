@@ -1,4 +1,4 @@
-<table class="table table-hover table-responsive">
+<table class="projec-planning table table-hover table-responsive">
 	<thead>
 		<th>#</th>
 		<th>ชื่อโครงการ</th>

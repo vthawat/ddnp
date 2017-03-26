@@ -106,7 +106,8 @@ class Project_planning extends CI_Model
 				budget_year.`YEAR`
 				FROM
 				project_planning
-				INNER JOIN budget_year ON project_planning.BUDGET_YEAR_ID = budget_year.ID";
+				INNER JOIN budget_year ON project_planning.BUDGET_YEAR_ID = budget_year.ID
+				ORDER BY budget_year.`YEAR` ASC";
 		$result=$this->db->query($sql)->result();
 		foreach($result as $item)
 			array_push($year_list,$item->YEAR);
@@ -127,7 +128,8 @@ class Project_planning extends CI_Model
 						project_planning.BUDGET_YEAR_ID = year_id) as TOTAL
 				FROM
 				project_planning
-				INNER JOIN budget_year ON project_planning.BUDGET_YEAR_ID = budget_year.ID";
+				INNER JOIN budget_year ON project_planning.BUDGET_YEAR_ID = budget_year.ID 
+				ORDER BY budget_year.`YEAR` ASC";
 		$result=$this->db->query($sql)->result();
 		foreach($result as $item)
 			array_push($project_num,$item->TOTAL);

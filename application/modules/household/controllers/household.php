@@ -7,6 +7,7 @@ class Household extends CI_Controller {
 		parent::__construct();
 		$this->template->set_template('admin');
 		$this->load->model('require_household');
+		$this->load->model('project_planning');
 		$this->load->model('init_basic');
 		$this->template->write('sidebar',$this->load->controller('sidebar/get_sidebar',array(),FALSE));
 
@@ -17,16 +18,26 @@ class Household extends CI_Controller {
 	{
 		$this->template->write('page_header',$this->require_household->desc);
 
-						// add chart js component
-		$this->template->add_js('assets/plugins/chartjs/Chart.min.js');
-		$this->template->add_js($this->load->view('js/chart-province.js',null,TRUE),'embed',TRUE);
+
+		$data['require_household']=$this->require_household;
 		$data['project_planning']=$this->project_planning;
-		$data['year_list']=$this->project_planning->get_json_year_list();
-		$data['provice_list']=$this->project_planning->get_provice_active();
+		$data['year_list']=$this->require_household->get_json_year_list();
+		$data['provice_list']=$this->require_household->get_provice_active();
+								// add chart js component
+		$this->template->add_js('assets/plugins/chartjs/Chart.min.js');
+		$this->template->add_js($this->load->view('js/chart-province.js',$data,TRUE),'embed',TRUE);
+
 		$data['content']=array('color'=>'primary',
 								'toolbar'=>'',
 								'title'=>'กราฟแสดงจำนวนความต้องการในระดับครัวเรือนแยกตามจังหวัดและปีที่สำรวจ',
 								'detail'=>$this->load->view('view_chart_province',$data,TRUE));
+		$this->template->write_view('content','contents',$data);
+
+
+		$data['content']=array('color'=>'primary',
+								'toolbar'=>'',
+								'title'=>'สถิติความต้องการในระดับครัวเรือนทั้งหมด',
+								'detail'=>$this->load->view('guest/sumary',$data,TRUE));
 		$this->template->write_view('content','contents',$data);
 
 
@@ -259,4 +270,5 @@ class Household extends CI_Controller {
 		$this->template->add_js('assets/plugins/datatables/dataTables.bootstrap.min.js');
 		$this->template->add_js($this->load->view('js/datables.js',null,TRUE),'embed',TRUE);
 	}
+	
 }

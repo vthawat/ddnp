@@ -41,7 +41,7 @@
 		
 	 </div>
 		<?=$content?>
-	<div id="c" class="navbar-fixed-bottom bg-gray">
+	<div id="c" class="navbar navbar-default bg-gray">
 		<div class="container">
 			<p><?=$footer?></p>		
 		</div>

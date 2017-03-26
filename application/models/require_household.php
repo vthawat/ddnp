@@ -227,6 +227,59 @@ if(!empty($this->year))
 			$sql.="AND BUDGET_YEAR_ID =".$this->get_year_id();					
 		return $this->db->query($sql)->row()->TOTAL_VILLAGE;
 	}
+ function get_json_year_list()
+	{
+		$year_list=array();
+		$sql="SELECT DISTINCT
+				budget_year.`YEAR`
+				FROM
+				require_household
+				INNER JOIN budget_year ON require_household.BUDGET_YEAR_ID = budget_year.ID 
+				ORDER BY budget_year.`YEAR` ASC";
+		$result=$this->db->query($sql)->result();
+		foreach($result as $item)
+			array_push($year_list,$item->YEAR);
+		return json_encode($year_list);
+	}
+	function get_json_count_by_province_id($province_id)
+	{
+		$project_num=array();
+		$sql="SELECT DISTINCT
+				budget_year.`YEAR`,
+				budget_year.ID as year_id,
+						(SELECT
+						count(require_household.PROVINCE_ID)
+						FROM
+						require_household
+						WHERE
+						require_household.PROVINCE_ID = '$province_id' AND
+						require_household.BUDGET_YEAR_ID = year_id) as TOTAL
+				FROM
+				require_household
+				INNER JOIN budget_year ON require_household.BUDGET_YEAR_ID = budget_year.ID
+				ORDER BY budget_year.`YEAR` ASC";
+		$result=$this->db->query($sql)->result();
+		foreach($result as $item)
+			array_push($project_num,$item->TOTAL);
+		return json_encode($project_num);
+
+	}	
+ function get_provice_active()
+	{
+		$sql="SELECT
+			project_scope.PROVINCE_ID,
+			project_scope.CHART_COLOR,
+			province.PROVINCE_NAME
+			FROM
+			project_scope
+			INNER JOIN province ON project_scope.PROVINCE_ID = province.ID
+			WHERE
+			project_scope.ACTIVE_STATUS = 1
+			ORDER BY
+			project_scope.PROVINCE_ID ASC";
+		$result=$this->db->query($sql)->result();
+		return $result;
+	}
 			
 }
 

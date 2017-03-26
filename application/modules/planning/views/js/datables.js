@@ -1,5 +1,5 @@
 $(function () {
- oTable=$('.tb-web').DataTable({
+ oTable=$('.projec-planning').DataTable({
           "paging": true,
           "lengthChange": true,
           "searching": true,

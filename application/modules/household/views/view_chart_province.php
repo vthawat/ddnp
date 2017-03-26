@@ -1,6 +1,6 @@
 <div class="col-md-10">
         <div class="chart">
-                <canvas id="barChartPlanning" style="height:230px"></canvas>
+                <canvas id="barChartHousehold" style="height:230px"></canvas>
         </div>
 </div>
 <div class="col-md-2">
