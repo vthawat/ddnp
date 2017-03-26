@@ -55,6 +55,60 @@ class Guest extends CI_Controller {
 
 		$this->template->render();
 	}
+	function gis()
+	{
+		$this->template->write('page_header','ข้อมูลเชิงภูมิศาสตร์');
+	//$fillter=;
+		if(!empty($this->input->post()))
+			{
+			$fillter=$this->input->post();
+				if(empty($fillter['PROJECT_STATUS_ID']))
+					unset($fillter['PROJECT_STATUS_ID']);
+			}
+		else $fillter=array();
+			//exit(print_r($fillter));
+		$data['gis_data']=$this->project_planning->get_json_gis_all($fillter);
+		//exit(print_r($data['gis_data']));
+		
+		$data['provice_list']=$this->project_planning->get_provice_active();
+		$data['project_status_list']=$this->project_status->get_all();
+		$data['budget_year_list']=$this->project_planning->get_year_list();
+
+		// set load dat for maps
+		if(!empty(json_decode($data['gis_data'])))
+					{
+						$map_icon=json_encode(array('icon'=>base_url('images/placeholder.png')));
+						$project_detail_path=json_encode(array('path'=>base_url('planning/view_for_modal/')));
+						$json_val='var planning_gis='.$data['gis_data'].';';
+						$json_val.='var map_icon='.$map_icon.';';
+						$json_val.='var project_detail_path='.$project_detail_path.';';
+						$this->template->add_js($json_val,'embed',TRUE);
+
+							// map helpers
+						$this->template->add_js('https://maps.google.com/maps/api/js?key=AIzaSyBGE-KGQB9PP6uq4wErMO0Xbxmz4FWxy3Q&libraries=places&language=th','link');
+						$this->template->add_js('assets/gmaps/js/gmap3.min.js');
+						$this->template->add_css($this->load->view('planning/css/map.css',null,TRUE),'embed',TRUE);
+						$this->template->add_js($this->load->view('planning/js/view-big-map.js',null,TRUE),'embed',TRUE);
+					}
+		// gis map
+		$data['content']=array('color'=>'primary',
+								'size'=>9,
+								'toolbar'=>'',
+								'title'=>'GIS View',
+								'detail'=>$this->load->view('planning/view_gis_map',$data,TRUE));
+		$this->template->write_view('content','planning/contents',$data);
+		
+		$this->template->add_js($this->load->view('planning/js/select-box.js',$data,TRUE),'embed',TRUE);
+		// fillter
+		$data['content']=array('color'=>'success',
+								'size'=>3,
+								'toolbar'=>'',
+								'title'=>'ตัวกรองข้อมูล',
+								'detail'=>$this->load->view('planning/view_gis_fillter',$data,TRUE));
+		$this->template->write_view('content','planning/contents',$data);
+
+		$this->template->render();
+	}
 	function province_details($province_id=null)
 	{
 		$this->load_jquery_dtable();
