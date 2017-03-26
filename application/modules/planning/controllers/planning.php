@@ -45,7 +45,28 @@ class Planning extends CI_Controller {
 
 		$this->template->render();
 	}
+	function gis()
+	{
+		$this->template->write('page_header','ข้อมูลเชิงภูมิศาสตร์');
+		// gis map
+		$data['content']=array('color'=>'primary',
+								'size'=>9,
+								'toolbar'=>'',
+								'title'=>'GIS View',
+								'detail'=>$this->load->view('view_gis_map',null,TRUE));
+		$this->template->write_view('content','contents',$data);
+		
+		// fillter
+		$data['content']=array('color'=>'success',
+								'size'=>3,
+								'toolbar'=>'',
+								'title'=>'ตัวกรองข้อมูล',
+								'detail'=>$this->load->view('view_gis_fillter',null,TRUE));
+		$this->template->write_view('content','contents',$data);
 
+
+		$this->template->render();
+	}
 	function get($province_id=null)
 	{
 		if(empty($province_id)) show_404();

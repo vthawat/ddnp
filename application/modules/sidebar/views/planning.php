@@ -6,6 +6,7 @@
                 <li><a href="<?=base_url('planning/get/'.$item->ID)?>"><i class='fa fa-circle-o text-white fa-fw'></i><?=$this->province->desc.$item->PROVINCE_NAME?></a></li>
                 <?php endforeach;?>
 							<li><a href="<?=base_url('planning')?>"><i class='fa fa-circle-o text-green fa-fw'></i>รายงานสรุปในภาพรวม</a></li>
+							<li><a href="<?=base_url('planning/gis')?>"><i class='fa fa-circle-o text-green fa-fw'></i>ข้อมูลเชิงภูมิศาสตร์</a></li>
               </ul>
             </li>
 	<!--
