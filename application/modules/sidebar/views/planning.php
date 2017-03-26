@@ -5,6 +5,7 @@
               	<?php if(!empty($set_province)) foreach($set_province as $item):?>
                 <li><a href="<?=base_url('planning/get/'.$item->ID)?>"><i class='fa fa-circle-o text-white fa-fw'></i><?=$this->province->desc.$item->PROVINCE_NAME?></a></li>
                 <?php endforeach;?>
+							<li><a href="<?=base_url('planning')?>"><i class='fa fa-circle-o text-green fa-fw'></i>รายงานสรุปในภาพรวม</a></li>
               </ul>
             </li>
 	<!--

@@ -73,7 +73,7 @@ class Project_planning extends CI_Model
 	}
 	function delete($id)
 	{
-		// delete in project_tasking
+		// delete all referenc key
 		$this->load->model('project_tasking');
 		if($this->project_tasking->delete_by_project_id($id))
 			if($this->project_budget_resource_list->delete_by_project_id($id))
@@ -99,6 +99,59 @@ class Project_planning extends CI_Model
 				project_planning";
 		return $this->db->query($sql)->row()->TOTAL_PROJECT;
 	}
+	function get_json_year_list()
+	{
+		$year_list=array();
+		$sql="SELECT DISTINCT
+				budget_year.`YEAR`
+				FROM
+				project_planning
+				INNER JOIN budget_year ON project_planning.BUDGET_YEAR_ID = budget_year.ID";
+		$result=$this->db->query($sql)->result();
+		foreach($result as $item)
+			array_push($year_list,$item->YEAR);
+		return json_encode($year_list);
+	}
+	function get_json_count_by_province_id($province_id)
+	{
+		$project_num=array();
+		$sql="SELECT DISTINCT
+				budget_year.`YEAR`,
+				budget_year.ID as year_id,
+						(SELECT
+						count(project_planning.PROVINCE_ID)
+						FROM
+						project_planning
+						WHERE
+						project_planning.PROVINCE_ID = '$province_id' AND
+						project_planning.BUDGET_YEAR_ID = year_id) as TOTAL
+				FROM
+				project_planning
+				INNER JOIN budget_year ON project_planning.BUDGET_YEAR_ID = budget_year.ID";
+		$result=$this->db->query($sql)->result();
+		foreach($result as $item)
+			array_push($project_num,$item->TOTAL);
+		return json_encode($project_num);
+
+	}
+
+	function get_provice_active()
+	{
+		$sql="SELECT
+			project_scope.PROVINCE_ID,
+			project_scope.CHART_COLOR,
+			province.PROVINCE_NAME
+			FROM
+			project_scope
+			INNER JOIN province ON project_scope.PROVINCE_ID = province.ID
+			WHERE
+			project_scope.ACTIVE_STATUS = 1
+			ORDER BY
+			project_scope.PROVINCE_ID ASC";
+		$result=$this->db->query($sql)->result();
+		return $result;
+	}
+	
 }
 
 /* End of file template.php */

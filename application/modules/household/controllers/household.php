@@ -15,6 +15,20 @@ class Household extends CI_Controller {
  
 	function index()
 	{
+		$this->template->write('page_header',$this->require_household->desc);
+
+						// add chart js component
+		$this->template->add_js('assets/plugins/chartjs/Chart.min.js');
+		$this->template->add_js($this->load->view('js/chart-province.js',null,TRUE),'embed',TRUE);
+		$data['project_planning']=$this->project_planning;
+		$data['year_list']=$this->project_planning->get_json_year_list();
+		$data['provice_list']=$this->project_planning->get_provice_active();
+		$data['content']=array('color'=>'primary',
+								'toolbar'=>'',
+								'title'=>'กราฟแสดงจำนวนความต้องการในระดับครัวเรือนแยกตามจังหวัดและปีที่สำรวจ',
+								'detail'=>$this->load->view('view_chart_province',$data,TRUE));
+		$this->template->write_view('content','contents',$data);
+
 
 		$this->template->render();
 	}
