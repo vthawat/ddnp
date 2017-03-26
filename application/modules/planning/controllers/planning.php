@@ -33,13 +33,10 @@ class Planning extends CI_Controller {
 		$this->template->write_view('content','contents',$data);
 
 
-		// view chart potential
+		// view result potential
 		$data['potential_list']=$this->potentiality->get_on_project_planning();
 		$data['year_list']=$this->potentiality->get_year_list();
 		$data['potentiality']=$this->potentiality;
-	//	exit(print_r($this->potentiality->get_json_count_by_potential_id(2)));
-		//$this->template->add_js($this->load->view('js/chart-potential.js',$data,TRUE),'embed',TRUE);
-		//exit(print_r($data['potential_list']));
 		$data['content']=array('color'=>'primary',
 								'toolbar'=>'',
 								'title'=>'สรุปจำนวนโครงการแยกตามกลุ่มภารกิจงานและปีงบประมาณ',

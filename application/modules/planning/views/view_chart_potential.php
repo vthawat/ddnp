@@ -15,7 +15,7 @@
             <td><?=$i?></td>
             <td><?=$item->POTENTIALITY_NAME?></td>
         <?php foreach($year_list as $year):?>
-            <td class="text-center"><?=$this->potentiality->count_by_year_and_potential_id($year->ID,$item->POTENTIALITY_ID)?></td>
+            <td class="text-center"><?=number_format($this->potentiality->count_by_year_and_potential_id($year->ID,$item->POTENTIALITY_ID))?></td>
            <?php endforeach;?>
         </tr>
      <?php $i++;endforeach;?>
