@@ -13,3 +13,10 @@
                  <li><a href="<?=base_url()?>basic/village"><i class='fa fa-circle-o text-orange fa-fw'></i>รายชื่อหมู่บ้าน</a></li>
               </ul>
             </li>
+          <li class="treeview">
+              <a href="<?=base_url()?>basic"><i class='fa fa-users text-blue fa-fw'></i><span>กำหนดสิทธิ์ผู้ใช้งาน</span> <i class="fa fa-angle-left pull-right"></i></a>
+              <ul class="treeview-menu">
+              	<li><a href="<?=base_url()?>basic/manage_user"><i class='fa fa-circle-o text-blue fa-fw'></i>จัดการผู้ใช้งานระบบ</a></li>
+
+              </ul>
+            </li>

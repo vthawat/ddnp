@@ -65,7 +65,12 @@ class Basic extends CI_Controller {
 	{
 		$item=$this->router->fetch_method();
 		$this->load_basic($item,$action,$id);
-	}		
+	}
+	function manage_user($action=null,$id=null)
+	{
+		$item=$this->router->fetch_method();
+		$this->load_basic($item,$action,$id);
+	}			
 		
 	function json_get_amphur_by_provice_id($provice_id)
 	{

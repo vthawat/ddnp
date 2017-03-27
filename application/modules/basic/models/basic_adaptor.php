@@ -144,7 +144,14 @@ class Basic_adaptor extends CI_Model
 					return array('desc'=>'ชื่อ'.$this->desc,
 								'items'=>$this->items,
 								'view'=>$this->load->view('basic_'.$item,array('Basic_items'=>$this->items),TRUE));	
-				break;																											
+				break;
+			case 'manage_user':
+					$this->desc=$this->manage_user->desc;
+					$this->items=$this->manage_user->get_all();
+					return array('desc'=>$this->desc,
+								'items'=>$this->items,
+								'view'=>$this->load->view('basic_'.$item,array('Basic_items'=>$this->items),TRUE));	
+				break;																															
 			default:
 				return FALSE;
 				break;

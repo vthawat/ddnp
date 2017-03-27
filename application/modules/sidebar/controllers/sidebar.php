@@ -24,6 +24,7 @@ function access_map()
 			$this->sb_planning();
 			$this->sb_household();
 			$this->sb_basic();
+			//$this->sb_manage_user();
 		}
 		else $this->sb_household();
 		
@@ -55,6 +56,10 @@ function access_map()
 	  $data['set_province']=$this->province->get_all();
 	  array_push($this->sidebar_items,$this->load->view('requiredev',$data,TRUE));		
 		//return $this->load->view('trader_sidebar',$data,TRUE);
+	}
+	function sb_manage_user()
+	{
+		array_push($this->sidebar_items,$this->load->view('manage_user',null,TRUE));	
 	}
 	function sb_basic()
 	{
