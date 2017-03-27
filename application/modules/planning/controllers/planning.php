@@ -48,16 +48,12 @@ class Planning extends CI_Controller {
 	function gis()
 	{
 	$this->template->write('page_header','ข้อมูลเชิงภูมิศาสตร์');
-	//$fillter=;
+	$fillter=array();
 		if(!empty($this->input->post()))
-			{
-			$fillter=$this->input->post();
-				if(empty($fillter['PROJECT_STATUS_ID']))
-					unset($fillter['PROJECT_STATUS_ID']);
-			}
-		else $fillter=array();
-			//exit(print_r($fillter));
-		$data['gis_data']=$this->project_planning->get_json_gis_all($fillter);
+					$fillter=$this->input->post();
+	 $data['gis_data']=$this->project_planning->get_json_gis_all($fillter);
+		//	exit(print_r($data['gis_data']));
+		//$data['gis_data']=$this->project_planning->get_json_gis_all($fillter);
 		//exit(print_r($data['gis_data']));
 		
 		$data['provice_list']=$this->project_planning->get_provice_active();
@@ -67,7 +63,7 @@ class Planning extends CI_Controller {
 		// set load dat for maps
 		if(!empty(json_decode($data['gis_data'])))
 					{
-						$map_icon=json_encode(array('icon'=>base_url('images/placeholder.png')));
+						$map_icon=json_encode(array('icon'=>base_url('images/pin-32.png')));
 						$project_detail_path=json_encode(array('path'=>base_url('planning/view_for_modal/')));
 						$json_val='var planning_gis='.$data['gis_data'].';';
 						$json_val.='var map_icon='.$map_icon.';';

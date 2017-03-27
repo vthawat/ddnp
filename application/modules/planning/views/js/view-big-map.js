@@ -3,7 +3,7 @@ $(document).ready(function(){
     $('#gm-map')
       .gmap3({
         center:planning_gis[0].position,
-        zoom:6
+        zoom:9
       })
 
       .marker(planning_gis)
@@ -11,6 +11,7 @@ $(document).ready(function(){
       .then(function (markers) {
       		$.each(planning_gis, function(i, item) {
          		 markers[i].setIcon(map_icon.icon);
+						//	markers[i].setTitle(item[0].title);
        			 markers[i].addListener('click', function() {
        			 //	infowindow.open(this.get(0));
         			// alert(trader_detail_path.path+'/'+item[0].content);

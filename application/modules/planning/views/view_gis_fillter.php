@@ -44,7 +44,7 @@
 		 	<select class="form-control" id="status" name="PROJECT_STATUS_ID">
 		 		<option value="">--เลือกสถานะ--</option>
                 <?php foreach($project_status_list as $item):?>
-                 <option value="<?=$item->ID?>"><?=$item->STATUS?></option>
+                 <option value="<?=$item->ID?>" <?php if($this->input->post('PROJECT_STATUS_ID')==$item->ID):?>selected<?php endif;?>><?=$item->STATUS?></option>
                  <?php endforeach;?>
 		 	</select>
 		 </div>

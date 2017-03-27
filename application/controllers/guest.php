@@ -57,17 +57,27 @@ class Guest extends CI_Controller {
 	}
 	function gis()
 	{
+		exit();
 		$this->template->write('page_header','ข้อมูลเชิงภูมิศาสตร์');
+		exit(print_r($this->input->post()));
 	//$fillter=;
+	$fillter=array();
 		if(!empty($this->input->post()))
 			{
 			$fillter=$this->input->post();
-				if(empty($fillter['PROJECT_STATUS_ID']))
+				if(empty($fillter['PROJECT_STATUS_ID'])){
 					unset($fillter['PROJECT_STATUS_ID']);
+					$data['gis_data']=$this->project_planning->get_json_gis_all($fillter);
+				}
+				else 
+				{
+					exit(print_r($fillter));
+				}
+				
 			}
-		else $fillter=array();
+	
 			//exit(print_r($fillter));
-		$data['gis_data']=$this->project_planning->get_json_gis_all($fillter);
+		//$data['gis_data']=$this->project_planning->get_json_gis_all($fillter);
 		//exit(print_r($data['gis_data']));
 		
 		$data['provice_list']=$this->project_planning->get_provice_active();

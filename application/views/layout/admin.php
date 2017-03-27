@@ -109,9 +109,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                      	<li><a href="#"><span class="fa fa-angle-right fa-fw"></span>เปลี่ยนสิทธิ์เป็นผู้ดูแลระบบ</a></li>
                   <!-- Menu Footer-->
                   <li class="user-footer">
-                  	<div class="pull-left">
-                      <a href="<?=base_url()?>notification/view_all" class="btn btn-default btn-flat"><span class="fa fa-bell-o fa-fw"></span>Notifications</a>
-                    </div>
                     <div class="pull-right">
                       <a href="<?=base_url('rbac/logout')?>" class="btn btn-default btn-flat"><span class="fa fa-sign-out fa-fw"></span>Sign out</a>
                     </div>

@@ -24,6 +24,9 @@ class Project_planning extends CI_Model
 	function get_all($fillter=array())
 	{
 		//exit(print_r($fillter));
+		$this->db->distinct();
+		$this->db->select($this->table.'.*');
+		$this->db->join('project_tasking',$this->table.'.ID = project_tasking.PROJECT_PLANING_ID','left');
 		foreach($fillter as $key=>$item)
 				 if(empty($item)) unset($fillter[$key]);
 		$query=$this->db->get_where($this->table,$fillter);
@@ -34,11 +37,15 @@ class Project_planning extends CI_Model
 	{
 		$gis=array();
 		foreach ($this->get_all($fillter) as $item) {
-			//if(!empty($item->LATITUDE)&&!empty($item->LONGTITUDE))
-			//{
+		//	if(!empty($item->LATITUDE)&&!empty($item->LONGTITUDE))
+		//	{
 				array_push($gis,array('position'=>array($item->LATITUDE,$item->LONGTITUDE),
-				array('content'=>array($item->ID))));
-			//}
+								array('content'=>array($item->ID))));
+				
+		//	array_push($gis,array('position'=>array($item->LATITUDE,$item->LONGTITUDE)));
+		//	array_push($gis,array('content'=>$item->ID));
+
+		//	}
 		}
 		//exit(print_r($gis));
 		return json_encode($gis);
