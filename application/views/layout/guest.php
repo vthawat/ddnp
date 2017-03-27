@@ -9,9 +9,12 @@
 
     <!-- Bootstrap core CSS -->
     <link href="<?=base_url()?>themes/bootstrap3/css/bootstrap.css" rel="stylesheet">
-    <link href="<?=base_url()?>themes/bootstrap3/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link href="<?=base_url()?>themes/admin/font-awesome-4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="<?=base_url()?>assets/wow/css/libs/animate.css" rel="stylesheet">
       <link href="<?=base_url()?>themes/admin/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+          <link href="<?=base_url()?>assets/bootsnipp/custom.css" rel="stylesheet" type="text/css" />
+      
     <!-- Custom styles for this template -->
     <link href="<?=base_url()?>themes/bootstrap3/css/main.css" rel="stylesheet">
     <?=$_styles?>

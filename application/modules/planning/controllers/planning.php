@@ -52,9 +52,6 @@ class Planning extends CI_Controller {
 		if(!empty($this->input->post()))
 					$fillter=$this->input->post();
 	 $data['gis_data']=$this->project_planning->get_json_gis_all($fillter);
-		//	exit(print_r($data['gis_data']));
-		//$data['gis_data']=$this->project_planning->get_json_gis_all($fillter);
-		//exit(print_r($data['gis_data']));
 		
 		$data['provice_list']=$this->project_planning->get_provice_active();
 		$data['project_status_list']=$this->project_status->get_all();
