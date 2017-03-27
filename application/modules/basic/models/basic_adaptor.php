@@ -43,7 +43,9 @@ class Basic_adaptor extends CI_Model
 				if(empty($data['STATUS']))	return FALSE;
 				return $this->project_status->post($data);
 			break;
-		
+			case 'manage_user':
+				return $this->manage_user->post($data);
+			break;
 						
 		}
 	}
@@ -68,7 +70,10 @@ class Basic_adaptor extends CI_Model
 			break;
 			case 'project_status':
 				return $this->project_status->put($data,$id);
-			break;			
+			break;	
+			case 'manage_user':
+				return $this->manage_user->put($data,$id);
+			break;
 		
 		}
 		

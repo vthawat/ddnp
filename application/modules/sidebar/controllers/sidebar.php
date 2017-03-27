@@ -13,10 +13,7 @@ class Sidebar extends CI_Controller {
 		
 		
 	}
-function access_map()
-{
 
-}
 	function set_role($role_id)
 	{
 		if($role_id==1)
@@ -25,6 +22,10 @@ function access_map()
 			$this->sb_household();
 			$this->sb_basic();
 			//$this->sb_manage_user();
+		}
+		elseif($role_id==3)
+		{
+			$this->sb_planning();
 		}
 		else $this->sb_household();
 		

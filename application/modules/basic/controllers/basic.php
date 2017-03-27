@@ -148,6 +148,7 @@ class Basic extends CI_Controller {
 			{
 				$data['action']=base_url().'basic/put/'.$item.'/'.$id;
 				$data['edit_item']=$this->Basic->load_edit($item,$id);
+				//exit(print_r($data['edit_item']));
 				$reForm['title']='แก้ไขข้อมูล'.$desc;
 			}
 		
@@ -162,7 +163,7 @@ class Basic extends CI_Controller {
 	function post($item=null)
 	{
 		// this function add new record in to basic data
-		//print_r($this->input->post());
+
 		$result=$this->Basic->post($item);
 		if(!$result) {
 			$message=array('color'=>'info',
@@ -174,7 +175,8 @@ class Basic extends CI_Controller {
 			$this->load_basic($item,'new');
 		}
 		else redirect(base_url().'basic/'.$item);
-		
+
+	
 		
 	}
 	function put($item=null,$id=null,$status=null)
