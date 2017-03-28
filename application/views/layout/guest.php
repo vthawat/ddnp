@@ -20,36 +20,9 @@
     <?=$_styles?>
     <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
-    
-    <script src="<?=base_url()?>themes/bootstrap3/js/jquery.min.js"></script>
+        <script src="<?=base_url()?>themes/bootstrap3/js/jquery.min.js"></script>
      <script src="<?=base_url()?>assets/wow/js/wow.min.js"></script>
-    <?=$_scripts?>
-  </head>
-
-  <body data-spy="scroll" data-offset="0" data-target="#navigation">
-
-    <!-- Fixed navbar -->
-	 <div id="navigation" class="navbar navbar-default navbar-fixed-top bg-green-gradient">
-		<div class="container">
-	        <div class="navbar-header">
-	          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-	            <span class="icon-bar"></span>
-	            <span class="icon-bar"></span>
-	            <span class="icon-bar"></span>
-	          </button>
-	          <a class="navbar-brand" href="<?=base_url()?>"><?=$band_name?></a>
-	        </div>
-	        <?=$menu?>
-		</div>
-		
-	 </div>
-		<?=$content?>
-	<div id="c" class="navbar navbar-default bg-gray">
-		<div class="container">
-			<p><?=$footer?></p>		
-		</div>
-	</div>
-    <!-- Bootstrap core JavaScript
+       <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="<?=base_url()?>themes/bootstrap3/js/bootstrap.js"></script>
@@ -108,5 +81,35 @@ $('.carousel').on('slide.bs.carousel', function (ev) {
   }*/
 });
 	</script>
+    <?=$_scripts?>
+  </head>
+
+  <body data-spy="scroll" data-offset="0" data-target="#navigation">
+
+    <!-- Fixed navbar -->
+	 <div id="navigation" class="navbar navbar-default navbar-fixed-top bg-green-gradient">
+		<div class="container">
+	        <div class="navbar-header">
+	          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	          </button>
+	          <a class="navbar-brand" href="<?=base_url()?>"><?=$band_name?></a>
+	        </div>
+	        <?=$menu?>
+		</div>
+		
+	 </div>
+   <div class="gis-map">
+   		<?=$content?>
+   </div>
+    
+    <div class="clearfix"></div>
+		<div class="container">
+			<p><?=$footer?></p>		
+		</div>
+
+  
   </body>
 </html>

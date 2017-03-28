@@ -6,6 +6,7 @@ class Guest extends CI_Controller {
 		parent::__construct();
 		$this->load->model('require_household');
 		$this->load->model('project_planning');
+		$this->load->model('project_tasking');
 		$this->load->model('init_basic');
 		$this->template->add_css($this->load->view('guest/css/intro-contents.css',null,TRUE),'embed',TRUE);
 		$this->template->write_view('menu','guest/menu');
@@ -179,14 +180,14 @@ class Guest extends CI_Controller {
 		$data['content']=array('color'=>'primary',
 								//'toolbar'=>$this->load->view('view_btn',$data,TRUE),
 								'title'=>'<h4>โครงการ<i class="fa fa-fw fa-angle-double-right"></i>'.$data['project_planning']->PROJECT_NAME.'</h4>',
-								'detail'=>$this->load->view('view_project_planning_details',$data,TRUE)
+								'detail'=>$this->load->view('guest/view_project_planning_details',$data,TRUE)
 							  );
-		$html=$this->load->view('contents',$data,TRUE);
+		$html=$this->load->view('guest/contents',$data,TRUE);
 		// view response
 		$data['content']=array(//'toolbar'=>'<a class="btn icon-btn btn-warning" href="'.base_url($this->router->fetch_class()).'/edit/response_household/'.$id.'/'.$data['househould_year'].'"><span class="btn-glyphicon fa fa-edit img-circle text-warning"></span>แก้ไข</a>',
 								'color'=>'info','title'=>'ความครอบคลุมของครัวเรือนต่อโครงการ <i class="fa fa-fw fa-angle-double-right"></i>'.$data['project_planning']->PROJECT_NAME,
-								'detail'=>$this->load->view('view_region_response',$data,TRUE));
-		$html.=$this->load->view('contents',$data,TRUE);
+								'detail'=>$this->load->view('guest/view_region_response',$data,TRUE));
+		$html.=$this->load->view('guest/contents',$data,TRUE);
 
 		// view activity
 
@@ -195,14 +196,14 @@ class Guest extends CI_Controller {
 		$data['view_activity_mode']=FALSE;
 		$data['content']=array(//'toolbar'=>'<a class="btn icon-btn btn-warning" href="'.base_url($this->router->fetch_class()).'/edit/activity/'.$id.'"><span class="btn-glyphicon fa fa-edit img-circle text-warning"></span>แก้ไข</a>',
 								'color'=>'warning','title'=>'แผนงานและกิจกรรมของโครงการ',
-								'detail'=>$this->load->view('view_activity',$data,TRUE));
-		$html.=$this->load->view('contents',$data,TRUE);
+								'detail'=>$this->load->view('guest/view_activity',$data,TRUE));
+		$html.=$this->load->view('guest/contents',$data,TRUE);
 		// view media
 
 		$data['content']=array(//'toolbar'=>'<a class="btn icon-btn btn-warning" href="'.base_url($this->router->fetch_class()).'/edit/location/'.$id.'"><span class="btn-glyphicon fa fa-edit img-circle text-warning"></span>แก้ไข</a>',
 								'color'=>'success','title'=>'เอกสารหรือสื่อประกอบและแผนที่ตั้งโครงการ',
-								'detail'=>$this->load->view('view_project_media',$data,TRUE));
-		$html.=$this->load->view('contents',$data,TRUE);
+								'detail'=>$this->load->view('guest/view_project_media',$data,TRUE));
+		$html.=$this->load->view('guest/contents',$data,TRUE);
 		print $html;
 
 	}
