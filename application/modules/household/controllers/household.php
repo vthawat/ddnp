@@ -12,7 +12,10 @@ class Household extends CI_Controller {
 		$this->template->write('sidebar',$this->load->controller('sidebar/get_sidebar',array(),FALSE));
 
 	}
-
+	function test()
+	{
+		print_r($this->manage_user->get_user_meta());
+	}
  
 	function index()
 	{
@@ -47,6 +50,12 @@ class Household extends CI_Controller {
 	{
 		if(empty($province_id)) show_404();
 		if(!in_array($province_id,$this->project_scope->project_scope)) show_404();
+
+		if($this->manage_user->get_current_user()->user_role_id==2) // level หัวหน้าชุมชน
+		{
+			if($this->province->find_info_by_village($this->manage_user->get_user_meta()->village_id)->PROVINCE_ID!=$province_id) 
+				show_error('ไม่สามารถเข้าถึงข้อมูลได้');
+		}
 		$this->load_jquery_dtable();
 		$this->template->write('page_header',$this->require_household->desc);
 		$data['province_id']=$province_id;
@@ -82,6 +91,17 @@ class Household extends CI_Controller {
 	{
 		if(empty($province_id)) show_404();
 		if(!in_array($province_id,$this->project_scope->project_scope)) show_404();
+		if($this->manage_user->get_current_user()->user_role_id==2) // level หัวหน้าชุมชน
+		{
+			if($this->province->find_info_by_village($this->manage_user->get_user_meta()->village_id)->PROVINCE_ID!=$province_id) 
+				show_error('ไม่สามารถเข้าถึงข้อมูลได้');
+			else
+			{
+				$data['set_scope']=$this->province->find_info_by_village($this->manage_user->get_user_meta()->village_id);
+				$data['user_level_2']=TRUE;
+			}
+		}
+
 		$this->template->add_js($this->load->view('js/select-box.js',null,TRUE),'embed',TRUE);
 		$this->template->add_js('assets/plugins/input-mask/inputmask.js');
 		$this->template->add_js('assets/plugins/input-mask/inputmask.extensions.js');
@@ -108,6 +128,17 @@ class Household extends CI_Controller {
 		$data['household']=$this->require_household->get_by_id($id);
 		$province_id=$data['household']->PROVINCE_ID;
 		if(!in_array($province_id,$this->project_scope->project_scope)) show_404();
+		if($this->manage_user->get_current_user()->user_role_id==2) // level หัวหน้าชุมชน
+		{
+			if($this->province->find_info_by_village($this->manage_user->get_user_meta()->village_id)->PROVINCE_ID!=$province_id) 
+				show_error('ไม่สามารถเข้าถึงข้อมูลได้');
+			else
+			{
+				$data['set_scope']=$this->province->find_info_by_village($this->manage_user->get_user_meta()->village_id);
+				$data['user_level_2']=TRUE;
+			}
+		}
+
 		$this->template->add_js($this->load->view('js/select-box.js',null,TRUE),'embed',TRUE);
 		$this->template->add_js('assets/plugins/input-mask/inputmask.js');
 		$this->template->add_js('assets/plugins/input-mask/inputmask.extensions.js');
@@ -166,6 +197,7 @@ class Household extends CI_Controller {
 		if(!empty($data['PATIENT_DESC']))
 					$data['PATIENT_DESC']=implode(",",$data['PATIENT_DESC']);
 
+		//exit(print_r($data));
 		if($this->require_household->post($data)) 
 			redirect('household/get/'.$province_id);
 		else show_error('ไม่สามารถบันทึกได้');

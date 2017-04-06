@@ -6,7 +6,6 @@ class Manage_user extends CI_Model
 	function __construct()
 	{
 		parent::__construct();
-		//$this->load->model('project');
 			
 	}
 	function get_by_id($id)
@@ -23,6 +22,15 @@ class Manage_user extends CI_Model
         $this->db->join('user_role',$this->table.'.user_role_id = user_role.id');
         $this->db->join('user_meta',$this->table.'.id = user_meta.user_id');
         return $this->db->get($this->table)->result();
+	}
+	function get_current_user()
+	{
+		return $this->ezrbac->getCurrentUser();
+	}
+	function get_user_meta()
+	{
+		$userinfo=$this->ezrbac->getUserMeta($this->ezrbac->getCurrentUserID());
+		return $userinfo;
 	}
 	function post($data)
 	{

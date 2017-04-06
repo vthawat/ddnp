@@ -74,6 +74,9 @@ class Require_household extends CI_Model
 		$this->db->join('amphur','amphur.PROVINCE_ID = province.ID AND '.$this->table.'.AMPHUR_ID = amphur.ID');
 		$this->db->join('district','district.PROVINCE_ID = province.ID AND '.$this->table.'.DISTRICT_ID = district.ID');
 		$this->db->where($this->table.'.PROVINCE_ID',$id);
+		if($this->ezrbac->getCurrentUser()->user_role_id==2) // level หัวหน้าชุมชน
+			$this->db->where($this->table.'.VILL_ID',$this->manage_user->get_user_meta()->village_id);
+
 		return $this->db->get($this->table)->result();
 
 	}

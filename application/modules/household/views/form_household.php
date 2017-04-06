@@ -15,38 +15,47 @@
     </div>
   </div>
 
-	<div class="form-group bg-yellow <?php if(form_error('AMPHUR_ID')) print 'has-error'?>">
+	<div class="form-group bg-yellow">
     <label for="amphur" class="col-sm-2 control-label"><?=$this->amphur->desc?>*</label>
     <div class="col-sm-10">
       <select class="form-control" name="AMPHUR_ID" id="amphur" required="">
       	<option value=""></option>
-      	<?php if(!empty($amphur)) foreach($amphur as $item):?>
+      	<?php if($user_level_2):?>
+					<option value="<?=$set_scope->AMPHUR_ID?>" selected><?=$set_scope->AMPHUR_NAME?></option>
+				<?php else:?>		
+				<?php if(!empty($amphur)) foreach($amphur as $item):?>
       		<?php if($item->ID==$household->AMPHUR_ID):?>
       			<option value="<?=$item->ID?>" selected><?=$item->AMPHUR_NAME?></option>
       		<?php else:?>
       		<option value="<?=$item->ID?>"><?=$item->AMPHUR_NAME?></option>
       		<?php endif;?>
       	<?php endforeach;?>
+				<?php endif;?>
       </select>      	
     </div>
   </div>
 
-	<div class="form-group bg-aqua <?php if(form_error('DISTRICT_ID')) print 'has-error'?>">
+	<div class="form-group bg-aqua">
     <label for="district" class="col-sm-2 control-label"><?=$this->district->desc?>*</label>
     <div class="col-sm-10">
     	<?php if(!empty($household))
 		{
 
-				$district=$this->district->get_by_amphur_id($household->AMPHUR_ID);
-				$district_selected=$household->DISTRICT_ID;
+					$district=$this->district->get_by_amphur_id($household->AMPHUR_ID);
+					$district_selected=$household->DISTRICT_ID;
+				
 			}
 			
     	?>
       <select class="form-control" name="DISTRICT_ID" id="district" required="">
-      	<option value=""></option>
+		  	<option value=""></option>
+				<?php if($user_level_2):?>
+					<option value="<?=$set_scope->DISTRICT_ID?>" selected><?=$set_scope->DISTRICT_NAME?></option>
+				<?php else:?>
       	<?php foreach($district as $item):?>
       		<option value="<?=$item->ID?>" <?php if($district_selected==$item->ID) print ' selected'?>><?=$item->DISTRICT_NAME?></option>
       	<?php endforeach?>
+				<?php endif;?>
       </select>
     </div>
   </div>
@@ -65,9 +74,13 @@
     	?>
       <select class="form-control" name="VILL_ID" id="village" required="">
       	<option value=""></option>
-      	<?php foreach($village as $item):?>
+				<?php if($user_level_2):?>
+					<option value="<?=$set_scope->ID?>" selected><?=$set_scope->VILLAGE_NAME?></option>
+				<?php else:?>
+      	<?php if(!empty($village))foreach($village as $item):?>
       		<option value="<?=$item->ID?>" <?php if($village_selected==$item->ID) print ' selected'?>><?=$item->VILLAGE_NAME?></option>
       	<?php endforeach?>
+				<?php endif;?>
       </select>
     </div>
   </div>

@@ -23,6 +23,25 @@ class Province extends CI_Model
 		$this->db->where('ID', $id);
 		return $this->db->get($this->table)->row();
 	}
+	function find_info_by_village($vill_id)
+	{
+		$sql="SELECT
+			district.PROVINCE_ID,
+			village.ID,
+			village.DISTRICT_ID,
+			village.VILLAGE_NAME,
+			district.AMPHUR_ID,
+			amphur.AMPHUR_NAME,
+			district.DISTRICT_NAME
+			FROM
+			village
+			INNER JOIN district ON village.DISTRICT_ID = district.ID
+			INNER JOIN amphur ON district.AMPHUR_ID = amphur.ID
+			WHERE
+			village.ID = '$vill_id'";
+		$result=$this->db->query($sql);
+		return $result->row();
+	}
 	
 }
 

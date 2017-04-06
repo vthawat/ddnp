@@ -18,8 +18,8 @@
     <!-- Custom styles for this template -->
     <link href="<?=base_url()?>themes/bootstrap3/css/main.css" rel="stylesheet">
     <?=$_styles?>
-    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
         <script src="<?=base_url()?>themes/bootstrap3/js/jquery.min.js"></script>
      <script src="<?=base_url()?>assets/wow/js/wow.min.js"></script>
        <!-- Bootstrap core JavaScript
