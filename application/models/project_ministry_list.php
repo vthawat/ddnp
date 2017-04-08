@@ -13,7 +13,17 @@ class Project_ministry_list extends CI_Model
 	{
 		$this->db->join('ministry',$this->table.'.MINISTRY_ID=ministry.ID');
 		$this->db->where($this->table.'.PROJECT_PLANING_ID',$project_planning_id);
+		$this->db->order_by('OWNER','DESC');
 		return $this->db->get($this->table)->result();
+
+	}
+	function check_own($project_planning_id,$ministry_id)
+	{
+		$result=$this->get_one($project_planning_id,$ministry_id);
+		if(!empty($result))
+		 if($result->OWNER) return TRUE;
+		 else return TRUE;
+		else return FALSE;
 
 	}
 	function get_by_id($ministry_id)

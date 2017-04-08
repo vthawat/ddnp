@@ -35,7 +35,11 @@
 		  		<ul class="list-group">
 				  <?php 
 				  if(!empty($ministry_list)) foreach($ministry_list as $item):?>
-				  <li class="list-group-item"><?=$item->MINISTRY_NAME?></li>
+				  <li class="list-group-item <?php if($item->OWNER) print 'bg-green';?>"><?=$item->MINISTRY_NAME?>
+				  <?php if($item->OWNER):?>
+				  	<span class="pull-right">เจ้าของโครงการ</span>
+				  <?php endif;?>
+				  </li>
 				  <?php endforeach;?>
 				</ul>
 		  </td>

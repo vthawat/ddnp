@@ -139,6 +139,10 @@ class Planning extends CI_Controller {
 	{
 		if(empty($province_id)) show_404();
 		if(!in_array($province_id,$this->project_scope->project_scope)) show_404();
+		if($this->manage_user->get_current_user()->user_role_id==3) // level เจ้าหน้าที่กระทรวง
+				$data['user_level_3']=TRUE;
+	
+
 		$this->template->add_js($this->load->view('js/select-box.js',null,TRUE),'embed',TRUE);
 		$this->template->add_js('assets/plugins/input-mask/inputmask.js');
 		$this->template->add_js('assets/plugins/input-mask/inputmask.extensions.js');
@@ -185,6 +189,10 @@ class Planning extends CI_Controller {
 		switch($action)
 		{
 		case 'planning':
+				if($this->manage_user->get_current_user()->user_role_id==3) // level เจ้าหน้าที่กระทรวง
+				if(!$this->project_ministry_list->check_own($id,$this->manage_user->get_user_meta()->village_id)) show_error('ไม่สามารถแก้ไขโครงการได้');
+				$data['user_level_3']=TRUE;
+
 				$this->template->add_js($this->load->view('js/select-box.js',null,TRUE),'embed',TRUE);
 				$this->template->add_js('assets/plugins/input-mask/inputmask.js');
 				$this->template->add_js('assets/plugins/input-mask/inputmask.extensions.js');
@@ -212,7 +220,8 @@ class Planning extends CI_Controller {
 				$this->template->render();
 		break;
 		case 'response_household':
-				
+				if($this->manage_user->get_current_user()->user_role_id==3) // level เจ้าหน้าที่กระทรวง
+					if(!$this->project_ministry_list->check_own($id,$this->manage_user->get_user_meta()->village_id)) show_error('ไม่สามารถแก้ไขโครงการได้');
 				$this->require_household->year=$year;
 				$data['require_household']=$this->require_household;
 				$data['househould_year']=$year;
@@ -227,6 +236,8 @@ class Planning extends CI_Controller {
 				$this->template->render();
 		break;
 		case 'location':
+				if($this->manage_user->get_current_user()->user_role_id==3) // level เจ้าหน้าที่กระทรวง
+					if(!$this->project_ministry_list->check_own($id,$this->manage_user->get_user_meta()->village_id)) show_error('ไม่สามารถแก้ไขโครงการได้');
 				// map helpers
 					$this->template->add_js('https://maps.google.com/maps/api/js?key=AIzaSyBGE-KGQB9PP6uq4wErMO0Xbxmz4FWxy3Q&libraries=places&language=th','link');
 					$this->template->add_js('assets/gmaps/js/locationpicker.jquery.min.js');
@@ -248,6 +259,8 @@ class Planning extends CI_Controller {
 				$this->template->render();
 		break;
 		case 'activity':
+			if($this->manage_user->get_current_user()->user_role_id==3) // level เจ้าหน้าที่กระทรวง
+					if(!$this->project_ministry_list->check_own($id,$this->manage_user->get_user_meta()->village_id)) show_error('ไม่สามารถแก้ไขโครงการได้');
 			$this->template->write('page_header',$this->project_planning->desc.'<i class="fa fa-fw fa-angle-double-right"></i>จัดการ <i class="fa fa-fw fa-angle-double-right"></i>แผนงานและกิจกรรมของโครงการ');
 			$data['project_tasking']=$this->project_tasking->get_by_project_id($id);
 			$data['project_status']=$this->project_status;
@@ -267,6 +280,8 @@ class Planning extends CI_Controller {
 	function addnew_activity($planning_project_id=null)
 	{
 		if(empty($planning_project_id)) show_404();
+		if($this->manage_user->get_current_user()->user_role_id==3) // level เจ้าหน้าที่กระทรวง
+					if(!$this->project_ministry_list->check_own($planning_project_id,$this->manage_user->get_user_meta()->village_id)) show_error('ไม่สามารถเพิ่มรายการกิจกรรมได้');
 		$this->template->add_js('assets/plugins/datepicker/bootstrap-datepicker.js');
 		$this->template->add_js('assets/plugins/datepicker/locales/bootstrap-datepicker.th.js');
 		$this->template->add_css('assets/plugins/datepicker/datepicker3.css');
@@ -366,8 +381,23 @@ class Planning extends CI_Controller {
 			// insert to project_ministry_list
 				foreach($ministry_list as $id)
 				{
-					$data=array('PROJECT_PLANING_ID'=>$this->project_planning->insert_id,
-								'MINISTRY_ID'=>$id);				
+					if($this->manage_user->get_current_user()->user_role_id==3) // level เจ้าหน้าที่กระทรวง
+					{
+						if($id==$this->manage_user->get_user_meta()->village_id)
+						{
+							// Set master owner project
+							$data=array('PROJECT_PLANING_ID'=>$this->project_planning->insert_id,
+								'MINISTRY_ID'=>$id,
+								'OWNER'=>1);
+						}
+						else
+						$data=array('PROJECT_PLANING_ID'=>$this->project_planning->insert_id,
+								'MINISTRY_ID'=>$id);
+					}
+					else{
+						$data=array('PROJECT_PLANING_ID'=>$this->project_planning->insert_id,
+								'MINISTRY_ID'=>$id);
+						}
 					$this->project_ministry_list->post($data);
 				}
 			// insert to project_budget_resource_list
@@ -427,8 +457,25 @@ class Planning extends CI_Controller {
 			$this->project_ministry_list->delete_all_project_planning_id($id);
 				foreach($ministry_list as $ministry_id)
 				{
+					if($this->manage_user->get_current_user()->user_role_id==3) // level เจ้าหน้าที่กระทรวง
+					{
+						if($ministry_id==$this->manage_user->get_user_meta()->village_id)
+						{
+							// Set master owner project
+							$data=array('PROJECT_PLANING_ID'=>$id,
+								'MINISTRY_ID'=>$ministry_id,
+								'OWNER'=>1);	
+						}
+						else
+						 $data=array('PROJECT_PLANING_ID'=>$id,
+								'MINISTRY_ID'=>$ministry_id);					
+					
+					}
+					else
+					{
 					$data=array('PROJECT_PLANING_ID'=>$id,
 								'MINISTRY_ID'=>$ministry_id);				
+					}
 					$this->project_ministry_list->post($data,$id);
 				}
 			// update to project_budget_resource_list
@@ -550,7 +597,8 @@ class Planning extends CI_Controller {
 	function del($province_id=null,$id=null)
 	{
 		if(empty($id)) show_404();
-		
+		if($this->manage_user->get_current_user()->user_role_id==3) // level เจ้าหน้าที่กระทรวง
+					if(!$this->project_ministry_list->check_own($id,$this->manage_user->get_user_meta()->village_id)) show_error('ไม่สามารถลบโครงการได้');
 		if($this->project_planning->delete($id))
 			redirect(base_url($this->router->fetch_class()).'/get/'.$province_id);
 		else show_error('ไม่สามารถลบข้อมูลโครงการได้');

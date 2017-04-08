@@ -103,6 +103,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                      		 	<?=$userinfo->first_name?> <?=$userinfo->last_name?></span> 	
                      		 </p>
                      		 <p><span><?=$this->ezrbac->getRoleName()?></span></p>
+                          <?php if($this->manage_user->get_current_user()->user_role_id==3): // level เจ้าหน้าที่กระทรวง?>
+                         <p>(<?=$this->ministry->get_by_id($this->manage_user->get_user_meta()->village_id)->MINISTRY_NAME?>)</p>
+                         <?php endif;?>
+                         <?php if($this->manage_user->get_current_user()->user_role_id==2): // level หัวหน้าชุมชน?>
+                         <p>(หมู่บ้าน<?=$this->village->get_by_id($this->manage_user->get_user_meta()->village_id)->VILLAGE_NAME?>)</p>
+                         <?php endif;?>
                      		
                      	</li>
                   <!-- Menu Footer-->

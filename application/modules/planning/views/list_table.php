@@ -2,6 +2,9 @@
 	<thead>
 		<th>#</th>
 		<th>ชื่อโครงการ</th>
+		<?php if($this->manage_user->get_current_user()->user_role_id==3): // level เจ้าหน้าที่กระทรวง?>
+			<th>สถานะเจ้าของโครงการ</th>
+		<?php endif;?>
 		<th>ปีงบประมาณ</th>
 		<th>ตำบล</th>
 		<th>อำเภอ</th>
@@ -12,6 +15,14 @@
 		<tr>
 			<td><?=$num?></td>
 			<td><?=$item->PROJECT_NAME?></td>
+			<?php if($this->manage_user->get_current_user()->user_role_id==3): // level เจ้าหน้าที่กระทรวง?>
+			<td>
+			<?php if($this->project_ministry_list->check_own($item->ID,$this->manage_user->get_user_meta()->village_id)):?>
+				<span class="text-green"><i class="fa fa-fw fa-user"></i>เจ้าของ</span>
+				<span><?=$this->ministry->get_by_id($this->manage_user->get_user_meta()->village_id)->MINISTRY_NAME?></span>
+			<?php endif;?>
+			</td>
+			<?php endif;?>
 			<td><?=$item->YEAR?></td>
 			<td><?=$item->DISTRICT_NAME?></td>
 			<td><?=$item->AMPHUR_NAME?></td>

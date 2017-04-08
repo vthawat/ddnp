@@ -75,14 +75,23 @@
     <div class="col-sm-10"><br>
     	<ul class="list-group">
 		<?php if(!empty($ministry)) foreach($ministry as $item):?>
-			
+			<?php if($user_level_3&&$this->manage_user->get_user_meta()->village_id==$item->ID):?>
+		
+			<li class="list-group-item bg-green">
+					<div class="checkbox">
+							<label><input type="checkbox" value="<?=$item->ID?>" name="MINISTRY_LIST[]" checked readonly> 
+							<span><?=$item->MINISTRY_NAME?></span></label>
+						</div>
+						</li>
+
+			<?php else:?>
 			<li class="list-group-item">
 			<div class="checkbox">
     			<label><input type="checkbox" value="<?=$item->ID?>" name="MINISTRY_LIST[]" <?php if(!empty($project_planning)) if($this->project_ministry_list->get_one($project_planning->ID,$item->ID)) print 'checked';?>> 
 					<span class="text-purple"><?=$item->MINISTRY_NAME?></span></label>
     		</div>
     		</li>
-    		
+    	<?php endif;?>
 		<?php endforeach;?>
 		</ul>
     </div>
