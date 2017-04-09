@@ -46,6 +46,19 @@ class Potentiality extends CI_Model
 		return $result;
 
 	}
+	function sum_budget_by_year_and_potential_id($year_id,$potential_id)
+	{
+		$sql="SELECT SUM(project_planning.BUDGET) AS TOTAL
+				FROM
+				project_potential_list
+				INNER JOIN project_planning ON project_potential_list.PROJECT_PLANING_ID = project_planning.ID
+				WHERE
+				project_potential_list.POTENTIALITY_ID = '$potential_id' AND
+				project_planning.BUDGET_YEAR_ID = '$year_id'";
+		$result=$this->db->query($sql)->row()->TOTAL;
+		return $result;
+
+	}	
 	function get_json_year_list()
 	{
 		$year_list=array();

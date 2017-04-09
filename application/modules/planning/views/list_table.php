@@ -2,6 +2,7 @@
 	<thead>
 		<th>#</th>
 		<th>ชื่อโครงการ</th>
+		<th>งบประมาณ</th>
 		<?php if($this->manage_user->get_current_user()->user_role_id==3): // level เจ้าหน้าที่กระทรวง?>
 			<th>สถานะเจ้าของโครงการ</th>
 		<?php endif;?>
@@ -15,6 +16,7 @@
 		<tr>
 			<td><?=$num?></td>
 			<td><?=$item->PROJECT_NAME?></td>
+			<td><?=number_format($item->BUDGET,2)?></td>
 			<?php if($this->manage_user->get_current_user()->user_role_id==3): // level เจ้าหน้าที่กระทรวง?>
 			<td>
 			<?php if($this->project_ministry_list->check_own($item->ID,$this->manage_user->get_user_meta()->village_id)):?>

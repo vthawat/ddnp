@@ -46,7 +46,7 @@ class Guest extends CI_Controller {
 		$this->template->add_js($this->load->view('planning/js/chart-province.js',$data,TRUE),'embed',TRUE);
 		$data['content']=array('color'=>'success',
 								'toolbar'=>'',
-								'title'=>'กราฟแสดงจำนวนโครงการพัฒนาศักยภาพแยกตามจังหวัดและปีงบประมาณ',
+								'title'=>'กราฟแสดงงบประมาณที่ใช้พัฒนาศักยภาพแยกตามจังหวัดและปีงบประมาณ',
 								'detail'=>$this->load->view('planning/view_chart_province',$data,TRUE));
 		$data['contents']=$this->load->view('planning/contents',$data,TRUE);
 		$this->template->write_view('content','guest/content',$data);

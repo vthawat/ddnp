@@ -12,7 +12,7 @@ $(function () {
          // pointStrokeColor: "#c1c7d1",
           pointHighlightFill: "#fff",
          // pointHighlightStroke: "rgba(220,220,220,1)",
-          data: <?=$project_planning->get_json_count_by_province_id($item->PROVINCE_ID)?>
+          data: <?=$project_planning->get_json_sum_budget_by_province_id($item->PROVINCE_ID)?>
         },
      <?php endforeach;?>
       ]
@@ -50,7 +50,8 @@ $(function () {
       //Boolean - whether to make the chart responsive
        multiTooltipTemplate: "<%= datasetLabel %> : <%= value %>",
       responsive: true,
-      maintainAspectRatio: true
+      maintainAspectRatio: true,
+      
     };
 
     barChartOptions.datasetFill = false;

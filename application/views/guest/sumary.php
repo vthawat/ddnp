@@ -14,16 +14,16 @@
           </div>
           <div class="box-footer">
                 <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
-                        <h1 class="text-info"><?=$require_household->count_household_all()?></h1>
+                        <h1 class="text-info"><?=number_format($require_household->count_household_all())?></h1>
 
                       <div class="text-blue">จำนวนครัวเรือนทั้งหมด</div>
                     </div>
                 <div class="col-xs-4 text-center">
-                        <h1 class="text-green num-respone"><?=$project_planning->count_all()?></h1>
+                        <h1 class="text-green num-respone"><?=number_format($project_planning->count_all())?></h1>
                       <div class="text-blue">จำนวนโครงการทั้งหมด</div>
                     </div>
                 <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
-                        <h1 class="text-info"><?=$this->response_require_list->count_project_all()?></h1>
+                        <h1 class="text-info"><?=number_format($this->response_require_list->count_project_all())?></h1>
 
                       <div class="text-blue">จำนวนโครงการที่ครอบคลุมพื้นที่</div>
                     </div>                    

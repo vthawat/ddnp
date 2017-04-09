@@ -28,20 +28,38 @@ class Planning extends CI_Controller {
 		$this->template->add_js($this->load->view('js/chart-province.js',$data,TRUE),'embed',TRUE);
 		$data['content']=array('color'=>'primary',
 								'toolbar'=>'',
-								'title'=>'กราฟแสดงจำนวนโครงการพัฒนาศักยภาพแยกตามจังหวัดและปีงบประมาณ',
+								'title'=>'กราฟแสดงงบประมาณที่ใช้พัฒนาศักยภาพแยกตามจังหวัดและปีงบประมาณ',
 								'detail'=>$this->load->view('view_chart_province',$data,TRUE));
 		$this->template->write_view('content','contents',$data);
 
 
-		// view result potential
+		// view sumary budget result of potential
 		$data['potential_list']=$this->potentiality->get_on_project_planning();
 		$data['year_list']=$this->potentiality->get_year_list();
-		$data['potentiality']=$this->potentiality;
 		$data['content']=array('color'=>'primary',
 								'toolbar'=>'',
-								'title'=>'สรุปจำนวนโครงการแยกตามกลุ่มภารกิจงานและปีงบประมาณ',
+								'title'=>'รวมจำนวนโครงการแยกตามกลุ่มภารกิจงานและปีงบประมาณ',
 								'detail'=>$this->load->view('view_chart_potential',$data,TRUE));
 		$this->template->write_view('content','contents',$data);
+
+		// view sumary budget result of ministry
+		$data['ministry_list']=$this->ministry->get_on_project_planning();
+		$data['year_list']=$this->ministry->get_year_list();
+		$data['content']=array('color'=>'primary',
+								'toolbar'=>'',
+								'title'=>'รวมงบประมาณที่ใช้ในโครงการแยกตามกระทรวงและปีงบประมาณ',
+								'detail'=>$this->load->view('view_sumary_budget_ministry',$data,TRUE));
+		$this->template->write_view('content','contents',$data);	
+
+		// view sumary budget result of budget resource
+		$data['budget_resource_list']=$this->budget_resource->get_on_project_planning();
+		$data['year_list']=$this->budget_resource->get_year_list();
+		$data['content']=array('color'=>'primary',
+								'toolbar'=>'',
+								'title'=>'รวมงบประมาณที่ใช้ในโครงการแยกตามแหล่งที่มาของงบประมาณและปีงบประมาณ',
+								'detail'=>$this->load->view('view_sumary_budget_resource',$data,TRUE));
+		$this->template->write_view('content','contents',$data);
+
 
 		$this->template->render();
 	}
@@ -141,6 +159,7 @@ class Planning extends CI_Controller {
 		if(!in_array($province_id,$this->project_scope->project_scope)) show_404();
 		if($this->manage_user->get_current_user()->user_role_id==3) // level เจ้าหน้าที่กระทรวง
 				$data['user_level_3']=TRUE;
+		else $data['user_level_3']=FALSE;
 	
 
 		$this->template->add_js($this->load->view('js/select-box.js',null,TRUE),'embed',TRUE);

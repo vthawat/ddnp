@@ -171,6 +171,29 @@ class Project_planning extends CI_Model
 		return json_encode($project_num);
 
 	}
+	function get_json_sum_budget_by_province_id($province_id)
+	{
+		$project_num=array();
+		$sql="SELECT DISTINCT
+				budget_year.`YEAR`,
+				budget_year.ID as year_id,
+						(SELECT
+						SUM(project_planning.BUDGET)
+						FROM
+						project_planning
+						WHERE
+						project_planning.PROVINCE_ID = '$province_id' AND
+						project_planning.BUDGET_YEAR_ID = year_id) as TOTAL
+				FROM
+				project_planning
+				INNER JOIN budget_year ON project_planning.BUDGET_YEAR_ID = budget_year.ID 
+				ORDER BY budget_year.`YEAR` ASC";
+		$result=$this->db->query($sql)->result();
+		foreach($result as $item)
+			array_push($project_num,$item->TOTAL);
+		return json_encode($project_num);
+
+	}	
 
 	function get_provice_active()
 	{
