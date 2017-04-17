@@ -21,9 +21,9 @@
 								<small><?=$this->ministry->get_by_id($item->village_id)->MINISTRY_NAME?></small>
 							<?php endif;?>
 							<?php if($item->user_role_id==2):?>
-								<small>จ.<?=$this->province->get_by_id($this->province->find_info_by_village($item->village_id)->PROVINCE_ID)->PROVINCE_NAME?>,
-								อ.<?=$this->province->find_info_by_village($item->village_id)->AMPHUR_NAME?>,
-								ต.<?=$this->province->find_info_by_village($item->village_id)->DISTRICT_NAME?>,
+								<small>จ.<?=$this->province->get_by_id($this->province->find_info_by_village($item->village_id)->PROVINCE_ID)->PROVINCE_NAME?>
+								อ.<?=$this->province->find_info_by_village($item->village_id)->AMPHUR_NAME?>
+								ต.<?=$this->province->find_info_by_village($item->village_id)->DISTRICT_NAME?>
 								หมู่บ้าน<?=$this->village->get_by_id($item->village_id)->VILLAGE_NAME?>
 								</small>
 							<?php endif;?>
