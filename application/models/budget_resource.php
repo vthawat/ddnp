@@ -63,12 +63,14 @@ class Budget_resource extends CI_Model
 function sum_budget_by_year_and_budget_resource_id($year_id,$budget_resource_id)
 	{
 		$sql="SELECT SUM(project_planning.BUDGET) AS TOTAL
-				FROM
-				project_budget_resource_list
-				INNER JOIN project_planning ON project_budget_resource_list.PROJECT_PLANING_ID = project_planning.ID
-				WHERE
-				project_budget_resource_list.BUDGET_RESOURCE_ID = '$budget_resource_id' AND
-				project_planning.BUDGET_YEAR_ID = '$year_id'";
+			FROM
+			project_budget_resource_list
+			INNER JOIN project_ministry_list ON project_budget_resource_list.PROJECT_PLANING_ID = project_ministry_list.PROJECT_PLANING_ID
+			INNER JOIN project_planning ON project_ministry_list.PROJECT_PLANING_ID = project_planning.ID
+			WHERE
+			project_budget_resource_list.BUDGET_RESOURCE_ID = '$budget_resource_id' AND
+			project_planning.BUDGET_YEAR_ID = '$year_id' AND
+			project_ministry_list.`OWNER` = 1";
 		$result=$this->db->query($sql)->row()->TOTAL;
 		return $result;
 
