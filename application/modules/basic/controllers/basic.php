@@ -69,6 +69,7 @@ class Basic extends CI_Controller {
 	function manage_user($action=null,$id=null)
 	{
 		$item=$this->router->fetch_method();
+		$this->template->add_js($this->load->view('js/select-box.js',null,TRUE),'embed',TRUE);
 		$this->load_basic($item,$action,$id);
 	}			
 		
@@ -91,6 +92,16 @@ class Basic extends CI_Controller {
 		}
 		//print_r($district);
 		print json_encode($district);
+	}
+	function json_get_village_by_district_id($district_id)
+	{
+		$village=array();
+		foreach($this->village->get_by_district_id($district_id) as $item)
+		{
+			array_push($village,array('id'=>$item->ID,'village_name'=>$item->VILLAGE_NAME));
+		}
+		//print_r($district);
+		print json_encode($village);
 	}
 	function load_basic($item=null,$action=null,$id=null)
 	{

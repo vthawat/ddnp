@@ -115,7 +115,7 @@ $config['db-rbac']=array('hostname'=>"mysql",
 						 'dbdriver'=>"mysql",
 						 'dbprefix'=>"",
 						 'pconnect'=>FALSE,
-						 'db_debug'=>TRUE,
+						 'db_debug'=>FALSE,
 						 'cache_on'=>FALSE,
 						 'char_set'=>"utf8",
 						 'dbcollat'=>"utf8_general_ci"
