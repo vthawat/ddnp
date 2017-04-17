@@ -14,7 +14,22 @@
 				<tr>
 					<td><?=$item->user_id?></td>
 					<td><?=$item->email?></td>
-                    <td><?=$item->role_name?></td>
+                    <td><?=$item->role_name?>
+					<?php if($item->user_role_id!=1):?>
+						<blockquote>
+							<?php if($item->user_role_id==3):?>
+								<small><?=$this->ministry->get_by_id($item->village_id)->MINISTRY_NAME?></small>
+							<?php endif;?>
+							<?php if($item->user_role_id==2):?>
+								<small>จ.<?=$this->province->get_by_id($this->province->find_info_by_village($item->village_id)->PROVINCE_ID)->PROVINCE_NAME?>,
+								อ.<?=$this->province->find_info_by_village($item->village_id)->AMPHUR_NAME?>,
+								ต.<?=$this->province->find_info_by_village($item->village_id)->DISTRICT_NAME?>,
+								หมู่บ้าน<?=$this->village->get_by_id($item->village_id)->VILLAGE_NAME?>
+								</small>
+							<?php endif;?>
+						</blockquote>
+					<?php endif;?>
+					</td>
                     <td><?=$item->first_name?></td>
                     <td><?=$item->last_name?></td>
                     <td>

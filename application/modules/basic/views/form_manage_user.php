@@ -8,8 +8,8 @@
 				<div class="form-group">
 					<label for="password" class="col-sm-2 control-label">รหัสผ่าน</label>
 					<div class="col-md-4 col-sm-10">
-					<input type="password" class="form-control" id="password" name="password" placeholder="Password">
-					<span class="help-block">*กำหนดอย่างน้อย 6 ตัวอักษร</span>
+					<input type="password" class="form-control" id="password" name="password" placeholder="Password" <?php if(empty($edit_item)) print 'required';?>>
+					<span class="help-block">*กำหนดอย่างน้อย 6 ตัวอักษร <?php if(!empty($edit_item)) print 'หากไม่ต้องการเปลี่ยนรหัสผ่านให้เว้นว่างไว้';?></span>
 					</div>
 				</div>
 				<div class="form-group">
